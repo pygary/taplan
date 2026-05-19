@@ -17,23 +17,6 @@
     "MACD_Hist":0.24
   },
   {
-    "Ticker":"NBR",
-    "Price":110.6299972534,
-    "Industry":"Oil & Gas Drilling",
-    "Sector":"Energy",
-    "Priority":1,
-    "Decision_Bucket":"A1 核心領先股",
-    "Leader_Radar_Score":100.0,
-    "TL_RS_Phase":"🚀 強勢新高",
-    "MarketCap":1557565290.7599999905,
-    "Dist_EMA21":12.73,
-    "Dist_EMA50":23.22,
-    "RSI":71.67,
-    "MACD":5.43,
-    "MACD_Signal":4.92,
-    "MACD_Hist":0.51
-  },
-  {
     "Ticker":"NHC",
     "Price":196.3000030518,
     "Industry":"Medical Care Facilities",
@@ -66,6 +49,23 @@
     "MACD":13.83,
     "MACD_Signal":9.27,
     "MACD_Hist":4.55
+  },
+  {
+    "Ticker":"NBR",
+    "Price":110.6299972534,
+    "Industry":"Oil & Gas Drilling",
+    "Sector":"Energy",
+    "Priority":1,
+    "Decision_Bucket":"A1 核心領先股",
+    "Leader_Radar_Score":100.0,
+    "TL_RS_Phase":"🚀 強勢新高",
+    "MarketCap":1557565290.7599999905,
+    "Dist_EMA21":12.73,
+    "Dist_EMA50":23.22,
+    "RSI":71.67,
+    "MACD":5.43,
+    "MACD_Signal":4.92,
+    "MACD_Hist":0.51
   },
   {
     "Ticker":"KLIC",
@@ -782,23 +782,6 @@
     "MACD_Hist":0.01
   },
   {
-    "Ticker":"JAZZ",
-    "Price":229.5500030518,
-    "Industry":"Biotechnology",
-    "Sector":"Healthcare",
-    "Priority":1,
-    "Decision_Bucket":"A1 核心領先股",
-    "Leader_Radar_Score":90.07,
-    "TL_RS_Phase":"💪 穩定領先",
-    "MarketCap":14353675199.4699993134,
-    "Dist_EMA21":6.06,
-    "Dist_EMA50":13.23,
-    "RSI":69.88,
-    "MACD":9.7,
-    "MACD_Signal":8.64,
-    "MACD_Hist":1.05
-  },
-  {
     "Ticker":"TK",
     "Price":13.4899997711,
     "Industry":"Oil & Gas Midstream",
@@ -814,6 +797,23 @@
     "MACD":0.23,
     "MACD_Signal":0.31,
     "MACD_Hist":-0.08
+  },
+  {
+    "Ticker":"JAZZ",
+    "Price":229.5500030518,
+    "Industry":"Biotechnology",
+    "Sector":"Healthcare",
+    "Priority":1,
+    "Decision_Bucket":"A1 核心領先股",
+    "Leader_Radar_Score":90.07,
+    "TL_RS_Phase":"💪 穩定領先",
+    "MarketCap":14353675199.4699993134,
+    "Dist_EMA21":6.06,
+    "Dist_EMA50":13.23,
+    "RSI":69.88,
+    "MACD":9.7,
+    "MACD_Signal":8.64,
+    "MACD_Hist":1.05
   },
   {
     "Ticker":"NWPX",
@@ -1156,23 +1156,6 @@
     "MACD_Hist":0.18
   },
   {
-    "Ticker":"CHRD",
-    "Price":149.5599975586,
-    "Industry":"Oil & Gas E&P",
-    "Sector":"Energy",
-    "Priority":1,
-    "Decision_Bucket":"A1 核心領先股",
-    "Leader_Radar_Score":86.88,
-    "TL_RS_Phase":"💪 穩定領先",
-    "MarketCap":8354235731.0100002289,
-    "Dist_EMA21":5.84,
-    "Dist_EMA50":11.71,
-    "RSI":63.32,
-    "MACD":3.22,
-    "MACD_Signal":2.96,
-    "MACD_Hist":0.26
-  },
-  {
     "Ticker":"SB",
     "Price":7.0100002289,
     "Industry":"Marine Shipping",
@@ -1188,6 +1171,23 @@
     "MACD":0.19,
     "MACD_Signal":0.18,
     "MACD_Hist":0.01
+  },
+  {
+    "Ticker":"CHRD",
+    "Price":149.5599975586,
+    "Industry":"Oil & Gas E&P",
+    "Sector":"Energy",
+    "Priority":1,
+    "Decision_Bucket":"A1 核心領先股",
+    "Leader_Radar_Score":86.88,
+    "TL_RS_Phase":"💪 穩定領先",
+    "MarketCap":8354235731.0100002289,
+    "Dist_EMA21":5.84,
+    "Dist_EMA50":11.71,
+    "RSI":63.32,
+    "MACD":3.22,
+    "MACD_Signal":2.96,
+    "MACD_Hist":0.26
   },
   {
     "Ticker":"DINO",
@@ -1598,21 +1598,21 @@
     "MACD_Hist":0.62
   },
   {
-    "Ticker":"RILYP",
-    "Price":16.3199996948,
-    "Industry":"Financial Conglomerates",
+    "Ticker":"CBOE",
+    "Price":366.2799987793,
+    "Industry":"Financial Data & Stock Exchanges",
     "Sector":"Financial Services",
     "Priority":2,
     "Decision_Bucket":"A2 RS突破候選",
     "Leader_Radar_Score":100.0,
-    "TL_RS_Phase":"🚀 強勢新高",
-    "MarketCap":null,
-    "Dist_EMA21":17.51,
-    "Dist_EMA50":31.64,
-    "RSI":80.07,
-    "MACD":1.08,
-    "MACD_Signal":0.9,
-    "MACD_Hist":0.18
+    "TL_RS_Phase":"🏆 領先突破(RSNHBP)",
+    "MarketCap":37991415517.9199981689,
+    "Dist_EMA21":8.95,
+    "Dist_EMA50":16.5,
+    "RSI":73.54,
+    "MACD":17.76,
+    "MACD_Signal":14.8,
+    "MACD_Hist":2.96
   },
   {
     "Ticker":"WTTR",
@@ -1632,6 +1632,23 @@
     "MACD_Hist":0.2
   },
   {
+    "Ticker":"RILYP",
+    "Price":16.3199996948,
+    "Industry":"Financial Conglomerates",
+    "Sector":"Financial Services",
+    "Priority":2,
+    "Decision_Bucket":"A2 RS突破候選",
+    "Leader_Radar_Score":100.0,
+    "TL_RS_Phase":"🚀 強勢新高",
+    "MarketCap":null,
+    "Dist_EMA21":17.51,
+    "Dist_EMA50":31.64,
+    "RSI":80.07,
+    "MACD":1.08,
+    "MACD_Signal":0.9,
+    "MACD_Hist":0.18
+  },
+  {
     "Ticker":"RILYL",
     "Price":16.3999996185,
     "Industry":"Financial Conglomerates",
@@ -1647,23 +1664,6 @@
     "MACD":0.98,
     "MACD_Signal":0.85,
     "MACD_Hist":0.13
-  },
-  {
-    "Ticker":"CBOE",
-    "Price":366.2799987793,
-    "Industry":"Financial Data & Stock Exchanges",
-    "Sector":"Financial Services",
-    "Priority":2,
-    "Decision_Bucket":"A2 RS突破候選",
-    "Leader_Radar_Score":100.0,
-    "TL_RS_Phase":"🏆 領先突破(RSNHBP)",
-    "MarketCap":37991415517.9199981689,
-    "Dist_EMA21":8.95,
-    "Dist_EMA50":16.5,
-    "RSI":73.54,
-    "MACD":17.76,
-    "MACD_Signal":14.8,
-    "MACD_Hist":2.96
   },
   {
     "Ticker":"WTI",
@@ -3094,23 +3094,6 @@
     "MACD_Hist":-0.14
   },
   {
-    "Ticker":"CLMT",
-    "Price":32.3499984741,
-    "Industry":"Specialty Chemicals",
-    "Sector":"Basic Materials",
-    "Priority":3,
-    "Decision_Bucket":"A3 均線回檔買點",
-    "Leader_Radar_Score":81.0,
-    "TL_RS_Phase":"🎯 均線量縮回檔",
-    "MarketCap":2734677399.7199997902,
-    "Dist_EMA21":-0.29,
-    "Dist_EMA50":3.18,
-    "RSI":50.02,
-    "MACD":-0.01,
-    "MACD_Signal":0.25,
-    "MACD_Hist":-0.26
-  },
-  {
     "Ticker":"EGY",
     "Price":6.0700001717,
     "Industry":"Oil & Gas E&P",
@@ -3126,6 +3109,23 @@
     "MACD":0.01,
     "MACD_Signal":0.06,
     "MACD_Hist":-0.04
+  },
+  {
+    "Ticker":"CLMT",
+    "Price":32.3499984741,
+    "Industry":"Specialty Chemicals",
+    "Sector":"Basic Materials",
+    "Priority":3,
+    "Decision_Bucket":"A3 均線回檔買點",
+    "Leader_Radar_Score":81.0,
+    "TL_RS_Phase":"🎯 均線量縮回檔",
+    "MarketCap":2734677399.7199997902,
+    "Dist_EMA21":-0.29,
+    "Dist_EMA50":3.18,
+    "RSI":50.02,
+    "MACD":-0.01,
+    "MACD_Signal":0.25,
+    "MACD_Hist":-0.26
   },
   {
     "Ticker":"SILA",
@@ -3230,23 +3230,6 @@
     "MACD_Hist":-0.1
   },
   {
-    "Ticker":"MUR",
-    "Price":40.4399986267,
-    "Industry":"Oil & Gas E&P",
-    "Sector":"Energy",
-    "Priority":3,
-    "Decision_Bucket":"A3 均線回檔買點",
-    "Leader_Radar_Score":80.37,
-    "TL_RS_Phase":"🎯 均線量縮回檔",
-    "MarketCap":5825726681.1499996185,
-    "Dist_EMA21":2.75,
-    "Dist_EMA50":5.62,
-    "RSI":55.03,
-    "MACD":0.2,
-    "MACD_Signal":0.22,
-    "MACD_Hist":-0.02
-  },
-  {
     "Ticker":"HUN",
     "Price":13.8100004196,
     "Industry":"Chemicals",
@@ -3262,6 +3245,23 @@
     "MACD":0.24,
     "MACD_Signal":0.38,
     "MACD_Hist":-0.14
+  },
+  {
+    "Ticker":"MUR",
+    "Price":40.4399986267,
+    "Industry":"Oil & Gas E&P",
+    "Sector":"Energy",
+    "Priority":3,
+    "Decision_Bucket":"A3 均線回檔買點",
+    "Leader_Radar_Score":80.37,
+    "TL_RS_Phase":"🎯 均線量縮回檔",
+    "MarketCap":5825726681.1499996185,
+    "Dist_EMA21":2.75,
+    "Dist_EMA50":5.62,
+    "RSI":55.03,
+    "MACD":0.2,
+    "MACD_Signal":0.22,
+    "MACD_Hist":-0.02
   },
   {
     "Ticker":"AVGO",
@@ -4743,23 +4743,6 @@
     "MACD_Hist":-0.02
   },
   {
-    "Ticker":"OLN",
-    "Price":27.0699996948,
-    "Industry":"Chemicals",
-    "Sector":"Basic Materials",
-    "Priority":3,
-    "Decision_Bucket":"A3 均線回檔買點",
-    "Leader_Radar_Score":71.11,
-    "TL_RS_Phase":"🎯 均線量縮回檔",
-    "MarketCap":3050182332.0300002098,
-    "Dist_EMA21":-1.43,
-    "Dist_EMA50":0.82,
-    "RSI":48.08,
-    "MACD":0.06,
-    "MACD_Signal":0.16,
-    "MACD_Hist":-0.1
-  },
-  {
     "Ticker":"CZWI",
     "Price":20.5100002289,
     "Industry":"Banks - Regional",
@@ -4774,6 +4757,23 @@
     "RSI":48.18,
     "MACD":0.21,
     "MACD_Signal":0.31,
+    "MACD_Hist":-0.1
+  },
+  {
+    "Ticker":"OLN",
+    "Price":27.0699996948,
+    "Industry":"Chemicals",
+    "Sector":"Basic Materials",
+    "Priority":3,
+    "Decision_Bucket":"A3 均線回檔買點",
+    "Leader_Radar_Score":71.11,
+    "TL_RS_Phase":"🎯 均線量縮回檔",
+    "MarketCap":3050182332.0300002098,
+    "Dist_EMA21":-1.43,
+    "Dist_EMA50":0.82,
+    "RSI":48.08,
+    "MACD":0.06,
+    "MACD_Signal":0.16,
     "MACD_Hist":-0.1
   },
   {
@@ -4964,6 +4964,23 @@
     "MACD_Hist":-0.12
   },
   {
+    "Ticker":"IEX",
+    "Price":208.6300048828,
+    "Industry":"Specialty Industrial Machinery",
+    "Sector":"Industrials",
+    "Priority":3,
+    "Decision_Bucket":"A3 均線回檔買點",
+    "Leader_Radar_Score":70.15,
+    "TL_RS_Phase":"🎯 均線量縮回檔",
+    "MarketCap":15372186330.5799999237,
+    "Dist_EMA21":-0.66,
+    "Dist_EMA50":1.82,
+    "RSI":49.73,
+    "MACD":2.51,
+    "MACD_Signal":3.76,
+    "MACD_Hist":-1.25
+  },
+  {
     "Ticker":"ODFL",
     "Price":204.1300048828,
     "Industry":"Trucking",
@@ -5013,23 +5030,6 @@
     "MACD":-0.01,
     "MACD_Signal":0.1,
     "MACD_Hist":-0.11
-  },
-  {
-    "Ticker":"IEX",
-    "Price":208.6300048828,
-    "Industry":"Specialty Industrial Machinery",
-    "Sector":"Industrials",
-    "Priority":3,
-    "Decision_Bucket":"A3 均線回檔買點",
-    "Leader_Radar_Score":70.15,
-    "TL_RS_Phase":"🎯 均線量縮回檔",
-    "MarketCap":15372186330.5799999237,
-    "Dist_EMA21":-0.66,
-    "Dist_EMA50":1.82,
-    "RSI":49.73,
-    "MACD":2.51,
-    "MACD_Signal":3.76,
-    "MACD_Hist":-1.25
   },
   {
     "Ticker":"BCBP",
@@ -5474,23 +5474,6 @@
     "MACD_Hist":-0.49
   },
   {
-    "Ticker":"LQDT",
-    "Price":33.8800010681,
-    "Industry":"Internet Retail",
-    "Sector":"Consumer Cyclical",
-    "Priority":3,
-    "Decision_Bucket":"A3 均線回檔買點",
-    "Leader_Radar_Score":68.39,
-    "TL_RS_Phase":"🎯 均線量縮回檔",
-    "MarketCap":1027733345.2100000381,
-    "Dist_EMA21":-1.16,
-    "Dist_EMA50":1.8,
-    "RSI":48.5,
-    "MACD":0.2,
-    "MACD_Signal":0.66,
-    "MACD_Hist":-0.45
-  },
-  {
     "Ticker":"CURB",
     "Price":27.7299995422,
     "Industry":"REIT - Retail",
@@ -5506,6 +5489,23 @@
     "MACD":0.15,
     "MACD_Signal":0.21,
     "MACD_Hist":-0.06
+  },
+  {
+    "Ticker":"LQDT",
+    "Price":33.8800010681,
+    "Industry":"Internet Retail",
+    "Sector":"Consumer Cyclical",
+    "Priority":3,
+    "Decision_Bucket":"A3 均線回檔買點",
+    "Leader_Radar_Score":68.39,
+    "TL_RS_Phase":"🎯 均線量縮回檔",
+    "MarketCap":1027733345.2100000381,
+    "Dist_EMA21":-1.16,
+    "Dist_EMA50":1.8,
+    "RSI":48.5,
+    "MACD":0.2,
+    "MACD_Signal":0.66,
+    "MACD_Hist":-0.45
   },
   {
     "Ticker":"VACHU",
@@ -5610,23 +5610,6 @@
     "MACD_Hist":-0.1
   },
   {
-    "Ticker":"SMBC",
-    "Price":67.7799987793,
-    "Industry":"Banks - Regional",
-    "Sector":"Financial Services",
-    "Priority":3,
-    "Decision_Bucket":"A3 均線回檔買點",
-    "Leader_Radar_Score":67.95,
-    "TL_RS_Phase":"🎯 均線量縮回檔",
-    "MarketCap":733861434.1000000238,
-    "Dist_EMA21":0.56,
-    "Dist_EMA50":2.76,
-    "RSI":53.83,
-    "MACD":0.49,
-    "MACD_Signal":0.78,
-    "MACD_Hist":-0.29
-  },
-  {
     "Ticker":"CNOB",
     "Price":29.25,
     "Industry":"Banks - Regional",
@@ -5642,6 +5625,23 @@
     "MACD":0.4,
     "MACD_Signal":0.53,
     "MACD_Hist":-0.12
+  },
+  {
+    "Ticker":"SMBC",
+    "Price":67.7799987793,
+    "Industry":"Banks - Regional",
+    "Sector":"Financial Services",
+    "Priority":3,
+    "Decision_Bucket":"A3 均線回檔買點",
+    "Leader_Radar_Score":67.95,
+    "TL_RS_Phase":"🎯 均線量縮回檔",
+    "MarketCap":733861434.1000000238,
+    "Dist_EMA21":0.56,
+    "Dist_EMA50":2.76,
+    "RSI":53.83,
+    "MACD":0.49,
+    "MACD_Signal":0.78,
+    "MACD_Hist":-0.29
   },
   {
     "Ticker":"C",
@@ -5916,6 +5916,23 @@
     "MACD_Hist":0.02
   },
   {
+    "Ticker":"MLR",
+    "Price":46.9500007629,
+    "Industry":"Auto Parts",
+    "Sector":"Consumer Cyclical",
+    "Priority":3,
+    "Decision_Bucket":"A3 均線回檔買點",
+    "Leader_Radar_Score":66.69,
+    "TL_RS_Phase":"🎯 均線量縮回檔",
+    "MarketCap":532635784.9700000286,
+    "Dist_EMA21":-0.83,
+    "Dist_EMA50":1.33,
+    "RSI":48.48,
+    "MACD":0.15,
+    "MACD_Signal":0.39,
+    "MACD_Hist":-0.24
+  },
+  {
     "Ticker":"EOD",
     "Price":6.3699998856,
     "Industry":"Asset Management",
@@ -5948,23 +5965,6 @@
     "MACD":0.2,
     "MACD_Signal":0.14,
     "MACD_Hist":0.06
-  },
-  {
-    "Ticker":"MLR",
-    "Price":46.9500007629,
-    "Industry":"Auto Parts",
-    "Sector":"Consumer Cyclical",
-    "Priority":3,
-    "Decision_Bucket":"A3 均線回檔買點",
-    "Leader_Radar_Score":66.69,
-    "TL_RS_Phase":"🎯 均線量縮回檔",
-    "MarketCap":532635784.9700000286,
-    "Dist_EMA21":-0.83,
-    "Dist_EMA50":1.33,
-    "RSI":48.48,
-    "MACD":0.15,
-    "MACD_Signal":0.39,
-    "MACD_Hist":-0.24
   },
   {
     "Ticker":"TMP",
@@ -6103,23 +6103,6 @@
     "MACD_Hist":-0.3
   },
   {
-    "Ticker":"NOEMU",
-    "Price":11.8400001526,
-    "Industry":"Shell Companies",
-    "Sector":"Financial Services",
-    "Priority":3,
-    "Decision_Bucket":"A3 均線回檔買點",
-    "Leader_Radar_Score":65.98,
-    "TL_RS_Phase":"🎯 均線量縮回檔",
-    "MarketCap":99100801.2800000012,
-    "Dist_EMA21":1.47,
-    "Dist_EMA50":3.35,
-    "RSI":83.62,
-    "MACD":0.16,
-    "MACD_Signal":0.17,
-    "MACD_Hist":0.0
-  },
-  {
     "Ticker":"SSBI",
     "Price":13.5200004578,
     "Industry":"Banks - Regional",
@@ -6135,6 +6118,23 @@
     "MACD":0.01,
     "MACD_Signal":0.04,
     "MACD_Hist":-0.02
+  },
+  {
+    "Ticker":"NOEMU",
+    "Price":11.8400001526,
+    "Industry":"Shell Companies",
+    "Sector":"Financial Services",
+    "Priority":3,
+    "Decision_Bucket":"A3 均線回檔買點",
+    "Leader_Radar_Score":65.98,
+    "TL_RS_Phase":"🎯 均線量縮回檔",
+    "MarketCap":99100801.2800000012,
+    "Dist_EMA21":1.47,
+    "Dist_EMA50":3.35,
+    "RSI":83.62,
+    "MACD":0.16,
+    "MACD_Signal":0.17,
+    "MACD_Hist":0.0
   },
   {
     "Ticker":"LANDO",
@@ -6154,23 +6154,6 @@
     "MACD_Hist":-0.06
   },
   {
-    "Ticker":"BNS",
-    "Price":77.2600021362,
-    "Industry":"Banks - Diversified",
-    "Sector":"Financial Services",
-    "Priority":3,
-    "Decision_Bucket":"A3 均線回檔買點",
-    "Leader_Radar_Score":65.84,
-    "TL_RS_Phase":"🎯 均線量縮回檔",
-    "MarketCap":94918908767.6199951172,
-    "Dist_EMA21":1.11,
-    "Dist_EMA50":3.17,
-    "RSI":57.13,
-    "MACD":0.96,
-    "MACD_Signal":1.15,
-    "MACD_Hist":-0.2
-  },
-  {
     "Ticker":"NTST",
     "Price":20.7700004578,
     "Industry":"REIT - Retail",
@@ -6186,6 +6169,23 @@
     "MACD":0.14,
     "MACD_Signal":0.16,
     "MACD_Hist":-0.02
+  },
+  {
+    "Ticker":"BNS",
+    "Price":77.2600021362,
+    "Industry":"Banks - Diversified",
+    "Sector":"Financial Services",
+    "Priority":3,
+    "Decision_Bucket":"A3 均線回檔買點",
+    "Leader_Radar_Score":65.84,
+    "TL_RS_Phase":"🎯 均線量縮回檔",
+    "MarketCap":94918908767.6199951172,
+    "Dist_EMA21":1.11,
+    "Dist_EMA50":3.17,
+    "RSI":57.13,
+    "MACD":0.96,
+    "MACD_Signal":1.15,
+    "MACD_Hist":-0.2
   },
   {
     "Ticker":"FRST",
@@ -6443,55 +6443,21 @@
     "MACD_Hist":-0.01
   },
   {
-    "Ticker":"INTC",
-    "Price":108.1699981689,
+    "Ticker":"TSEM",
+    "Price":248.0700073242,
     "Industry":"Semiconductors",
     "Sector":"Technology",
     "Priority":4,
     "Decision_Bucket":"B 穩定領先股",
     "Leader_Radar_Score":100.0,
     "TL_RS_Phase":"💪 穩定領先",
-    "MarketCap":546678003128.049987793,
-    "Dist_EMA21":8.11,
-    "Dist_EMA50":35.23,
-    "RSI":61.66,
-    "MACD":13.79,
-    "MACD_Signal":14.67,
-    "MACD_Hist":-0.88
-  },
-  {
-    "Ticker":"NOK",
-    "Price":13.7399997711,
-    "Industry":"Communication Equipment",
-    "Sector":"Technology",
-    "Priority":4,
-    "Decision_Bucket":"B 穩定領先股",
-    "Leader_Radar_Score":100.0,
-    "TL_RS_Phase":"💪 穩定領先",
-    "MarketCap":77876350620.6699981689,
-    "Dist_EMA21":9.1,
-    "Dist_EMA50":26.41,
-    "RSI":62.66,
-    "MACD":1.14,
-    "MACD_Signal":1.12,
-    "MACD_Hist":0.02
-  },
-  {
-    "Ticker":"QUIK",
-    "Price":18.4599990845,
-    "Industry":"Semiconductors",
-    "Sector":"Technology",
-    "Priority":4,
-    "Decision_Bucket":"B 穩定領先股",
-    "Leader_Radar_Score":100.0,
-    "TL_RS_Phase":"💪 穩定領先",
-    "MarketCap":338528406.7599999905,
-    "Dist_EMA21":8.06,
-    "Dist_EMA50":32.67,
-    "RSI":58.18,
-    "MACD":2.21,
-    "MACD_Signal":2.22,
-    "MACD_Hist":0.0
+    "MarketCap":32491619922.7599983215,
+    "Dist_EMA21":8.75,
+    "Dist_EMA50":23.74,
+    "RSI":59.11,
+    "MACD":17.94,
+    "MACD_Signal":14.17,
+    "MACD_Hist":3.77
   },
   {
     "Ticker":"MU",
@@ -6511,21 +6477,38 @@
     "MACD_Hist":5.82
   },
   {
-    "Ticker":"STX",
-    "Price":740.8400268555,
-    "Industry":"Computer Hardware",
+    "Ticker":"STM",
+    "Price":60.9599990845,
+    "Industry":"Semiconductors",
     "Sector":"Technology",
     "Priority":4,
     "Decision_Bucket":"B 穩定領先股",
     "Leader_Radar_Score":100.0,
     "TL_RS_Phase":"💪 穩定領先",
-    "MarketCap":178367429697.0299987793,
-    "Dist_EMA21":4.53,
-    "Dist_EMA50":24.73,
-    "RSI":60.54,
-    "MACD":75.31,
-    "MACD_Signal":79.4,
-    "MACD_Hist":-4.09
+    "MarketCap":54580847387.6800003052,
+    "Dist_EMA21":10.82,
+    "Dist_EMA50":30.26,
+    "RSI":68.87,
+    "MACD":5.51,
+    "MACD_Signal":5.45,
+    "MACD_Hist":0.07
+  },
+  {
+    "Ticker":"NOK",
+    "Price":13.7399997711,
+    "Industry":"Communication Equipment",
+    "Sector":"Technology",
+    "Priority":4,
+    "Decision_Bucket":"B 穩定領先股",
+    "Leader_Radar_Score":100.0,
+    "TL_RS_Phase":"💪 穩定領先",
+    "MarketCap":77876350620.6699981689,
+    "Dist_EMA21":9.1,
+    "Dist_EMA50":26.41,
+    "RSI":62.66,
+    "MACD":1.14,
+    "MACD_Signal":1.12,
+    "MACD_Hist":0.02
   },
   {
     "Ticker":"AIP",
@@ -6545,38 +6528,21 @@
     "MACD_Hist":0.16
   },
   {
-    "Ticker":"SILC",
-    "Price":42.8699989319,
-    "Industry":"Communication Equipment",
+    "Ticker":"STX",
+    "Price":740.8400268555,
+    "Industry":"Computer Hardware",
     "Sector":"Technology",
     "Priority":4,
     "Decision_Bucket":"B 穩定領先股",
     "Leader_Radar_Score":100.0,
     "TL_RS_Phase":"💪 穩定領先",
-    "MarketCap":274351317.8100000024,
-    "Dist_EMA21":8.54,
-    "Dist_EMA50":34.75,
-    "RSI":59.14,
-    "MACD":5.58,
-    "MACD_Signal":5.46,
-    "MACD_Hist":0.12
-  },
-  {
-    "Ticker":"STM",
-    "Price":60.9599990845,
-    "Industry":"Semiconductors",
-    "Sector":"Technology",
-    "Priority":4,
-    "Decision_Bucket":"B 穩定領先股",
-    "Leader_Radar_Score":100.0,
-    "TL_RS_Phase":"💪 穩定領先",
-    "MarketCap":54580847387.6800003052,
-    "Dist_EMA21":10.82,
-    "Dist_EMA50":30.26,
-    "RSI":68.87,
-    "MACD":5.51,
-    "MACD_Signal":5.45,
-    "MACD_Hist":0.07
+    "MarketCap":178367429697.0299987793,
+    "Dist_EMA21":4.53,
+    "Dist_EMA50":24.73,
+    "RSI":60.54,
+    "MACD":75.31,
+    "MACD_Signal":79.4,
+    "MACD_Hist":-4.09
   },
   {
     "Ticker":"MXL",
@@ -6596,6 +6562,23 @@
     "MACD_Hist":-0.21
   },
   {
+    "Ticker":"SILC",
+    "Price":42.8699989319,
+    "Industry":"Communication Equipment",
+    "Sector":"Technology",
+    "Priority":4,
+    "Decision_Bucket":"B 穩定領先股",
+    "Leader_Radar_Score":100.0,
+    "TL_RS_Phase":"💪 穩定領先",
+    "MarketCap":274351317.8100000024,
+    "Dist_EMA21":8.54,
+    "Dist_EMA50":34.75,
+    "RSI":59.14,
+    "MACD":5.58,
+    "MACD_Signal":5.46,
+    "MACD_Hist":0.12
+  },
+  {
     "Ticker":"SIMO",
     "Price":239.7599945068,
     "Industry":"Semiconductors",
@@ -6613,21 +6596,38 @@
     "MACD_Hist":0.51
   },
   {
-    "Ticker":"TTMI",
-    "Price":158.8600006104,
-    "Industry":"Electronic Components",
+    "Ticker":"QUIK",
+    "Price":18.4599990845,
+    "Industry":"Semiconductors",
     "Sector":"Technology",
     "Priority":4,
     "Decision_Bucket":"B 穩定領先股",
     "Leader_Radar_Score":100.0,
     "TL_RS_Phase":"💪 穩定領先",
-    "MarketCap":17379308007.5,
-    "Dist_EMA21":4.99,
-    "Dist_EMA50":20.77,
-    "RSI":59.67,
-    "MACD":12.61,
-    "MACD_Signal":13.22,
-    "MACD_Hist":-0.61
+    "MarketCap":338528406.7599999905,
+    "Dist_EMA21":8.06,
+    "Dist_EMA50":32.67,
+    "RSI":58.18,
+    "MACD":2.21,
+    "MACD_Signal":2.22,
+    "MACD_Hist":0.0
+  },
+  {
+    "Ticker":"INTC",
+    "Price":108.1699981689,
+    "Industry":"Semiconductors",
+    "Sector":"Technology",
+    "Priority":4,
+    "Decision_Bucket":"B 穩定領先股",
+    "Leader_Radar_Score":100.0,
+    "TL_RS_Phase":"💪 穩定領先",
+    "MarketCap":546678003128.049987793,
+    "Dist_EMA21":8.11,
+    "Dist_EMA50":35.23,
+    "RSI":61.66,
+    "MACD":13.79,
+    "MACD_Signal":14.67,
+    "MACD_Hist":-0.88
   },
   {
     "Ticker":"WDC",
@@ -6647,21 +6647,21 @@
     "MACD_Hist":-2.61
   },
   {
-    "Ticker":"TSEM",
-    "Price":248.0700073242,
-    "Industry":"Semiconductors",
+    "Ticker":"TTMI",
+    "Price":158.8600006104,
+    "Industry":"Electronic Components",
     "Sector":"Technology",
     "Priority":4,
     "Decision_Bucket":"B 穩定領先股",
     "Leader_Radar_Score":100.0,
     "TL_RS_Phase":"💪 穩定領先",
-    "MarketCap":32491619922.7599983215,
-    "Dist_EMA21":8.75,
-    "Dist_EMA50":23.74,
-    "RSI":59.11,
-    "MACD":17.94,
-    "MACD_Signal":14.17,
-    "MACD_Hist":3.77
+    "MarketCap":17379308007.5,
+    "Dist_EMA21":4.99,
+    "Dist_EMA50":20.77,
+    "RSI":59.67,
+    "MACD":12.61,
+    "MACD_Signal":13.22,
+    "MACD_Hist":-0.61
   },
   {
     "Ticker":"NGL",
@@ -6749,23 +6749,6 @@
     "MACD_Hist":0.0
   },
   {
-    "Ticker":"ICHR",
-    "Price":66.5999984741,
-    "Industry":"Semiconductor Equipment & Materials",
-    "Sector":"Technology",
-    "Priority":4,
-    "Decision_Bucket":"B 穩定領先股",
-    "Leader_Radar_Score":98.78,
-    "TL_RS_Phase":"⚪ 中性",
-    "MarketCap":2546155097.0500001907,
-    "Dist_EMA21":-2.94,
-    "Dist_EMA50":10.46,
-    "RSI":49.68,
-    "MACD":3.91,
-    "MACD_Signal":4.68,
-    "MACD_Hist":-0.77
-  },
-  {
     "Ticker":"MRVL",
     "Price":168.9299926758,
     "Industry":"Semiconductors",
@@ -6781,6 +6764,23 @@
     "MACD":12.61,
     "MACD_Signal":13.94,
     "MACD_Hist":-1.34
+  },
+  {
+    "Ticker":"ICHR",
+    "Price":66.5999984741,
+    "Industry":"Semiconductor Equipment & Materials",
+    "Sector":"Technology",
+    "Priority":4,
+    "Decision_Bucket":"B 穩定領先股",
+    "Leader_Radar_Score":98.78,
+    "TL_RS_Phase":"⚪ 中性",
+    "MarketCap":2546155097.0500001907,
+    "Dist_EMA21":-2.94,
+    "Dist_EMA50":10.46,
+    "RSI":49.68,
+    "MACD":3.91,
+    "MACD_Signal":4.68,
+    "MACD_Hist":-0.77
   },
   {
     "Ticker":"NVTS",
@@ -7531,23 +7531,6 @@
     "MACD_Hist":0.3
   },
   {
-    "Ticker":"KN",
-    "Price":34.5499992371,
-    "Industry":"Electronic Components",
-    "Sector":"Technology",
-    "Priority":4,
-    "Decision_Bucket":"B 穩定領先股",
-    "Leader_Radar_Score":93.79,
-    "TL_RS_Phase":"💪 穩定領先",
-    "MarketCap":3004890287.8099999428,
-    "Dist_EMA21":4.48,
-    "Dist_EMA50":13.89,
-    "RSI":61.7,
-    "MACD":1.89,
-    "MACD_Signal":1.85,
-    "MACD_Hist":0.04
-  },
-  {
     "Ticker":"AMAT",
     "Price":413.5700073242,
     "Industry":"Semiconductor Equipment & Materials",
@@ -7563,6 +7546,23 @@
     "MACD":14.17,
     "MACD_Signal":14.14,
     "MACD_Hist":0.03
+  },
+  {
+    "Ticker":"KN",
+    "Price":34.5499992371,
+    "Industry":"Electronic Components",
+    "Sector":"Technology",
+    "Priority":4,
+    "Decision_Bucket":"B 穩定領先股",
+    "Leader_Radar_Score":93.79,
+    "TL_RS_Phase":"💪 穩定領先",
+    "MarketCap":3004890287.8099999428,
+    "Dist_EMA21":4.48,
+    "Dist_EMA50":13.89,
+    "RSI":61.7,
+    "MACD":1.89,
+    "MACD_Signal":1.85,
+    "MACD_Hist":0.04
   },
   {
     "Ticker":"POWI",
@@ -8755,23 +8755,6 @@
     "MACD_Hist":0.31
   },
   {
-    "Ticker":"INVX",
-    "Price":30.2999992371,
-    "Industry":"Oil & Gas Equipment & Services",
-    "Sector":"Energy",
-    "Priority":4,
-    "Decision_Bucket":"B 穩定領先股",
-    "Leader_Radar_Score":88.21,
-    "TL_RS_Phase":"💪 穩定領先",
-    "MarketCap":1925270928.0,
-    "Dist_EMA21":10.61,
-    "Dist_EMA50":14.17,
-    "RSI":75.13,
-    "MACD":0.59,
-    "MACD_Signal":0.44,
-    "MACD_Hist":0.15
-  },
-  {
     "Ticker":"BTSG",
     "Price":56.1800003052,
     "Industry":"Health Information Services",
@@ -8787,6 +8770,23 @@
     "MACD":3.12,
     "MACD_Signal":2.76,
     "MACD_Hist":0.36
+  },
+  {
+    "Ticker":"INVX",
+    "Price":30.2999992371,
+    "Industry":"Oil & Gas Equipment & Services",
+    "Sector":"Energy",
+    "Priority":4,
+    "Decision_Bucket":"B 穩定領先股",
+    "Leader_Radar_Score":88.21,
+    "TL_RS_Phase":"💪 穩定領先",
+    "MarketCap":1925270928.0,
+    "Dist_EMA21":10.61,
+    "Dist_EMA50":14.17,
+    "RSI":75.13,
+    "MACD":0.59,
+    "MACD_Signal":0.44,
+    "MACD_Hist":0.15
   },
   {
     "Ticker":"ERIC",
@@ -9010,23 +9010,6 @@
     "MACD_Hist":-1.28
   },
   {
-    "Ticker":"MKSI",
-    "Price":295.700012207,
-    "Industry":"Scientific & Technical Instruments",
-    "Sector":"Technology",
-    "Priority":4,
-    "Decision_Bucket":"B 穩定領先股",
-    "Leader_Radar_Score":87.03,
-    "TL_RS_Phase":"⚪ 中性",
-    "MarketCap":20477354495.8899993896,
-    "Dist_EMA21":1.22,
-    "Dist_EMA50":9.57,
-    "RSI":55.02,
-    "MACD":13.18,
-    "MACD_Signal":13.82,
-    "MACD_Hist":-0.64
-  },
-  {
     "Ticker":"KNTK",
     "Price":50.5900001526,
     "Industry":"Oil & Gas Midstream",
@@ -9042,6 +9025,23 @@
     "MACD":1.03,
     "MACD_Signal":0.93,
     "MACD_Hist":0.1
+  },
+  {
+    "Ticker":"MKSI",
+    "Price":295.700012207,
+    "Industry":"Scientific & Technical Instruments",
+    "Sector":"Technology",
+    "Priority":4,
+    "Decision_Bucket":"B 穩定領先股",
+    "Leader_Radar_Score":87.03,
+    "TL_RS_Phase":"⚪ 中性",
+    "MarketCap":20477354495.8899993896,
+    "Dist_EMA21":1.22,
+    "Dist_EMA50":9.57,
+    "RSI":55.02,
+    "MACD":13.18,
+    "MACD_Signal":13.82,
+    "MACD_Hist":-0.64
   },
   {
     "Ticker":"PLUG",
@@ -9486,23 +9486,6 @@
     "MACD_Hist":-1.21
   },
   {
-    "Ticker":"DGXX",
-    "Price":7.2399997711,
-    "Industry":"Utilities - Independent Power Producers",
-    "Sector":"Utilities",
-    "Priority":4,
-    "Decision_Bucket":"B 穩定領先股",
-    "Leader_Radar_Score":85.38,
-    "TL_RS_Phase":"💪 穩定領先",
-    "MarketCap":549138295.2400000095,
-    "Dist_EMA21":28.23,
-    "Dist_EMA50":69.17,
-    "RSI":69.43,
-    "MACD":1.29,
-    "MACD_Signal":1.07,
-    "MACD_Hist":0.22
-  },
-  {
     "Ticker":"KEN",
     "Price":84.5699996948,
     "Industry":"Utilities - Independent Power Producers",
@@ -9518,6 +9501,23 @@
     "MACD":1.75,
     "MACD_Signal":2.42,
     "MACD_Hist":-0.66
+  },
+  {
+    "Ticker":"DGXX",
+    "Price":7.2399997711,
+    "Industry":"Utilities - Independent Power Producers",
+    "Sector":"Utilities",
+    "Priority":4,
+    "Decision_Bucket":"B 穩定領先股",
+    "Leader_Radar_Score":85.38,
+    "TL_RS_Phase":"💪 穩定領先",
+    "MarketCap":549138295.2400000095,
+    "Dist_EMA21":28.23,
+    "Dist_EMA50":69.17,
+    "RSI":69.43,
+    "MACD":1.29,
+    "MACD_Signal":1.07,
+    "MACD_Hist":0.22
   },
   {
     "Ticker":"AYA",
@@ -9962,23 +9962,6 @@
     "MACD_Hist":0.02
   },
   {
-    "Ticker":"AMN",
-    "Price":28.8600006104,
-    "Industry":"Medical Care Facilities",
-    "Sector":"Healthcare",
-    "Priority":4,
-    "Decision_Bucket":"B 穩定領先股",
-    "Leader_Radar_Score":84.2,
-    "TL_RS_Phase":"💪 穩定領先",
-    "MarketCap":1109668971.3900001049,
-    "Dist_EMA21":15.75,
-    "Dist_EMA50":29.85,
-    "RSI":69.35,
-    "MACD":2.67,
-    "MACD_Signal":2.01,
-    "MACD_Hist":0.66
-  },
-  {
     "Ticker":"KRYS",
     "Price":291.75,
     "Industry":"Biotechnology",
@@ -9996,21 +9979,21 @@
     "MACD_Hist":1.19
   },
   {
-    "Ticker":"MEC",
-    "Price":24.9200000763,
-    "Industry":"Metal Fabrication",
-    "Sector":"Industrials",
+    "Ticker":"AMN",
+    "Price":28.8600006104,
+    "Industry":"Medical Care Facilities",
+    "Sector":"Healthcare",
     "Priority":4,
     "Decision_Bucket":"B 穩定領先股",
-    "Leader_Radar_Score":84.15,
+    "Leader_Radar_Score":84.2,
     "TL_RS_Phase":"💪 穩定領先",
-    "MarketCap":518293430.5,
-    "Dist_EMA21":4.76,
-    "Dist_EMA50":13.95,
-    "RSI":61.93,
-    "MACD":1.48,
-    "MACD_Signal":1.46,
-    "MACD_Hist":0.02
+    "MarketCap":1109668971.3900001049,
+    "Dist_EMA21":15.75,
+    "Dist_EMA50":29.85,
+    "RSI":69.35,
+    "MACD":2.67,
+    "MACD_Signal":2.01,
+    "MACD_Hist":0.66
   },
   {
     "Ticker":"GPRE",
@@ -10028,6 +10011,23 @@
     "MACD":0.27,
     "MACD_Signal":0.36,
     "MACD_Hist":-0.09
+  },
+  {
+    "Ticker":"MEC",
+    "Price":24.9200000763,
+    "Industry":"Metal Fabrication",
+    "Sector":"Industrials",
+    "Priority":4,
+    "Decision_Bucket":"B 穩定領先股",
+    "Leader_Radar_Score":84.15,
+    "TL_RS_Phase":"💪 穩定領先",
+    "MarketCap":518293430.5,
+    "Dist_EMA21":4.76,
+    "Dist_EMA50":13.95,
+    "RSI":61.93,
+    "MACD":1.48,
+    "MACD_Signal":1.46,
+    "MACD_Hist":0.02
   },
   {
     "Ticker":"SKM",
@@ -10064,23 +10064,6 @@
     "MACD_Hist":-1.83
   },
   {
-    "Ticker":"YPF",
-    "Price":47.4799995422,
-    "Industry":"Oil & Gas Integrated",
-    "Sector":"Energy",
-    "Priority":4,
-    "Decision_Bucket":"B 穩定領先股",
-    "Leader_Radar_Score":84.07,
-    "TL_RS_Phase":"💪 穩定領先",
-    "MarketCap":18421736566.9599990845,
-    "Dist_EMA21":8.22,
-    "Dist_EMA50":11.92,
-    "RSI":64.69,
-    "MACD":0.71,
-    "MACD_Signal":0.55,
-    "MACD_Hist":0.16
-  },
-  {
     "Ticker":"BLDP",
     "Price":4.3299999237,
     "Industry":"Electrical Equipment & Parts",
@@ -10096,6 +10079,23 @@
     "MACD":0.39,
     "MACD_Signal":0.38,
     "MACD_Hist":0.01
+  },
+  {
+    "Ticker":"YPF",
+    "Price":47.4799995422,
+    "Industry":"Oil & Gas Integrated",
+    "Sector":"Energy",
+    "Priority":4,
+    "Decision_Bucket":"B 穩定領先股",
+    "Leader_Radar_Score":84.07,
+    "TL_RS_Phase":"💪 穩定領先",
+    "MarketCap":18421736566.9599990845,
+    "Dist_EMA21":8.22,
+    "Dist_EMA50":11.92,
+    "RSI":64.69,
+    "MACD":0.71,
+    "MACD_Signal":0.55,
+    "MACD_Hist":0.16
   },
   {
     "Ticker":"OKE",
@@ -10999,23 +10999,6 @@
     "MACD_Hist":0.11
   },
   {
-    "Ticker":"STK",
-    "Price":48.6199989319,
-    "Industry":"Asset Management",
-    "Sector":"Financial Services",
-    "Priority":4,
-    "Decision_Bucket":"B 穩定領先股",
-    "Leader_Radar_Score":81.35,
-    "TL_RS_Phase":"⚪ 中性",
-    "MarketCap":883066350.0,
-    "Dist_EMA21":-0.26,
-    "Dist_EMA50":6.99,
-    "RSI":53.51,
-    "MACD":1.92,
-    "MACD_Signal":2.26,
-    "MACD_Hist":-0.34
-  },
-  {
     "Ticker":"NXPI",
     "Price":291.6799926758,
     "Industry":"Semiconductors",
@@ -11031,6 +11014,23 @@
     "MACD":19.85,
     "MACD_Signal":21.23,
     "MACD_Hist":-1.37
+  },
+  {
+    "Ticker":"STK",
+    "Price":48.6199989319,
+    "Industry":"Asset Management",
+    "Sector":"Financial Services",
+    "Priority":4,
+    "Decision_Bucket":"B 穩定領先股",
+    "Leader_Radar_Score":81.35,
+    "TL_RS_Phase":"⚪ 中性",
+    "MarketCap":883066350.0,
+    "Dist_EMA21":-0.26,
+    "Dist_EMA50":6.99,
+    "RSI":53.51,
+    "MACD":1.92,
+    "MACD_Signal":2.26,
+    "MACD_Hist":-0.34
   },
   {
     "Ticker":"GOOG",
@@ -11407,23 +11407,6 @@
     "MACD_Hist":-0.15
   },
   {
-    "Ticker":"PARR",
-    "Price":58.7900009155,
-    "Industry":"Oil & Gas Refining & Marketing",
-    "Sector":"Energy",
-    "Priority":4,
-    "Decision_Bucket":"B 穩定領先股",
-    "Leader_Radar_Score":80.24,
-    "TL_RS_Phase":"⚪ 中性",
-    "MarketCap":2923411310.8400001526,
-    "Dist_EMA21":-5.55,
-    "Dist_EMA50":-0.93,
-    "RSI":43.0,
-    "MACD":-0.22,
-    "MACD_Signal":0.82,
-    "MACD_Hist":-1.04
-  },
-  {
     "Ticker":"CSX",
     "Price":46.2000007629,
     "Industry":"Railroads",
@@ -11439,6 +11422,23 @@
     "MACD":0.8,
     "MACD_Signal":0.85,
     "MACD_Hist":-0.04
+  },
+  {
+    "Ticker":"PARR",
+    "Price":58.7900009155,
+    "Industry":"Oil & Gas Refining & Marketing",
+    "Sector":"Energy",
+    "Priority":4,
+    "Decision_Bucket":"B 穩定領先股",
+    "Leader_Radar_Score":80.24,
+    "TL_RS_Phase":"⚪ 中性",
+    "MarketCap":2923411310.8400001526,
+    "Dist_EMA21":-5.55,
+    "Dist_EMA50":-0.93,
+    "RSI":43.0,
+    "MACD":-0.22,
+    "MACD_Signal":0.82,
+    "MACD_Hist":-1.04
   },
   {
     "Ticker":"SQM",
@@ -11628,23 +11628,6 @@
     "MACD_Hist":0.59
   },
   {
-    "Ticker":"RELY",
-    "Price":21.4400005341,
-    "Industry":"Software - Infrastructure",
-    "Sector":"Technology",
-    "Priority":4,
-    "Decision_Bucket":"B 穩定領先股",
-    "Leader_Radar_Score":79.65,
-    "TL_RS_Phase":"⚪ 中性",
-    "MarketCap":4756574806.7399997711,
-    "Dist_EMA21":-2.74,
-    "Dist_EMA50":8.06,
-    "RSI":49.49,
-    "MACD":1.16,
-    "MACD_Signal":1.49,
-    "MACD_Hist":-0.33
-  },
-  {
     "Ticker":"PLSE",
     "Price":25.6100006104,
     "Industry":"Medical Instruments & Supplies",
@@ -11660,6 +11643,23 @@
     "MACD":0.88,
     "MACD_Signal":0.28,
     "MACD_Hist":0.59
+  },
+  {
+    "Ticker":"RELY",
+    "Price":21.4400005341,
+    "Industry":"Software - Infrastructure",
+    "Sector":"Technology",
+    "Priority":4,
+    "Decision_Bucket":"B 穩定領先股",
+    "Leader_Radar_Score":79.65,
+    "TL_RS_Phase":"⚪ 中性",
+    "MarketCap":4756574806.7399997711,
+    "Dist_EMA21":-2.74,
+    "Dist_EMA50":8.06,
+    "RSI":49.49,
+    "MACD":1.16,
+    "MACD_Signal":1.49,
+    "MACD_Hist":-0.33
   },
   {
     "Ticker":"SATS",
@@ -13124,23 +13124,6 @@
     "MACD_Hist":-0.01
   },
   {
-    "Ticker":"NPK",
-    "Price":143.8399963379,
-    "Industry":"Aerospace & Defense",
-    "Sector":"Industrials",
-    "Priority":4,
-    "Decision_Bucket":"B 穩定領先股",
-    "Leader_Radar_Score":75.04,
-    "TL_RS_Phase":"💪 穩定領先",
-    "MarketCap":988537258.3500000238,
-    "Dist_EMA21":2.89,
-    "Dist_EMA50":4.67,
-    "RSI":55.2,
-    "MACD":0.22,
-    "MACD_Signal":0.25,
-    "MACD_Hist":-0.03
-  },
-  {
     "Ticker":"GWW",
     "Price":1265.0300292969,
     "Industry":"Industrial Distribution",
@@ -13156,6 +13139,23 @@
     "MACD":36.51,
     "MACD_Signal":27.53,
     "MACD_Hist":8.98
+  },
+  {
+    "Ticker":"NPK",
+    "Price":143.8399963379,
+    "Industry":"Aerospace & Defense",
+    "Sector":"Industrials",
+    "Priority":4,
+    "Decision_Bucket":"B 穩定領先股",
+    "Leader_Radar_Score":75.04,
+    "TL_RS_Phase":"💪 穩定領先",
+    "MarketCap":988537258.3500000238,
+    "Dist_EMA21":2.89,
+    "Dist_EMA50":4.67,
+    "RSI":55.2,
+    "MACD":0.22,
+    "MACD_Signal":0.25,
+    "MACD_Hist":-0.03
   },
   {
     "Ticker":"MCRI",
@@ -13260,23 +13260,6 @@
     "MACD_Hist":0.08
   },
   {
-    "Ticker":"FLXS",
-    "Price":53.1800003052,
-    "Industry":"Furnishings, Fixtures & Appliances",
-    "Sector":"Consumer Cyclical",
-    "Priority":4,
-    "Decision_Bucket":"B 穩定領先股",
-    "Leader_Radar_Score":74.68,
-    "TL_RS_Phase":"⚪ 中性",
-    "MarketCap":218047863.5,
-    "Dist_EMA21":-0.26,
-    "Dist_EMA50":4.77,
-    "RSI":51.59,
-    "MACD":1.52,
-    "MACD_Signal":1.91,
-    "MACD_Hist":-0.39
-  },
-  {
     "Ticker":"QCOM",
     "Price":203.6399993896,
     "Industry":"Semiconductors",
@@ -13292,6 +13275,23 @@
     "MACD":18.77,
     "MACD_Signal":17.82,
     "MACD_Hist":0.95
+  },
+  {
+    "Ticker":"FLXS",
+    "Price":53.1800003052,
+    "Industry":"Furnishings, Fixtures & Appliances",
+    "Sector":"Consumer Cyclical",
+    "Priority":4,
+    "Decision_Bucket":"B 穩定領先股",
+    "Leader_Radar_Score":74.68,
+    "TL_RS_Phase":"⚪ 中性",
+    "MarketCap":218047863.5,
+    "Dist_EMA21":-0.26,
+    "Dist_EMA50":4.77,
+    "RSI":51.59,
+    "MACD":1.52,
+    "MACD_Signal":1.91,
+    "MACD_Hist":-0.39
   },
   {
     "Ticker":"MOV",
@@ -13532,23 +13532,6 @@
     "MACD_Hist":0.06
   },
   {
-    "Ticker":"XENE",
-    "Price":53.7099990845,
-    "Industry":"Biotechnology",
-    "Sector":"Healthcare",
-    "Priority":4,
-    "Decision_Bucket":"B 穩定領先股",
-    "Leader_Radar_Score":73.91,
-    "TL_RS_Phase":"⚪ 中性",
-    "MarketCap":5257639205.5,
-    "Dist_EMA21":-3.85,
-    "Dist_EMA50":-1.38,
-    "RSI":40.82,
-    "MACD":-0.22,
-    "MACD_Signal":0.16,
-    "MACD_Hist":-0.38
-  },
-  {
     "Ticker":"CHMG",
     "Price":66.2200012207,
     "Industry":"Banks - Regional",
@@ -13564,6 +13547,23 @@
     "MACD":1.57,
     "MACD_Signal":2.11,
     "MACD_Hist":-0.54
+  },
+  {
+    "Ticker":"XENE",
+    "Price":53.7099990845,
+    "Industry":"Biotechnology",
+    "Sector":"Healthcare",
+    "Priority":4,
+    "Decision_Bucket":"B 穩定領先股",
+    "Leader_Radar_Score":73.91,
+    "TL_RS_Phase":"⚪ 中性",
+    "MarketCap":5257639205.5,
+    "Dist_EMA21":-3.85,
+    "Dist_EMA50":-1.38,
+    "RSI":40.82,
+    "MACD":-0.22,
+    "MACD_Signal":0.16,
+    "MACD_Hist":-0.38
   },
   {
     "Ticker":"UNH",
@@ -14688,23 +14688,6 @@
     "MACD_Hist":0.46
   },
   {
-    "Ticker":"GRDN",
-    "Price":35.8199996948,
-    "Industry":"Medical Care Facilities",
-    "Sector":"Healthcare",
-    "Priority":4,
-    "Decision_Bucket":"B 穩定領先股",
-    "Leader_Radar_Score":70.02,
-    "TL_RS_Phase":"⚪ 中性",
-    "MarketCap":2318168449.3899998665,
-    "Dist_EMA21":-1.85,
-    "Dist_EMA50":-0.59,
-    "RSI":45.37,
-    "MACD":-0.25,
-    "MACD_Signal":-0.12,
-    "MACD_Hist":-0.13
-  },
-  {
     "Ticker":"NRGV",
     "Price":5.0799999237,
     "Industry":"Utilities - Renewable",
@@ -14720,6 +14703,23 @@
     "MACD":0.5,
     "MACD_Signal":0.41,
     "MACD_Hist":0.09
+  },
+  {
+    "Ticker":"GRDN",
+    "Price":35.8199996948,
+    "Industry":"Medical Care Facilities",
+    "Sector":"Healthcare",
+    "Priority":4,
+    "Decision_Bucket":"B 穩定領先股",
+    "Leader_Radar_Score":70.02,
+    "TL_RS_Phase":"⚪ 中性",
+    "MarketCap":2318168449.3899998665,
+    "Dist_EMA21":-1.85,
+    "Dist_EMA50":-0.59,
+    "RSI":45.37,
+    "MACD":-0.25,
+    "MACD_Signal":-0.12,
+    "MACD_Hist":-0.13
   },
   {
     "Ticker":"CII",
@@ -14773,23 +14773,6 @@
     "MACD_Hist":-0.74
   },
   {
-    "Ticker":"BKTI",
-    "Price":84.0,
-    "Industry":"Communication Equipment",
-    "Sector":"Technology",
-    "Priority":4,
-    "Decision_Bucket":"B 穩定領先股",
-    "Leader_Radar_Score":69.86,
-    "TL_RS_Phase":"⚪ 中性",
-    "MarketCap":312415890.2599999905,
-    "Dist_EMA21":-6.31,
-    "Dist_EMA50":-4.3,
-    "RSI":39.33,
-    "MACD":-0.62,
-    "MACD_Signal":0.98,
-    "MACD_Hist":-1.6
-  },
-  {
     "Ticker":"VRSN",
     "Price":305.3099975586,
     "Industry":"Software - Infrastructure",
@@ -14805,6 +14788,23 @@
     "MACD":9.44,
     "MACD_Signal":7.51,
     "MACD_Hist":1.93
+  },
+  {
+    "Ticker":"BKTI",
+    "Price":84.0,
+    "Industry":"Communication Equipment",
+    "Sector":"Technology",
+    "Priority":4,
+    "Decision_Bucket":"B 穩定領先股",
+    "Leader_Radar_Score":69.86,
+    "TL_RS_Phase":"⚪ 中性",
+    "MarketCap":312415890.2599999905,
+    "Dist_EMA21":-6.31,
+    "Dist_EMA50":-4.3,
+    "RSI":39.33,
+    "MACD":-0.62,
+    "MACD_Signal":0.98,
+    "MACD_Hist":-1.6
   },
   {
     "Ticker":"AAPL",
@@ -15708,6 +15708,23 @@
     "MACD_Hist":5.34
   },
   {
+    "Ticker":"VLY",
+    "Price":13.0699996948,
+    "Industry":"Banks - Regional",
+    "Sector":"Financial Services",
+    "Priority":4,
+    "Decision_Bucket":"B 穩定領先股",
+    "Leader_Radar_Score":64.61,
+    "TL_RS_Phase":"🎯 均線量縮回檔",
+    "MarketCap":7164920179.6499996185,
+    "Dist_EMA21":-1.07,
+    "Dist_EMA50":0.73,
+    "RSI":47.34,
+    "MACD":0.03,
+    "MACD_Signal":0.12,
+    "MACD_Hist":-0.1
+  },
+  {
     "Ticker":"TXG",
     "Price":21.4500007629,
     "Industry":"Health Information Services",
@@ -15740,23 +15757,6 @@
     "MACD":0.03,
     "MACD_Signal":0.05,
     "MACD_Hist":-0.02
-  },
-  {
-    "Ticker":"VLY",
-    "Price":13.0699996948,
-    "Industry":"Banks - Regional",
-    "Sector":"Financial Services",
-    "Priority":4,
-    "Decision_Bucket":"B 穩定領先股",
-    "Leader_Radar_Score":64.61,
-    "TL_RS_Phase":"🎯 均線量縮回檔",
-    "MarketCap":7164920179.6499996185,
-    "Dist_EMA21":-1.07,
-    "Dist_EMA50":0.73,
-    "RSI":47.34,
-    "MACD":0.03,
-    "MACD_Signal":0.12,
-    "MACD_Hist":-0.1
   },
   {
     "Ticker":"WWD",
@@ -16150,23 +16150,6 @@
     "MACD_Hist":-0.19
   },
   {
-    "Ticker":"SRTA",
-    "Price":5.3699998856,
-    "Industry":"Medical Care Facilities",
-    "Sector":"Healthcare",
-    "Priority":4,
-    "Decision_Bucket":"B 穩定領先股",
-    "Leader_Radar_Score":61.0,
-    "TL_RS_Phase":"💪 穩定領先",
-    "MarketCap":451668677.25,
-    "Dist_EMA21":4.79,
-    "Dist_EMA50":10.35,
-    "RSI":59.17,
-    "MACD":0.23,
-    "MACD_Signal":0.23,
-    "MACD_Hist":0.0
-  },
-  {
     "Ticker":"HNGE",
     "Price":54.7099990845,
     "Industry":"Health Information Services",
@@ -16182,6 +16165,23 @@
     "MACD":3.47,
     "MACD_Signal":3.16,
     "MACD_Hist":0.32
+  },
+  {
+    "Ticker":"SRTA",
+    "Price":5.3699998856,
+    "Industry":"Medical Care Facilities",
+    "Sector":"Healthcare",
+    "Priority":4,
+    "Decision_Bucket":"B 穩定領先股",
+    "Leader_Radar_Score":61.0,
+    "TL_RS_Phase":"💪 穩定領先",
+    "MarketCap":451668677.25,
+    "Dist_EMA21":4.79,
+    "Dist_EMA50":10.35,
+    "RSI":59.17,
+    "MACD":0.23,
+    "MACD_Signal":0.23,
+    "MACD_Hist":0.0
   },
   {
     "Ticker":"ESTA",
@@ -16252,23 +16252,6 @@
     "MACD_Hist":2.09
   },
   {
-    "Ticker":"SITM",
-    "Price":725.5900268555,
-    "Industry":"Semiconductors",
-    "Sector":"Technology",
-    "Priority":5,
-    "Decision_Bucket":"C 強勢回檔觀察",
-    "Leader_Radar_Score":100.0,
-    "TL_RS_Phase":"💪 穩定領先",
-    "MarketCap":20432728617.2299995422,
-    "Dist_EMA21":7.82,
-    "Dist_EMA50":31.41,
-    "RSI":60.09,
-    "MACD":94.42,
-    "MACD_Signal":90.12,
-    "MACD_Hist":4.31
-  },
-  {
     "Ticker":"TRT",
     "Price":15.3199996948,
     "Industry":"Semiconductor Equipment & Materials",
@@ -16284,6 +16267,23 @@
     "MACD":1.8,
     "MACD_Signal":1.56,
     "MACD_Hist":0.24
+  },
+  {
+    "Ticker":"SITM",
+    "Price":725.5900268555,
+    "Industry":"Semiconductors",
+    "Sector":"Technology",
+    "Priority":5,
+    "Decision_Bucket":"C 強勢回檔觀察",
+    "Leader_Radar_Score":100.0,
+    "TL_RS_Phase":"💪 穩定領先",
+    "MarketCap":20432728617.2299995422,
+    "Dist_EMA21":7.82,
+    "Dist_EMA50":31.41,
+    "RSI":60.09,
+    "MACD":94.42,
+    "MACD_Signal":90.12,
+    "MACD_Hist":4.31
   },
   {
     "Ticker":"MRAM",
@@ -18071,23 +18071,6 @@
     "MACD_Hist":-1.41
   },
   {
-    "Ticker":"EPSN",
-    "Price":6.3899998665,
-    "Industry":"Oil & Gas E&P",
-    "Sector":"Energy",
-    "Priority":5,
-    "Decision_Bucket":"C 強勢回檔觀察",
-    "Leader_Radar_Score":76.49,
-    "TL_RS_Phase":"💪 穩定領先",
-    "MarketCap":186936447.8700000048,
-    "Dist_EMA21":4.03,
-    "Dist_EMA50":7.49,
-    "RSI":59.0,
-    "MACD":0.06,
-    "MACD_Signal":0.05,
-    "MACD_Hist":0.01
-  },
-  {
     "Ticker":"EXEL",
     "Price":49.8400001526,
     "Industry":"Biotechnology",
@@ -18103,6 +18086,23 @@
     "MACD":1.68,
     "MACD_Signal":1.29,
     "MACD_Hist":0.39
+  },
+  {
+    "Ticker":"EPSN",
+    "Price":6.3899998665,
+    "Industry":"Oil & Gas E&P",
+    "Sector":"Energy",
+    "Priority":5,
+    "Decision_Bucket":"C 強勢回檔觀察",
+    "Leader_Radar_Score":76.49,
+    "TL_RS_Phase":"💪 穩定領先",
+    "MarketCap":186936447.8700000048,
+    "Dist_EMA21":4.03,
+    "Dist_EMA50":7.49,
+    "RSI":59.0,
+    "MACD":0.06,
+    "MACD_Signal":0.05,
+    "MACD_Hist":0.01
   },
   {
     "Ticker":"MLAB",
@@ -18734,23 +18734,6 @@
     "MACD_Hist":0.0
   },
   {
-    "Ticker":"CRDL",
-    "Price":1.2799999714,
-    "Industry":"Drug Manufacturers - Specialty & Generic",
-    "Sector":"Healthcare",
-    "Priority":5,
-    "Decision_Bucket":"C 強勢回檔觀察",
-    "Leader_Radar_Score":72.57,
-    "TL_RS_Phase":"⚪ 中性",
-    "MarketCap":152159362.849999994,
-    "Dist_EMA21":-4.55,
-    "Dist_EMA50":-0.31,
-    "RSI":44.18,
-    "MACD":0.0,
-    "MACD_Signal":0.01,
-    "MACD_Hist":-0.01
-  },
-  {
     "Ticker":"BVN",
     "Price":34.0099983215,
     "Industry":"Other Precious Metals & Mining",
@@ -18766,6 +18749,23 @@
     "MACD":0.51,
     "MACD_Signal":0.27,
     "MACD_Hist":0.24
+  },
+  {
+    "Ticker":"CRDL",
+    "Price":1.2799999714,
+    "Industry":"Drug Manufacturers - Specialty & Generic",
+    "Sector":"Healthcare",
+    "Priority":5,
+    "Decision_Bucket":"C 強勢回檔觀察",
+    "Leader_Radar_Score":72.57,
+    "TL_RS_Phase":"⚪ 中性",
+    "MarketCap":152159362.849999994,
+    "Dist_EMA21":-4.55,
+    "Dist_EMA50":-0.31,
+    "RSI":44.18,
+    "MACD":0.0,
+    "MACD_Signal":0.01,
+    "MACD_Hist":-0.01
   },
   {
     "Ticker":"KYTX",
@@ -19074,23 +19074,6 @@
     "MACD_Hist":-1.15
   },
   {
-    "Ticker":"ARIS",
-    "Price":18.1499996185,
-    "Industry":"Gold",
-    "Sector":"Basic Materials",
-    "Priority":5,
-    "Decision_Bucket":"C 強勢回檔觀察",
-    "Leader_Radar_Score":70.95,
-    "TL_RS_Phase":"⚪ 中性",
-    "MarketCap":3752352062.9899997711,
-    "Dist_EMA21":-4.51,
-    "Dist_EMA50":-4.25,
-    "RSI":43.67,
-    "MACD":-0.04,
-    "MACD_Signal":-0.04,
-    "MACD_Hist":-0.01
-  },
-  {
     "Ticker":"ALNT",
     "Price":60.9300003052,
     "Industry":"Electronic Components",
@@ -19106,6 +19089,23 @@
     "MACD":-1.82,
     "MACD_Signal":-0.1,
     "MACD_Hist":-1.72
+  },
+  {
+    "Ticker":"ARIS",
+    "Price":18.1499996185,
+    "Industry":"Gold",
+    "Sector":"Basic Materials",
+    "Priority":5,
+    "Decision_Bucket":"C 強勢回檔觀察",
+    "Leader_Radar_Score":70.95,
+    "TL_RS_Phase":"⚪ 中性",
+    "MarketCap":3752352062.9899997711,
+    "Dist_EMA21":-4.51,
+    "Dist_EMA50":-4.25,
+    "RSI":43.67,
+    "MACD":-0.04,
+    "MACD_Signal":-0.04,
+    "MACD_Hist":-0.01
   },
   {
     "Ticker":"CCD",
@@ -19907,23 +19907,6 @@
     "MACD_Hist":-0.06
   },
   {
-    "Ticker":"MBX",
-    "Price":30.9799995422,
-    "Industry":"Biotechnology",
-    "Sector":"Healthcare",
-    "Priority":5,
-    "Decision_Bucket":"C 強勢回檔觀察",
-    "Leader_Radar_Score":67.72,
-    "TL_RS_Phase":"⚪ 中性",
-    "MarketCap":1544540079.5099999905,
-    "Dist_EMA21":-7.54,
-    "Dist_EMA50":-5.3,
-    "RSI":44.58,
-    "MACD":0.79,
-    "MACD_Signal":0.91,
-    "MACD_Hist":-0.12
-  },
-  {
     "Ticker":"ISOU",
     "Price":10.779999733,
     "Industry":"Uranium",
@@ -19939,6 +19922,23 @@
     "MACD":0.1,
     "MACD_Signal":0.24,
     "MACD_Hist":-0.14
+  },
+  {
+    "Ticker":"MBX",
+    "Price":30.9799995422,
+    "Industry":"Biotechnology",
+    "Sector":"Healthcare",
+    "Priority":5,
+    "Decision_Bucket":"C 強勢回檔觀察",
+    "Leader_Radar_Score":67.72,
+    "TL_RS_Phase":"⚪ 中性",
+    "MarketCap":1544540079.5099999905,
+    "Dist_EMA21":-7.54,
+    "Dist_EMA50":-5.3,
+    "RSI":44.58,
+    "MACD":0.79,
+    "MACD_Signal":0.91,
+    "MACD_Hist":-0.12
   },
   {
     "Ticker":"PUBM",
@@ -20315,23 +20315,6 @@
     "MACD_Hist":0.04
   },
   {
-    "Ticker":"AMSC",
-    "Price":50.1500015259,
-    "Industry":"Specialty Industrial Machinery",
-    "Sector":"Industrials",
-    "Priority":5,
-    "Decision_Bucket":"C 強勢回檔觀察",
-    "Leader_Radar_Score":66.09,
-    "TL_RS_Phase":"⚪ 中性",
-    "MarketCap":2621532477.4899997711,
-    "Dist_EMA21":-0.78,
-    "Dist_EMA50":13.65,
-    "RSI":52.2,
-    "MACD":3.96,
-    "MACD_Signal":4.66,
-    "MACD_Hist":-0.7
-  },
-  {
     "Ticker":"PFIS",
     "Price":57.7999992371,
     "Industry":"Banks - Regional",
@@ -20347,6 +20330,23 @@
     "MACD":0.42,
     "MACD_Signal":0.59,
     "MACD_Hist":-0.18
+  },
+  {
+    "Ticker":"AMSC",
+    "Price":50.1500015259,
+    "Industry":"Specialty Industrial Machinery",
+    "Sector":"Industrials",
+    "Priority":5,
+    "Decision_Bucket":"C 強勢回檔觀察",
+    "Leader_Radar_Score":66.09,
+    "TL_RS_Phase":"⚪ 中性",
+    "MarketCap":2621532477.4899997711,
+    "Dist_EMA21":-0.78,
+    "Dist_EMA50":13.65,
+    "RSI":52.2,
+    "MACD":3.96,
+    "MACD_Signal":4.66,
+    "MACD_Hist":-0.7
   },
   {
     "Ticker":"SLN",
@@ -20536,6 +20536,23 @@
     "MACD_Hist":-0.28
   },
   {
+    "Ticker":"ASGI",
+    "Price":23.8500003815,
+    "Industry":"Asset Management",
+    "Sector":"Financial Services",
+    "Priority":5,
+    "Decision_Bucket":"C 強勢回檔觀察",
+    "Leader_Radar_Score":65.28,
+    "TL_RS_Phase":"⚪ 中性",
+    "MarketCap":744704552.1200000048,
+    "Dist_EMA21":0.27,
+    "Dist_EMA50":1.64,
+    "RSI":52.44,
+    "MACD":0.1,
+    "MACD_Signal":0.17,
+    "MACD_Hist":-0.07
+  },
+  {
     "Ticker":"KMT",
     "Price":34.9199981689,
     "Industry":"Tools & Accessories",
@@ -20568,23 +20585,6 @@
     "MACD":4.32,
     "MACD_Signal":3.37,
     "MACD_Hist":0.95
-  },
-  {
-    "Ticker":"ASGI",
-    "Price":23.8500003815,
-    "Industry":"Asset Management",
-    "Sector":"Financial Services",
-    "Priority":5,
-    "Decision_Bucket":"C 強勢回檔觀察",
-    "Leader_Radar_Score":65.28,
-    "TL_RS_Phase":"⚪ 中性",
-    "MarketCap":744704552.1200000048,
-    "Dist_EMA21":0.27,
-    "Dist_EMA50":1.64,
-    "RSI":52.44,
-    "MACD":0.1,
-    "MACD_Signal":0.17,
-    "MACD_Hist":-0.07
   },
   {
     "Ticker":"EBMT",
@@ -20706,23 +20706,6 @@
     "MACD_Hist":-0.07
   },
   {
-    "Ticker":"GLQ",
-    "Price":8.3199996948,
-    "Industry":"Asset Management",
-    "Sector":"Financial Services",
-    "Priority":5,
-    "Decision_Bucket":"C 強勢回檔觀察",
-    "Leader_Radar_Score":64.84,
-    "TL_RS_Phase":"⚪ 中性",
-    "MarketCap":158149733.3799999952,
-    "Dist_EMA21":1.21,
-    "Dist_EMA50":3.63,
-    "RSI":58.46,
-    "MACD":0.15,
-    "MACD_Signal":0.14,
-    "MACD_Hist":0.01
-  },
-  {
     "Ticker":"WBS",
     "Price":71.7099990845,
     "Industry":"Banks - Regional",
@@ -20738,6 +20721,23 @@
     "MACD":0.26,
     "MACD_Signal":0.41,
     "MACD_Hist":-0.15
+  },
+  {
+    "Ticker":"GLQ",
+    "Price":8.3199996948,
+    "Industry":"Asset Management",
+    "Sector":"Financial Services",
+    "Priority":5,
+    "Decision_Bucket":"C 強勢回檔觀察",
+    "Leader_Radar_Score":64.84,
+    "TL_RS_Phase":"⚪ 中性",
+    "MarketCap":158149733.3799999952,
+    "Dist_EMA21":1.21,
+    "Dist_EMA50":3.63,
+    "RSI":58.46,
+    "MACD":0.15,
+    "MACD_Signal":0.14,
+    "MACD_Hist":0.01
   },
   {
     "Ticker":"BKD",
@@ -21862,23 +21862,6 @@
     "MACD_Hist":-0.11
   },
   {
-    "Ticker":"WRN",
-    "Price":2.7400000095,
-    "Industry":"Other Industrial Metals & Mining",
-    "Sector":"Basic Materials",
-    "Priority":5,
-    "Decision_Bucket":"C 強勢回檔觀察",
-    "Leader_Radar_Score":61.71,
-    "TL_RS_Phase":"⚪ 中性",
-    "MarketCap":631773649.2400000095,
-    "Dist_EMA21":-5.06,
-    "Dist_EMA50":-4.12,
-    "RSI":44.79,
-    "MACD":0.04,
-    "MACD_Signal":0.06,
-    "MACD_Hist":-0.01
-  },
-  {
     "Ticker":"DRUG",
     "Price":75.0,
     "Industry":"Biotechnology",
@@ -21894,6 +21877,23 @@
     "MACD":-1.11,
     "MACD_Signal":0.63,
     "MACD_Hist":-1.75
+  },
+  {
+    "Ticker":"WRN",
+    "Price":2.7400000095,
+    "Industry":"Other Industrial Metals & Mining",
+    "Sector":"Basic Materials",
+    "Priority":5,
+    "Decision_Bucket":"C 強勢回檔觀察",
+    "Leader_Radar_Score":61.71,
+    "TL_RS_Phase":"⚪ 中性",
+    "MarketCap":631773649.2400000095,
+    "Dist_EMA21":-5.06,
+    "Dist_EMA50":-4.12,
+    "RSI":44.79,
+    "MACD":0.04,
+    "MACD_Signal":0.06,
+    "MACD_Hist":-0.01
   },
   {
     "Ticker":"NDSN",
@@ -22508,23 +22508,6 @@
     "MACD_Hist":-0.18
   },
   {
-    "Ticker":"WMG",
-    "Price":34.5600013733,
-    "Industry":"Entertainment",
-    "Sector":"Communication Services",
-    "Priority":5,
-    "Decision_Bucket":"C 強勢回檔觀察",
-    "Leader_Radar_Score":59.5,
-    "TL_RS_Phase":"💪 穩定領先",
-    "MarketCap":17437607260.2200012207,
-    "Dist_EMA21":11.57,
-    "Dist_EMA50":17.34,
-    "RSI":74.48,
-    "MACD":1.56,
-    "MACD_Signal":1.17,
-    "MACD_Hist":0.38
-  },
-  {
     "Ticker":"HOFT",
     "Price":13.0500001907,
     "Industry":"Furnishings, Fixtures & Appliances",
@@ -22540,6 +22523,23 @@
     "MACD":-0.06,
     "MACD_Signal":-0.12,
     "MACD_Hist":0.06
+  },
+  {
+    "Ticker":"WMG",
+    "Price":34.5600013733,
+    "Industry":"Entertainment",
+    "Sector":"Communication Services",
+    "Priority":5,
+    "Decision_Bucket":"C 強勢回檔觀察",
+    "Leader_Radar_Score":59.5,
+    "TL_RS_Phase":"💪 穩定領先",
+    "MarketCap":17437607260.2200012207,
+    "Dist_EMA21":11.57,
+    "Dist_EMA50":17.34,
+    "RSI":74.48,
+    "MACD":1.56,
+    "MACD_Signal":1.17,
+    "MACD_Hist":0.38
   },
   {
     "Ticker":"AVAL",
@@ -22593,23 +22593,6 @@
     "MACD_Hist":0.0
   },
   {
-    "Ticker":"SA",
-    "Price":28.8400001526,
-    "Industry":"Gold",
-    "Sector":"Basic Materials",
-    "Priority":5,
-    "Decision_Bucket":"C 強勢回檔觀察",
-    "Leader_Radar_Score":59.38,
-    "TL_RS_Phase":"⚪ 中性",
-    "MarketCap":3165190619.5700001717,
-    "Dist_EMA21":-5.16,
-    "Dist_EMA50":-5.46,
-    "RSI":44.21,
-    "MACD":0.12,
-    "MACD_Signal":0.1,
-    "MACD_Hist":0.02
-  },
-  {
     "Ticker":"AGI",
     "Price":40.2999992371,
     "Industry":"Gold",
@@ -22625,6 +22608,23 @@
     "MACD":-0.86,
     "MACD_Signal":-0.84,
     "MACD_Hist":-0.01
+  },
+  {
+    "Ticker":"SA",
+    "Price":28.8400001526,
+    "Industry":"Gold",
+    "Sector":"Basic Materials",
+    "Priority":5,
+    "Decision_Bucket":"C 強勢回檔觀察",
+    "Leader_Radar_Score":59.38,
+    "TL_RS_Phase":"⚪ 中性",
+    "MarketCap":3165190619.5700001717,
+    "Dist_EMA21":-5.16,
+    "Dist_EMA50":-5.46,
+    "RSI":44.21,
+    "MACD":0.12,
+    "MACD_Signal":0.1,
+    "MACD_Hist":0.02
   },
   {
     "Ticker":"EXPD",
