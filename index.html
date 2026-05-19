@@ -1,16 +1,183 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
-    <title>我的第一個 GitHub 網站</title>
-    <style>
-        body { font-family: Arial; text-align: center; margin-top: 100px; }
-        h1 { color: #0366d6; }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S&P 500 Leading RS Radar Dashboard</title>
+    <!-- Google Fonts: Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>哈囉！這是我的網站</h1>
-    <p>用 GitHub Pages 免費架的～</p>
-    <p>現在你可以開始美化它了！</p>
+    <div class="glow-bg"></div>
+    <div class="glow-bg-secondary"></div>
+
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <div class="logo-area">
+                    <div class="pulse-icon">
+                        <i data-lucide="radar" class="icon-pulse"></i>
+                    </div>
+                    <div>
+                        <h1>SP500 領先強勢雷達</h1>
+                        <p class="subtitle">S&P 500 Vectorized Relative Strength Scanner</p>
+                    </div>
+                </div>
+                <div class="status-indicator">
+                    <span class="pulse-dot"></span>
+                    <span id="update-time">資料載入中...</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Stats Grid -->
+        <section class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon purple">
+                    <i data-lucide="trending-up"></i>
+                </div>
+                <div class="stat-info">
+                    <span class="stat-label">掃描股票總數</span>
+                    <h3 class="stat-value" id="stat-total">-</h3>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon green">
+                    <i data-lucide="crown"></i>
+                </div>
+                <div class="stat-info">
+                    <span class="stat-label">A1 核心領先股</span>
+                    <h3 class="stat-value" id="stat-a1">-</h3>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon blue">
+                    <i data-lucide="target"></i>
+                </div>
+                <div class="stat-info">
+                    <span class="stat-label">A3 均線回檔買點</span>
+                    <h3 class="stat-value" id="stat-pullback">-</h3>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon yellow">
+                    <i data-lucide="award"></i>
+                </div>
+                <div class="stat-info">
+                    <span class="stat-label">板塊共振強勢度 (90+)</span>
+                    <h3 class="stat-value" id="stat-resonance">-</h3>
+                </div>
+            </div>
+        </section>
+
+        <!-- Control Center (Filters & Search) -->
+        <section class="control-center">
+            <div class="filter-bar">
+                <div class="search-wrapper">
+                    <i data-lucide="search" class="search-icon"></i>
+                    <input type="text" id="search-input" placeholder="搜尋 Ticker 或 行業 / 板塊...">
+                </div>
+
+                <div class="select-wrapper">
+                    <i data-lucide="layers" class="select-icon"></i>
+                    <select id="sector-filter">
+                        <option value="">所有板塊 (All Sectors)</option>
+                    </select>
+                </div>
+
+                <div class="select-wrapper">
+                    <i data-lucide="sliders-horizontal" class="select-icon"></i>
+                    <select id="sort-select">
+                        <option value="score-desc">依雷達分數 (高到低)</option>
+                        <option value="score-asc">依雷達分數 (低到高)</option>
+                        <option value="price-desc">價格 (高到低)</option>
+                        <option value="price-asc">價格 (低到高)</option>
+                        <option value="rsi-desc">RSI (超買)</option>
+                        <option value="rsi-asc">RSI (超賣)</option>
+                        <option value="dist21-asc">回檔 EMA21 距離 (近到遠)</option>
+                        <option value="dist50-asc">回檔 EMA50 距離 (近到遠)</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Bucket Tabs -->
+            <div class="bucket-tabs" id="bucket-filters">
+                <button class="tab-btn active" data-bucket="all">全部標的</button>
+                <button class="tab-btn" data-bucket="A1 核心領先股">
+                    <span class="dot a1"></span> A1 核心領先
+                </button>
+                <button class="tab-btn" data-bucket="A2 RS突破候選">
+                    <span class="dot a2"></span> A2 突破候選
+                </button>
+                <button class="tab-btn" data-bucket="A3 均線回檔買點">
+                    <span class="dot a3"></span> A3 均線回檔
+                </button>
+                <button class="tab-btn" data-bucket="B 穩定領先股">
+                    <span class="dot b"></span> B 穩定領先
+                </button>
+                <button class="tab-btn" data-bucket="C 強勢回檔觀察">
+                    <span class="dot c"></span> C 回檔觀察
+                </button>
+            </div>
+        </section>
+
+        <!-- Main Data View -->
+        <main class="table-container">
+            <div class="table-wrapper">
+                <table class="radar-table" id="data-table">
+                    <thead>
+                        <tr>
+                            <th>代號 (Ticker)</th>
+                            <th>價格 (Price)</th>
+                            <th>決策分級</th>
+                            <th>雷達綜合分數</th>
+                            <th>相對強弱狀態</th>
+                            <th>EMA21 偏離</th>
+                            <th>EMA50 偏離</th>
+                            <th>RSI (14)</th>
+                            <th>MACD</th>
+                            <th>板塊/行業</th>
+                            <th>市值 (MarketCap)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body">
+                        <tr>
+                            <td colspan="11" class="loading-state">
+                                <div class="spinner"></div>
+                                <span>載入數據中，請稍候...</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Empty State -->
+            <div class="empty-state hidden" id="empty-state">
+                <i data-lucide="search-code"></i>
+                <h3>找不到符合篩選條件的股票</h3>
+                <p>請嘗試調整搜尋關鍵字或過濾條件</p>
+            </div>
+
+            <!-- Pagination/Footer -->
+            <div class="table-footer">
+                <div class="footer-info">
+                    顯示第 <span id="start-idx">0</span> 到 <span id="end-idx">0</span> 檔，共 <span id="total-count">0</span> 檔
+                </div>
+                <div class="pagination-controls">
+                    <button id="prev-btn" class="page-btn" disabled><i data-lucide="chevron-left"></i></button>
+                    <span id="page-num" class="page-current">第 1 頁</span>
+                    <button id="next-btn" class="page-btn"><i data-lucide="chevron-right"></i></button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
 </body>
 </html>
