@@ -24,12 +24,18 @@ document.addEventListener('DOMContentLoaded', () => {
 // ========== 讀取資料 ==========
 async function fetchData() {
     try {
-        const response = await fetch('score/sp500_leading_rs_radar_vectorized.json');
-        if (!response.ok) {
-            throw new Error(`HTTP 錯誤! 狀態碼: ${response.status}`);
+        // 優先讀取全域變數 (雙擊 index.html 免伺服器情況)
+        if (window.radarData && Array.isArray(window.radarData) && window.radarData.length > 0) {
+            allData = window.radarData;
+        } else {
+            // 否則 fallback 用 fetch 讀取伺服器上的 json 檔案
+            const response = await fetch('score/sp500_leading_rs_radar_vectorized.json');
+            if (!response.ok) {
+                throw new Error(`HTTP 錯誤! 狀態碼: ${response.status}`);
+            }
+            allData = await response.json();
         }
         
-        allData = await response.json();
         filteredData = [...allData];
         
         // 提取所有不重複的板塊 (Sector)
@@ -53,7 +59,7 @@ async function fetchData() {
             <tr>
                 <td colspan="11" class="loading-state" style="color: #f87171;">
                     <i data-lucide="alert-circle" style="width: 32px; height: 32px; margin: 0 auto 10px; display: block;"></i>
-                    <span>讀取資料失敗，請確認 score/sp500_leading_rs_radar_vectorized.json 檔案已生成並放在正確路徑。</span>
+                    <span>讀取資料失敗，請確認 score/sp500_leading_rs_radar_vectorized.js 或 .json 檔案已生成並放在正確路徑。</span>
                 </td>
             </tr>
         `;
