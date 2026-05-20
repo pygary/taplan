@@ -354,7 +354,7 @@ function renderData() {
     pageItems.forEach(item => {
         rowsHtml += `
             <tr>
-                <td class="ticker-cell">${item.Ticker}</td>
+                <td class="ticker-cell"><a href="https://finance.yahoo.com/quote/${item.Ticker}/" target="_blank" class="ticker-link">${item.Ticker}</a></td>
                 <td class="price-cell">$${formatPrice(item.Price)}</td>
                 <td><span class="bucket-badge ${getBucketBadgeClass(item.Decision_Bucket)}">${item.Decision_Bucket}</span></td>
                 <td>
