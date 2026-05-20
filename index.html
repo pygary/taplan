@@ -92,14 +92,60 @@
                 </div>
 
                 <div class="select-wrapper">
+                    <i data-lucide="circle-dollar-sign" class="select-icon"></i>
+                    <select id="marketcap-filter">
+                        <option value="">所有市值 (All Market Cap)</option>
+                        <option value="mega">超大型股 Mega (≥ $200B)</option>
+                        <option value="large">大型股 Large ($10B - $200B)</option>
+                        <option value="mid">中型股 Mid ($2B - $10B)</option>
+                        <option value="small">小型股 Small (< $2B)</option>
+                    </select>
+                </div>
+
+                <div class="select-wrapper">
+                    <i data-lucide="activity" class="select-icon"></i>
+                    <select id="rsi-filter">
+                        <option value="">所有 RSI (All RSI)</option>
+                        <option value="overbought">超買 Overbought (≥ 70)</option>
+                        <option value="strong">強勢 Strong (50 - 70)</option>
+                        <option value="weak">弱勢 Weak (30 - 50)</option>
+                        <option value="oversold">超賣 Oversold (≤ 30)</option>
+                    </select>
+                </div>
+
+                <div class="select-wrapper">
+                    <i data-lucide="trending-up" class="select-icon"></i>
+                    <select id="ema10-filter">
+                        <option value="">EMA10 偏離 (All)</option>
+                        <option value="above">Price > EMA10</option>
+                        <option value="below">Price < EMA10</option>
+                    </select>
+                </div>
+
+                <div class="select-wrapper">
+                    <i data-lucide="trending-up" class="select-icon"></i>
+                    <select id="ema21-filter">
+                        <option value="">EMA21 偏離 (All)</option>
+                        <option value="above">Price > EMA21</option>
+                        <option value="below">Price < EMA21</option>
+                    </select>
+                </div>
+
+                <div class="select-wrapper">
+                    <i data-lucide="trending-up" class="select-icon"></i>
+                    <select id="ema50-filter">
+                        <option value="">EMA50 偏離 (All)</option>
+                        <option value="above">Price > EMA50</option>
+                        <option value="below">Price < EMA50</option>
+                    </select>
+                </div>
+
+                <div class="select-wrapper">
                     <i data-lucide="sliders-horizontal" class="select-icon"></i>
                     <select id="sort-select">
                         <option value="score-desc">依雷達分數 (高到低)</option>
                         <option value="score-asc">依雷達分數 (低到高)</option>
-                        <option value="price-desc">價格 (高到低)</option>
-                        <option value="price-asc">價格 (低到高)</option>
-                        <option value="rsi-desc">RSI (超買)</option>
-                        <option value="rsi-asc">RSI (超賣)</option>
+                        <option value="dist10-asc">回檔 EMA10 距離 (近到遠)</option>
                         <option value="dist21-asc">回檔 EMA21 距離 (近到遠)</option>
                         <option value="dist50-asc">回檔 EMA50 距離 (近到遠)</option>
                     </select>
@@ -138,10 +184,10 @@
                             <th>決策分級</th>
                             <th>雷達綜合分數</th>
                             <th>相對強弱狀態</th>
+                            <th>EMA10 偏離</th>
                             <th>EMA21 偏離</th>
                             <th>EMA50 偏離</th>
                             <th>RSI (14)</th>
-                            <th>MACD</th>
                             <th>板塊/行業</th>
                             <th>市值 (MarketCap)</th>
                         </tr>

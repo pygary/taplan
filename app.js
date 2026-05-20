@@ -12,6 +12,11 @@ const itemsPerPage = 30;
 // 當前篩選條件
 let currentSearch = '';
 let currentSector = '';
+let currentMarketCap = '';
+let currentRsi = '';
+let currentEma10 = '';
+let currentEma21 = '';
+let currentEma50 = '';
 let currentBucket = 'all';
 let currentSort = 'score-desc';
 
@@ -121,6 +126,39 @@ function setupEventListeners() {
         applyFiltersAndRender();
     });
 
+    // 市值篩選監聽
+    document.getElementById('marketcap-filter').addEventListener('change', (e) => {
+        currentMarketCap = e.target.value;
+        currentPage = 1;
+        applyFiltersAndRender();
+    });
+
+    // RSI 篩選監聽
+    document.getElementById('rsi-filter').addEventListener('change', (e) => {
+        currentRsi = e.target.value;
+        currentPage = 1;
+        applyFiltersAndRender();
+    });
+
+    // 趨勢篩選監聽
+    document.getElementById('ema10-filter').addEventListener('change', (e) => {
+        currentEma10 = e.target.value;
+        currentPage = 1;
+        applyFiltersAndRender();
+    });
+
+    document.getElementById('ema21-filter').addEventListener('change', (e) => {
+        currentEma21 = e.target.value;
+        currentPage = 1;
+        applyFiltersAndRender();
+    });
+
+    document.getElementById('ema50-filter').addEventListener('change', (e) => {
+        currentEma50 = e.target.value;
+        currentPage = 1;
+        applyFiltersAndRender();
+    });
+
     // 排序篩選監聽
     document.getElementById('sort-select').addEventListener('change', (e) => {
         currentSort = e.target.value;
@@ -173,10 +211,89 @@ function applyFiltersAndRender() {
         // 板塊匹配
         const matchSector = !currentSector || item.Sector === currentSector;
         
+        // 市值篩選匹配
+        let matchMarketCap = true;
+        if (currentMarketCap) {
+            const cap = item.MarketCap;
+            if (currentMarketCap === 'mega') {
+                matchMarketCap = cap >= 200e9; // Mega Cap: >= $200B
+            } else if (currentMarketCap === 'large') {
+                matchMarketCap = cap >= 10e9 && cap < 200e9; // Large Cap: $10B - $200B
+            } else if (currentMarketCap === 'mid') {
+                matchMarketCap = cap >= 2e9 && cap < 10e9; // Mid Cap: $2B - $10B
+            } else if (currentMarketCap === 'small') {
+                matchMarketCap = cap < 2e9 && cap !== null && cap !== undefined; // Small Cap: < $2B
+            }
+        }
+
+        // RSI 篩選匹配
+        let matchRsi = true;
+        if (currentRsi) {
+            const rsi = item.RSI;
+            if (rsi === null || rsi === undefined) {
+                matchRsi = false;
+            } else {
+                if (currentRsi === 'overbought') {
+                    matchRsi = rsi >= 70;
+                } else if (currentRsi === 'strong') {
+                    matchRsi = rsi >= 50 && rsi < 70;
+                } else if (currentRsi === 'weak') {
+                    matchRsi = rsi >= 30 && rsi < 50;
+                } else if (currentRsi === 'oversold') {
+                    matchRsi = rsi <= 30;
+                }
+            }
+        }
+        
+        // EMA10 篩選匹配
+        let matchEma10 = true;
+        if (currentEma10) {
+            const d10 = item.Dist_EMA10;
+            if (d10 === null || d10 === undefined) {
+                matchEma10 = false;
+            } else {
+                if (currentEma10 === 'above') {
+                    matchEma10 = d10 > 0;
+                } else if (currentEma10 === 'below') {
+                    matchEma10 = d10 < 0;
+                }
+            }
+        }
+
+        // EMA21 篩選匹配
+        let matchEma21 = true;
+        if (currentEma21) {
+            const d21 = item.Dist_EMA21;
+            if (d21 === null || d21 === undefined) {
+                matchEma21 = false;
+            } else {
+                if (currentEma21 === 'above') {
+                    matchEma21 = d21 > 0;
+                } else if (currentEma21 === 'below') {
+                    matchEma21 = d21 < 0;
+                }
+            }
+        }
+
+        // EMA50 篩選匹配
+        let matchEma50 = true;
+        if (currentEma50) {
+            const d50 = item.Dist_EMA50;
+            if (d50 === null || d50 === undefined) {
+                matchEma50 = false;
+            } else {
+                if (currentEma50 === 'above') {
+                    matchEma50 = d50 > 0;
+                } else if (currentEma50 === 'below') {
+                    matchEma50 = d50 < 0;
+                }
+            }
+        }
+        
         // 決策池分級匹配
         const matchBucket = currentBucket === 'all' || item.Decision_Bucket === currentBucket;
         
-        return matchSearch && matchSector && matchBucket;
+        return matchSearch && matchSector && matchMarketCap && matchRsi && matchEma10 && matchEma21 && matchEma50 && matchBucket;
     });
 
     // 2. 排序邏輯
@@ -186,14 +303,8 @@ function applyFiltersAndRender() {
                 return b.Leader_Radar_Score - a.Leader_Radar_Score;
             case 'score-asc':
                 return a.Leader_Radar_Score - b.Leader_Radar_Score;
-            case 'price-desc':
-                return b.Price - a.Price;
-            case 'price-asc':
-                return a.Price - b.Price;
-            case 'rsi-desc':
-                return (b.RSI || 0) - (a.RSI || 0);
-            case 'rsi-asc':
-                return (a.RSI || 100) - (b.RSI || 100);
+            case 'dist10-asc':
+                return Math.abs(a.Dist_EMA10 || 999) - Math.abs(b.Dist_EMA10 || 999);
             case 'dist21-asc':
                 return Math.abs(a.Dist_EMA21 || 999) - Math.abs(b.Dist_EMA21 || 999);
             case 'dist50-asc':
@@ -255,15 +366,10 @@ function renderData() {
                     </div>
                 </td>
                 <td><span class="phase-badge">${item.TL_RS_Phase}</span></td>
+                <td class="dist-cell ${getDistColorClass(item.Dist_EMA10, false)}">${formatDist(item.Dist_EMA10)}</td>
                 <td class="dist-cell ${getDistColorClass(item.Dist_EMA21, item.Decision_Bucket === 'A3 均線回檔買點')}">${formatDist(item.Dist_EMA21)}</td>
                 <td class="dist-cell ${getDistColorClass(item.Dist_EMA50, item.Decision_Bucket === 'A3 均線回檔買點')}">${formatDist(item.Dist_EMA50)}</td>
                 <td><span class="rsi-badge ${getRsiClass(item.RSI)}">${item.RSI ? item.RSI.toFixed(1) : '-'}</span></td>
-                <td>
-                    <div class="macd-wrapper">
-                        <span class="macd-line">L: ${item.MACD ? item.MACD.toFixed(2) : '-'}</span>
-                        <span class="macd-hist ${item.MACD_Hist >= 0 ? 'up' : 'down'}">H: ${item.MACD_Hist ? item.MACD_Hist.toFixed(2) : '-'}</span>
-                    </div>
-                </td>
                 <td class="sector-cell">
                     <span>${item.Sector || '其他'}</span>
                     ${item.Industry || ''}

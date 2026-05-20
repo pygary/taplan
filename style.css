@@ -497,26 +497,6 @@ select:focus {
 .rsi-badge.oversold { background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
 .rsi-badge.normal { background: rgba(255, 255, 255, 0.05); color: var(--text-primary); }
 
-/* MACD 樣式 */
-.macd-wrapper {
-    display: flex;
-    flex-direction: column;
-    font-size: 0.8rem;
-    gap: 2px;
-}
-
-.macd-line {
-    color: var(--text-primary);
-    font-weight: 500;
-}
-
-.macd-hist {
-    font-size: 0.75rem;
-    font-weight: bold;
-}
-
-.macd-hist.up { color: #34d399; }
-.macd-hist.down { color: #f87171; }
 
 .sector-cell {
     max-width: 180px;
