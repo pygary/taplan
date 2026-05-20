@@ -14,6 +14,7 @@ let currentSearch = '';
 let currentSector = '';
 let currentMarketCap = '';
 let currentRsi = '';
+let currentPhase = '';
 let currentEma10 = '';
 let currentEma21 = '';
 let currentEma50 = '';
@@ -106,6 +107,144 @@ function updateStats() {
     document.getElementById('stat-resonance').textContent = resonanceCount;
 }
 
+// ========== 快捷策略與重置輔助函式 ==========
+
+// 清除所有快捷策略按鈕的高亮 active 樣式
+function clearPresetActiveStyles() {
+    document.querySelectorAll('.preset-btn').forEach(btn => btn.classList.remove('active'));
+}
+
+// 同步當前過濾變數狀態到 DOM 下拉選單與頁籤上
+function syncDropdownsToState() {
+    // 1. 同步搜尋欄與下拉選單
+    const searchInput = document.getElementById('search-input');
+    if (searchInput) searchInput.value = currentSearch;
+    
+    const sectorFilter = document.getElementById('sector-filter');
+    if (sectorFilter) sectorFilter.value = currentSector;
+    
+    const marketcapFilter = document.getElementById('marketcap-filter');
+    if (marketcapFilter) marketcapFilter.value = currentMarketCap;
+    
+    const rsiFilter = document.getElementById('rsi-filter');
+    if (rsiFilter) rsiFilter.value = currentRsi;
+    
+    const phaseFilter = document.getElementById('phase-filter');
+    if (phaseFilter) phaseFilter.value = currentPhase;
+    
+    const ema10Filter = document.getElementById('ema10-filter');
+    if (ema10Filter) ema10Filter.value = currentEma10;
+    
+    const ema21Filter = document.getElementById('ema21-filter');
+    if (ema21Filter) ema21Filter.value = currentEma21;
+    
+    const ema50Filter = document.getElementById('ema50-filter');
+    if (ema50Filter) ema50Filter.value = currentEma50;
+    
+    const sortSelect = document.getElementById('sort-select');
+    if (sortSelect) sortSelect.value = currentSort;
+    
+    // 2. 同步決策池分頁 Tab 狀態
+    const tabContainer = document.getElementById('bucket-filters');
+    if (tabContainer) {
+        tabContainer.querySelectorAll('.tab-btn').forEach(btn => {
+            if (btn.dataset.bucket === currentBucket) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+    }
+}
+
+// 重置所有過濾與排序狀態到預設
+function resetAllFilterStates(shouldRender = true) {
+    currentSearch = '';
+    currentSector = '';
+    currentMarketCap = '';
+    currentRsi = '';
+    currentPhase = '';
+    currentEma10 = '';
+    currentEma21 = '';
+    currentEma50 = '';
+    currentBucket = 'all';
+    currentSort = 'score-desc';
+    
+    if (shouldRender) {
+        clearPresetActiveStyles();
+        syncDropdownsToState();
+        currentPage = 1;
+        applyFiltersAndRender();
+    }
+}
+
+// 套用指定快捷交易策略
+function applyStrategyPreset(strategyId) {
+    // 1. 先清除所有策略按鈕高亮
+    clearPresetActiveStyles();
+    
+    // 2. 高亮當前被點擊的策略按鈕
+    const clickedBtn = document.querySelector(`.preset-btn[data-strategy="${strategyId}"]`);
+    if (clickedBtn) {
+        clickedBtn.classList.add('active');
+    }
+    
+    // 3. 重置所有過濾變數 (不渲染，等設定完統一渲染)
+    resetAllFilterStates(false);
+    
+    // 4. 根據策略 ID 覆寫篩選條件與排序
+    switch (strategyId) {
+        case '1': // 📈 策略 1: 強勢領先突破流 (Breakout Buyer)
+            currentPhase = '🏆 領先突破(RSNHBP)';
+            currentEma21 = 'above';
+            currentEma50 = 'above';
+            currentRsi = ''; // 允許超買及強勢 (RSI >= 50)，故保持 All 不限，由領先突破狀態與 EMA 保證強度
+            currentSort = 'score-desc';
+            break;
+            
+        case '2': // 📥 策略 2: 極致黃金回檔流 (Buy the Dip)
+            currentBucket = 'A3 均線回檔買點';
+            currentPhase = '🎯 均線量縮回檔';
+            currentEma21 = 'above';
+            currentEma50 = 'above';
+            currentSort = 'dist21-asc'; // 預設使用 EMA21 距離 (近到遠)
+            break;
+            
+        case '3': // 🏛️ 策略 3: 巨頭機構抱團流 (Trend Following)
+            currentBucket = 'A1 核心領先股';
+            currentMarketCap = 'mega'; // 超大型股 Mega
+            currentEma10 = 'above';
+            currentEma21 = 'above';
+            currentEma50 = 'above';
+            currentSort = 'score-desc';
+            break;
+            
+        case '4': // 🛡️ 策略 4: 強勢股「錯殺超跌」反彈流 (Mean Reversion)
+            currentRsi = 'oversold'; // 超賣 (RSI <= 30)
+            currentEma10 = 'below';
+            currentEma21 = 'below';
+            currentSort = 'score-desc'; // 依雷達分數由高到低以確保原本品質良好
+            break;
+            
+        case '5': // 📉 策略 5: 空頭避險 / 放空流 (Short / Hedging)
+            currentPhase = '⚪ 中性';
+            currentEma10 = 'below';
+            currentEma21 = 'below';
+            currentEma50 = 'below';
+            currentRsi = 'weak'; // 預設篩選 RSI 弱勢 (30 - 50) 的標的
+            currentSort = 'score-asc'; // 雷達分數由低到高 (最弱的優先)
+            break;
+            
+        default:
+            break;
+    }
+    
+    // 5. 同步所有變數至 DOM 顯示，並重新渲染表格與分頁
+    syncDropdownsToState();
+    currentPage = 1;
+    applyFiltersAndRender();
+}
+
 // ========== 設定事件監聽 ==========
 function setupEventListeners() {
     // 搜尋輸入監聽 (防抖，避免頻繁觸發)
@@ -114,6 +253,7 @@ function setupEventListeners() {
         clearTimeout(searchTimeout);
         searchTimeout = setTimeout(() => {
             currentSearch = e.target.value.trim().toLowerCase();
+            clearPresetActiveStyles(); // 自訂修改後清除策略高亮
             currentPage = 1;
             applyFiltersAndRender();
         }, 300);
@@ -122,6 +262,7 @@ function setupEventListeners() {
     // 板塊篩選監聽
     document.getElementById('sector-filter').addEventListener('change', (e) => {
         currentSector = e.target.value;
+        clearPresetActiveStyles(); // 自訂修改後清除策略高亮
         currentPage = 1;
         applyFiltersAndRender();
     });
@@ -129,6 +270,7 @@ function setupEventListeners() {
     // 市值篩選監聽
     document.getElementById('marketcap-filter').addEventListener('change', (e) => {
         currentMarketCap = e.target.value;
+        clearPresetActiveStyles(); // 自訂修改後清除策略高亮
         currentPage = 1;
         applyFiltersAndRender();
     });
@@ -136,6 +278,15 @@ function setupEventListeners() {
     // RSI 篩選監聽
     document.getElementById('rsi-filter').addEventListener('change', (e) => {
         currentRsi = e.target.value;
+        clearPresetActiveStyles(); // 自訂修改後清除策略高亮
+        currentPage = 1;
+        applyFiltersAndRender();
+    });
+
+    // 相對強弱狀態篩選監聽
+    document.getElementById('phase-filter').addEventListener('change', (e) => {
+        currentPhase = e.target.value;
+        clearPresetActiveStyles(); // 自訂修改後清除策略高亮
         currentPage = 1;
         applyFiltersAndRender();
     });
@@ -143,18 +294,21 @@ function setupEventListeners() {
     // 趨勢篩選監聽
     document.getElementById('ema10-filter').addEventListener('change', (e) => {
         currentEma10 = e.target.value;
+        clearPresetActiveStyles(); // 自訂修改後清除策略高亮
         currentPage = 1;
         applyFiltersAndRender();
     });
 
     document.getElementById('ema21-filter').addEventListener('change', (e) => {
         currentEma21 = e.target.value;
+        clearPresetActiveStyles(); // 自訂修改後清除策略高亮
         currentPage = 1;
         applyFiltersAndRender();
     });
 
     document.getElementById('ema50-filter').addEventListener('change', (e) => {
         currentEma50 = e.target.value;
+        clearPresetActiveStyles(); // 自訂修改後清除策略高亮
         currentPage = 1;
         applyFiltersAndRender();
     });
@@ -162,6 +316,7 @@ function setupEventListeners() {
     // 排序篩選監聽
     document.getElementById('sort-select').addEventListener('change', (e) => {
         currentSort = e.target.value;
+        clearPresetActiveStyles(); // 自訂修改後清除策略高亮
         currentPage = 1;
         applyFiltersAndRender();
     });
@@ -177,9 +332,28 @@ function setupEventListeners() {
         btn.classList.add('active');
         
         currentBucket = btn.dataset.bucket;
+        clearPresetActiveStyles(); // 自訂修改後清除策略高亮
         currentPage = 1;
         applyFiltersAndRender();
     });
+
+    // 快捷策略預設按鈕與重置監聽
+    const strategyContainer = document.getElementById('strategy-presets');
+    if (strategyContainer) {
+        strategyContainer.addEventListener('click', (e) => {
+            const btn = e.target.closest('.preset-btn');
+            if (!btn) return;
+            
+            if (btn.classList.contains('reset-btn')) {
+                resetAllFilterStates(true);
+            } else {
+                const strategyId = btn.dataset.strategy;
+                if (strategyId) {
+                    applyStrategyPreset(strategyId);
+                }
+            }
+        });
+    }
 
     // 分頁按鈕監聽
     document.getElementById('prev-btn').addEventListener('click', () => {
@@ -196,6 +370,35 @@ function setupEventListeners() {
             renderData();
         }
     });
+
+    // 交易策略選股指南 Modal 控制
+    const guideModal = document.getElementById('guide-modal');
+    const openGuideBtn = document.getElementById('open-guide-btn');
+    const closeGuideBtn = document.getElementById('close-guide-btn');
+
+    if (openGuideBtn && guideModal && closeGuideBtn) {
+        openGuideBtn.addEventListener('click', () => {
+            guideModal.classList.remove('hidden');
+        });
+
+        closeGuideBtn.addEventListener('click', () => {
+            guideModal.classList.add('hidden');
+        });
+
+        // 點擊 Modal 外部區域關閉彈窗
+        guideModal.addEventListener('click', (e) => {
+            if (e.target === guideModal) {
+                guideModal.classList.add('hidden');
+            }
+        });
+
+        // 按 ESC 鍵關閉彈窗
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !guideModal.classList.contains('hidden')) {
+                guideModal.classList.add('hidden');
+            }
+        });
+    }
 }
 
 // ========== 應用所有過濾與排序，然後渲染 ==========
@@ -293,7 +496,10 @@ function applyFiltersAndRender() {
         // 決策池分級匹配
         const matchBucket = currentBucket === 'all' || item.Decision_Bucket === currentBucket;
         
-        return matchSearch && matchSector && matchMarketCap && matchRsi && matchEma10 && matchEma21 && matchEma50 && matchBucket;
+        // 相對強弱狀態篩選匹配
+        const matchPhase = !currentPhase || item.TL_RS_Phase === currentPhase;
+        
+        return matchSearch && matchSector && matchMarketCap && matchRsi && matchPhase && matchEma10 && matchEma21 && matchEma50 && matchBucket;
     });
 
     // 2. 排序邏輯

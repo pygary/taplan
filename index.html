@@ -29,9 +29,15 @@
                         <p class="subtitle">S&P 500 Vectorized Relative Strength Scanner</p>
                     </div>
                 </div>
-                <div class="status-indicator">
-                    <span class="pulse-dot"></span>
-                    <span id="update-time">資料載入中...</span>
+                <div class="header-actions">
+                    <button class="guide-btn" id="open-guide-btn">
+                        <i data-lucide="book-open"></i>
+                        <span>策略選股指南</span>
+                    </button>
+                    <div class="status-indicator">
+                        <span class="pulse-dot"></span>
+                        <span id="update-time">資料載入中...</span>
+                    </div>
                 </div>
             </div>
         </header>
@@ -114,6 +120,18 @@
                 </div>
 
                 <div class="select-wrapper">
+                    <i data-lucide="compass" class="select-icon"></i>
+                    <select id="phase-filter">
+                        <option value="">所有強弱狀態 (All Phases)</option>
+                        <option value="🚀 強勢新高">🚀 強勢新高</option>
+                        <option value="💪 穩定領先">💪 穩定領先</option>
+                        <option value="🏆 領先突破(RSNHBP)">🏆 領先突破(RSNHBP)</option>
+                        <option value="🎯 均線量縮回檔">🎯 均線量縮回檔</option>
+                        <option value="⚪ 中性">⚪ 中性</option>
+                    </select>
+                </div>
+
+                <div class="select-wrapper">
                     <i data-lucide="trending-up" class="select-icon"></i>
                     <select id="ema10-filter">
                         <option value="">EMA10 偏離 (All)</option>
@@ -152,24 +170,38 @@
                 </div>
             </div>
 
-            <!-- Bucket Tabs -->
-            <div class="bucket-tabs" id="bucket-filters">
-                <button class="tab-btn active" data-bucket="all">全部標的</button>
-                <button class="tab-btn" data-bucket="A1 核心領先股">
-                    <span class="dot a1"></span> A1 核心領先
-                </button>
-                <button class="tab-btn" data-bucket="A2 RS突破候選">
-                    <span class="dot a2"></span> A2 突破候選
-                </button>
-                <button class="tab-btn" data-bucket="A3 均線回檔買點">
-                    <span class="dot a3"></span> A3 均線回檔
-                </button>
-                <button class="tab-btn" data-bucket="B 穩定領先股">
-                    <span class="dot b"></span> B 穩定領先
-                </button>
-                <button class="tab-btn" data-bucket="C 強勢回檔觀察">
-                    <span class="dot c"></span> C 回檔觀察
-                </button>
+            <!-- Tabs & Strategy Presets -->
+            <div class="tabs-and-presets-container">
+                <!-- Bucket Tabs -->
+                <div class="bucket-tabs" id="bucket-filters">
+                    <button class="tab-btn active" data-bucket="all">全部標的</button>
+                    <button class="tab-btn" data-bucket="A1 核心領先股">
+                        <span class="dot a1"></span> A1 核心領先
+                    </button>
+                    <button class="tab-btn" data-bucket="A2 RS突破候選">
+                        <span class="dot a2"></span> A2 突破候選
+                    </button>
+                    <button class="tab-btn" data-bucket="A3 均線回檔買點">
+                        <span class="dot a3"></span> A3 均線回檔
+                    </button>
+                    <button class="tab-btn" data-bucket="B 穩定領先股">
+                        <span class="dot b"></span> B 穩定領先
+                    </button>
+                    <button class="tab-btn" data-bucket="C 強勢回檔觀察">
+                        <span class="dot c"></span> C 回檔觀察
+                    </button>
+                </div>
+
+                <!-- Strategy Presets -->
+                <div class="strategy-presets" id="strategy-presets">
+                    <span class="preset-label">快捷策略設定：</span>
+                    <button class="preset-btn" data-strategy="1" title="強勢領先突破流">📈 強勢領先突破流 (Breakout Buyer)</button>
+                    <button class="preset-btn" data-strategy="2" title="極致黃金回檔流">📥 極致黃金回檔流 (Buy the Dip)</button>
+                    <button class="preset-btn" data-strategy="3" title="巨頭機構抱團流">🏛️ 巨頭機構抱團流 (Trend Following)</button>
+                    <button class="preset-btn" data-strategy="4" title="強勢股「錯殺超跌」反彈流">🛡️ 強勢股「錯殺超跌」反彈流 (Mean Reversion)</button>
+                    <button class="preset-btn" data-strategy="5" title="空頭避險 / 放空流">📉 空頭避險 / 放空流 (Short / Hedging)</button>
+                    <button class="preset-btn reset-btn" id="reset-filters-btn" title="重置所有過濾條件"><i data-lucide="rotate-ccw"></i> 重置</button>
+                </div>
             </div>
         </section>
 
@@ -222,6 +254,105 @@
                 </div>
             </div>
         </main>
+    </div>
+
+    <!-- Strategy Guide Modal -->
+    <div class="modal-overlay hidden" id="guide-modal">
+        <div class="modal-card">
+            <header class="modal-header">
+                <div class="modal-title-area">
+                    <i data-lucide="book-open" class="modal-title-icon"></i>
+                    <h2>五大經典交易策略選股指南</h2>
+                </div>
+                <button class="modal-close-btn" id="close-guide-btn">
+                    <i data-lucide="x"></i>
+                </button>
+            </header>
+            <div class="modal-body">
+                <div class="strategy-list">
+                    <!-- Strategy 1 -->
+                    <div class="strategy-item">
+                        <div class="strategy-badge s1">📈 策略 1</div>
+                        <h3>強勢領先突破流 (Breakout Buyer)</h3>
+                        <p class="desc">尋找在整體市場中相對強度最高、正值爆發性突破的超級強勢股。這些標的通常在長中期均線之上，並展現出超越大盤的強烈突破動能。</p>
+                        <div class="setup-box">
+                            <span class="setup-title"><i data-lucide="sliders"></i> 推薦參數設定：</span>
+                            <ul class="setup-params">
+                                <li><strong>相對強弱狀態：</strong> 🏆 領先突破(RSNHBP)</li>
+                                <li><strong>EMA21 偏離：</strong> Price > EMA21</li>
+                                <li><strong>EMA50 偏離：</strong> Price > EMA50</li>
+                                <li><strong>RSI (14)：</strong> 超買 (≥ 70) 或 強勢 (50 - 70)</li>
+                                <li><strong>排序方式：</strong> 依雷達分數 (高到低)</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Strategy 2 -->
+                    <div class="strategy-item">
+                        <div class="strategy-badge s2">📥 策略 2</div>
+                        <h3>極致黃金回檔流 (Buy the Dip)</h3>
+                        <p class="desc">尋找「超級強勢股短線拉回至關鍵均線」的低風險高勝率買點。這類股票在雷達分數中評分極高，但因為近期回檔，價格極度貼近 EMA21 或 EMA50 均線，是絕佳的「均線支撐測試」機會。</p>
+                        <div class="setup-box">
+                            <span class="setup-title"><i data-lucide="sliders"></i> 推薦參數設定：</span>
+                            <ul class="setup-params">
+                                <li><strong>決策分級頁籤：</strong> A3 均線回檔</li>
+                                <li><strong>相對強弱狀態：</strong> 🎯 均線量縮回檔</li>
+                                <li><strong>EMA21 偏離：</strong> Price > EMA21</li>
+                                <li><strong>EMA50 偏離：</strong> Price > EMA50</li>
+                                <li><strong>排序方式：</strong> 回檔 EMA21 距離 (近到遠) 或 回檔 EMA50 距離 (近到遠)</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Strategy 3 -->
+                    <div class="strategy-item">
+                        <div class="strategy-badge s3">🏛️ 策略 3</div>
+                        <h3>巨頭機構抱團流 (Trend Following)</h3>
+                        <p class="desc">尋找機構資金長期鎖定、只漲不跌的超級權值龍頭大股。這些股往往市值巨大，雷達綜合分數名列前茅，且三條均線呈現完美的多頭排列。</p>
+                        <div class="setup-box">
+                            <span class="setup-title"><i data-lucide="sliders"></i> 推薦參數設定：</span>
+                            <ul class="setup-params">
+                                <li><strong>決策分級頁籤：</strong> A1 核心領先</li>
+                                <li><strong>市值篩選：</strong> 超大型股 Mega (≥ $200B) 或 大型股 Large</li>
+                                <li><strong>EMA 偏離：</strong> Price > EMA10、EMA21、EMA50 三項全選</li>
+                                <li><strong>排序方式：</strong> 依雷達分數 (高到低)</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Strategy 4 -->
+                    <div class="strategy-item">
+                        <div class="strategy-badge s4">🛡️ 策略 4</div>
+                        <h3>強勢股「錯殺超跌」反彈流 (Mean Reversion)</h3>
+                        <p class="desc">尋找原本底層基因良好（雷達分數高）的優質強勢股，但因為大盤恐慌性拋售導致 RSI 進入超賣區（≤30），且價格嚴重偏離 EMA 均線，存在強烈的反彈需求。</p>
+                        <div class="setup-box">
+                            <span class="setup-title"><i data-lucide="sliders"></i> 推薦參數設定：</span>
+                            <ul class="setup-params">
+                                <li><strong>RSI (14)：</strong> 超賣 Oversold (≤ 30)</li>
+                                <li><strong>EMA10/21 偏離：</strong> Price < EMA10 且 Price < EMA21</li>
+                                <li><strong>排序方式：</strong> 依雷達分數 (高到低) (保證底層品質)</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Strategy 5 -->
+                    <div class="strategy-item">
+                        <div class="strategy-badge s5">📉 策略 5</div>
+                        <h3>空頭避險 / 放空流 (Short / Hedging)</h3>
+                        <p class="desc">在大盤轉弱或處於熊市時，尋找跌破所有均線、動能消失且相對強度評級極低的弱勢股，進行放空或對沖持倉風險。</p>
+                        <div class="setup-box">
+                            <span class="setup-title"><i data-lucide="sliders"></i> 推薦參數設定：</span>
+                            <ul class="setup-params">
+                                <li><strong>相對強弱狀態：</strong> ⚪ 中性</li>
+                                <li><strong>EMA 偏離：</strong> Price < EMA10、EMA21、EMA50 三項全選</li>
+                                <li><strong>RSI (14)：</strong> 弱勢 (30-50) 或 超賣 (≤ 30)</li>
+                                <li><strong>排序方式：</strong> 依雷達分數 (低到高)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script src="score/sp500_leading_rs_radar_vectorized.js"></script>
