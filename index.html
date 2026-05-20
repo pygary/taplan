@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,6 +13,7 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="glow-bg"></div>
     <div class="glow-bg-secondary"></div>
@@ -198,9 +200,12 @@
                     <button class="preset-btn" data-strategy="1" title="強勢領先突破流">📈 強勢領先突破流 (Breakout Buyer)</button>
                     <button class="preset-btn" data-strategy="2" title="極致黃金回檔流">📥 極致黃金回檔流 (Buy the Dip)</button>
                     <button class="preset-btn" data-strategy="3" title="巨頭機構抱團流">🏛️ 巨頭機構抱團流 (Trend Following)</button>
-                    <button class="preset-btn" data-strategy="4" title="強勢股「錯殺超跌」反彈流">🛡️ 強勢股「錯殺超跌」反彈流 (Mean Reversion)</button>
-                    <button class="preset-btn" data-strategy="5" title="空頭避險 / 放空流">📉 空頭避險 / 放空流 (Short / Hedging)</button>
-                    <button class="preset-btn reset-btn" id="reset-filters-btn" title="重置所有過濾條件"><i data-lucide="rotate-ccw"></i> 重置</button>
+                    <button class="preset-btn" data-strategy="4" title="強勢股「錯殺超跌」反彈流">🛡️ 強勢股「錯殺超跌」反彈流 (Mean
+                        Reversion)</button>
+                    <button class="preset-btn" data-strategy="5" title="空頭避險 / 放空流">📉 空頭避險 / 放空流 (Short /
+                        Hedging)</button>
+                    <button class="preset-btn reset-btn" id="reset-filters-btn" title="重置所有過濾條件"><i
+                            data-lucide="rotate-ccw"></i> 重置</button>
                 </div>
             </div>
         </section>
@@ -234,7 +239,7 @@
                     </tbody>
                 </table>
             </div>
-            
+
             <!-- Empty State -->
             <div class="empty-state hidden" id="empty-state">
                 <i data-lucide="search-code"></i>
@@ -245,7 +250,8 @@
             <!-- Pagination/Footer -->
             <div class="table-footer">
                 <div class="footer-info">
-                    顯示第 <span id="start-idx">0</span> 到 <span id="end-idx">0</span> 檔，共 <span id="total-count">0</span> 檔
+                    顯示第 <span id="start-idx">0</span> 到 <span id="end-idx">0</span> 檔，共 <span id="total-count">0</span>
+                    檔
                 </div>
                 <div class="pagination-controls">
                     <button id="prev-btn" class="page-btn" disabled><i data-lucide="chevron-left"></i></button>
@@ -254,7 +260,53 @@
                 </div>
             </div>
         </main>
+
+        <!-- Message Board Section -->
+        <section class="message-board-section">
+            <div class="message-board-header">
+                <div class="msg-title-area">
+                    <div class="msg-title-icon-wrapper">
+                        <i data-lucide="message-square"></i>
+                    </div>
+                    <div>
+                        <h2>交易與研究討論區</h2>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="message-board-content">
+                <!-- Centered Form -->
+                <div class="msg-form-wrapper">
+                    <form id="message-form" class="msg-form">
+                        <div class="input-group">
+                            <label for="msg-username">
+                                <i data-lucide="user"></i> 暱稱 / 交易員代碼
+                            </label>
+                            <input type="text" id="msg-username" placeholder="請輸入暱稱 (預設為路人甲)" maxlength="15">
+                        </div>
+                        <div class="input-group">
+                            <label for="msg-text">
+                                <i data-lucide="message-circle"></i> 留言內容 (Message)
+                            </label>
+                            <textarea id="msg-text" placeholder="輸入您的研究看法、策略筆記或個股分析..." required maxlength="200"
+                                rows="4"></textarea>
+                        </div>
+                        <div class="msg-form-actions">
+                            <button type="submit" class="submit-msg-btn">
+                                <i data-lucide="send"></i> 發送留言
+                            </button>
+                            <button type="button" id="export-msg-btn" class="export-msg-btn hidden"
+                                title="手動將留言儲存為 msg.txt 檔案">
+                                <i data-lucide="download"></i> 下載 msg.txt
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
     </div>
+
 
     <!-- Strategy Guide Modal -->
     <div class="modal-overlay hidden" id="guide-modal">
@@ -291,7 +343,8 @@
                     <div class="strategy-item">
                         <div class="strategy-badge s2">📥 策略 2</div>
                         <h3>極致黃金回檔流 (Buy the Dip)</h3>
-                        <p class="desc">尋找「超級強勢股短線拉回至關鍵均線」的低風險高勝率買點。這類股票在雷達分數中評分極高，但因為近期回檔，價格極度貼近 EMA21 或 EMA50 均線，是絕佳的「均線支撐測試」機會。</p>
+                        <p class="desc">尋找「超級強勢股短線拉回至關鍵均線」的低風險高勝率買點。這類股票在雷達分數中評分極高，但因為近期回檔，價格極度貼近 EMA21 或 EMA50
+                            均線，是絕佳的「均線支撐測試」機會。</p>
                         <div class="setup-box">
                             <span class="setup-title"><i data-lucide="sliders"></i> 推薦參數設定：</span>
                             <ul class="setup-params">
@@ -324,7 +377,8 @@
                     <div class="strategy-item">
                         <div class="strategy-badge s4">🛡️ 策略 4</div>
                         <h3>強勢股「錯殺超跌」反彈流 (Mean Reversion)</h3>
-                        <p class="desc">尋找原本底層基因良好（雷達分數高）的優質強勢股，但因為大盤恐慌性拋售導致 RSI 進入超賣區（≤30），且價格嚴重偏離 EMA 均線，存在強烈的反彈需求。</p>
+                        <p class="desc">尋找原本底層基因良好（雷達分數高）的優質強勢股，但因為大盤恐慌性拋售導致 RSI 進入超賣區（≤30），且價格嚴重偏離 EMA 均線，存在強烈的反彈需求。
+                        </p>
                         <div class="setup-box">
                             <span class="setup-title"><i data-lucide="sliders"></i> 推薦參數設定：</span>
                             <ul class="setup-params">
@@ -358,4 +412,5 @@
     <script src="score/sp500_leading_rs_radar_vectorized.js"></script>
     <script src="app.js"></script>
 </body>
+
 </html>

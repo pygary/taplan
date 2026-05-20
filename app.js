@@ -25,6 +25,7 @@ let currentSort = 'score-desc';
 document.addEventListener('DOMContentLoaded', () => {
     fetchData();
     setupEventListeners();
+    initMessageBoard();
 });
 
 // ========== 讀取資料 ==========
@@ -41,24 +42,24 @@ async function fetchData() {
             }
             allData = await response.json();
         }
-        
+
         filteredData = [...allData];
-        
+
         // 提取所有不重複的板塊 (Sector)
         allData.forEach(item => {
             if (item.Sector && item.Sector !== '其他') {
                 uniqueSectors.add(item.Sector);
             }
         });
-        
+
         // 初始化面板
         populateSectorDropdown();
         updateStats();
         renderData();
-        
+
         // 更新狀態時間為目前時間或檔案最後更新
         document.getElementById('update-time').innerText = `最後更新: ${new Date().toLocaleTimeString()}`;
-        
+
     } catch (error) {
         console.error('❌ 讀取資料失敗:', error);
         document.getElementById('table-body').innerHTML = `
@@ -76,10 +77,10 @@ async function fetchData() {
 // ========== 建立過濾板塊下拉選單 ==========
 function populateSectorDropdown() {
     const dropdown = document.getElementById('sector-filter');
-    
+
     // 清空現有選項 (保留預設)
     dropdown.innerHTML = '<option value="">所有板塊 (All Sectors)</option>';
-    
+
     // 依字母排序加入
     Array.from(uniqueSectors).sort().forEach(sector => {
         const option = document.createElement('option');
@@ -93,15 +94,15 @@ function populateSectorDropdown() {
 function updateStats() {
     // 1. 總掃描數
     document.getElementById('stat-total').textContent = allData.length;
-    
+
     // 2. A1 核心領先股數量
     const a1Count = allData.filter(item => item.Decision_Bucket === 'A1 核心領先股').length;
     document.getElementById('stat-a1').textContent = a1Count;
-    
+
     // 3. A3 均線回檔買點數量
     const pullbackCount = allData.filter(item => item.Decision_Bucket === 'A3 均線回檔買點').length;
     document.getElementById('stat-pullback').textContent = pullbackCount;
-    
+
     // 4. 板塊強勢共振大於等於 90 分的個股數
     const resonanceCount = allData.filter(item => item.Industry_RS_PR >= 90).length;
     document.getElementById('stat-resonance').textContent = resonanceCount;
@@ -119,31 +120,31 @@ function syncDropdownsToState() {
     // 1. 同步搜尋欄與下拉選單
     const searchInput = document.getElementById('search-input');
     if (searchInput) searchInput.value = currentSearch;
-    
+
     const sectorFilter = document.getElementById('sector-filter');
     if (sectorFilter) sectorFilter.value = currentSector;
-    
+
     const marketcapFilter = document.getElementById('marketcap-filter');
     if (marketcapFilter) marketcapFilter.value = currentMarketCap;
-    
+
     const rsiFilter = document.getElementById('rsi-filter');
     if (rsiFilter) rsiFilter.value = currentRsi;
-    
+
     const phaseFilter = document.getElementById('phase-filter');
     if (phaseFilter) phaseFilter.value = currentPhase;
-    
+
     const ema10Filter = document.getElementById('ema10-filter');
     if (ema10Filter) ema10Filter.value = currentEma10;
-    
+
     const ema21Filter = document.getElementById('ema21-filter');
     if (ema21Filter) ema21Filter.value = currentEma21;
-    
+
     const ema50Filter = document.getElementById('ema50-filter');
     if (ema50Filter) ema50Filter.value = currentEma50;
-    
+
     const sortSelect = document.getElementById('sort-select');
     if (sortSelect) sortSelect.value = currentSort;
-    
+
     // 2. 同步決策池分頁 Tab 狀態
     const tabContainer = document.getElementById('bucket-filters');
     if (tabContainer) {
@@ -169,7 +170,7 @@ function resetAllFilterStates(shouldRender = true) {
     currentEma50 = '';
     currentBucket = 'all';
     currentSort = 'score-desc';
-    
+
     if (shouldRender) {
         clearPresetActiveStyles();
         syncDropdownsToState();
@@ -182,16 +183,16 @@ function resetAllFilterStates(shouldRender = true) {
 function applyStrategyPreset(strategyId) {
     // 1. 先清除所有策略按鈕高亮
     clearPresetActiveStyles();
-    
+
     // 2. 高亮當前被點擊的策略按鈕
     const clickedBtn = document.querySelector(`.preset-btn[data-strategy="${strategyId}"]`);
     if (clickedBtn) {
         clickedBtn.classList.add('active');
     }
-    
+
     // 3. 重置所有過濾變數 (不渲染，等設定完統一渲染)
     resetAllFilterStates(false);
-    
+
     // 4. 根據策略 ID 覆寫篩選條件與排序
     switch (strategyId) {
         case '1': // 📈 策略 1: 強勢領先突破流 (Breakout Buyer)
@@ -201,7 +202,7 @@ function applyStrategyPreset(strategyId) {
             currentRsi = ''; // 允許超買及強勢 (RSI >= 50)，故保持 All 不限，由領先突破狀態與 EMA 保證強度
             currentSort = 'score-desc';
             break;
-            
+
         case '2': // 📥 策略 2: 極致黃金回檔流 (Buy the Dip)
             currentBucket = 'A3 均線回檔買點';
             currentPhase = '🎯 均線量縮回檔';
@@ -209,7 +210,7 @@ function applyStrategyPreset(strategyId) {
             currentEma50 = 'above';
             currentSort = 'dist21-asc'; // 預設使用 EMA21 距離 (近到遠)
             break;
-            
+
         case '3': // 🏛️ 策略 3: 巨頭機構抱團流 (Trend Following)
             currentBucket = 'A1 核心領先股';
             currentMarketCap = 'mega'; // 超大型股 Mega
@@ -218,14 +219,14 @@ function applyStrategyPreset(strategyId) {
             currentEma50 = 'above';
             currentSort = 'score-desc';
             break;
-            
+
         case '4': // 🛡️ 策略 4: 強勢股「錯殺超跌」反彈流 (Mean Reversion)
             currentRsi = 'oversold'; // 超賣 (RSI <= 30)
             currentEma10 = 'below';
             currentEma21 = 'below';
             currentSort = 'score-desc'; // 依雷達分數由高到低以確保原本品質良好
             break;
-            
+
         case '5': // 📉 策略 5: 空頭避險 / 放空流 (Short / Hedging)
             currentPhase = '⚪ 中性';
             currentEma10 = 'below';
@@ -234,11 +235,11 @@ function applyStrategyPreset(strategyId) {
             currentRsi = 'weak'; // 預設篩選 RSI 弱勢 (30 - 50) 的標的
             currentSort = 'score-asc'; // 雷達分數由低到高 (最弱的優先)
             break;
-            
+
         default:
             break;
     }
-    
+
     // 5. 同步所有變數至 DOM 顯示，並重新渲染表格與分頁
     syncDropdownsToState();
     currentPage = 1;
@@ -326,11 +327,11 @@ function setupEventListeners() {
     tabContainer.addEventListener('click', (e) => {
         const btn = e.target.closest('.tab-btn');
         if (!btn) return;
-        
+
         // 更新按鈕 active 樣式
         tabContainer.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
-        
+
         currentBucket = btn.dataset.bucket;
         clearPresetActiveStyles(); // 自訂修改後清除策略高亮
         currentPage = 1;
@@ -343,7 +344,7 @@ function setupEventListeners() {
         strategyContainer.addEventListener('click', (e) => {
             const btn = e.target.closest('.preset-btn');
             if (!btn) return;
-            
+
             if (btn.classList.contains('reset-btn')) {
                 resetAllFilterStates(true);
             } else {
@@ -406,14 +407,14 @@ function applyFiltersAndRender() {
     // 1. 過濾邏輯
     filteredData = allData.filter(item => {
         // 搜尋欄位匹配 (Ticker, Industry, Sector)
-        const matchSearch = !currentSearch || 
+        const matchSearch = !currentSearch ||
             item.Ticker.toLowerCase().includes(currentSearch) ||
             (item.Industry && item.Industry.toLowerCase().includes(currentSearch)) ||
             (item.Sector && item.Sector.toLowerCase().includes(currentSearch));
-            
+
         // 板塊匹配
         const matchSector = !currentSector || item.Sector === currentSector;
-        
+
         // 市值篩選匹配
         let matchMarketCap = true;
         if (currentMarketCap) {
@@ -447,7 +448,7 @@ function applyFiltersAndRender() {
                 }
             }
         }
-        
+
         // EMA10 篩選匹配
         let matchEma10 = true;
         if (currentEma10) {
@@ -492,13 +493,13 @@ function applyFiltersAndRender() {
                 }
             }
         }
-        
+
         // 決策池分級匹配
         const matchBucket = currentBucket === 'all' || item.Decision_Bucket === currentBucket;
-        
+
         // 相對強弱狀態篩選匹配
         const matchPhase = !currentPhase || item.TL_RS_Phase === currentPhase;
-        
+
         return matchSearch && matchSector && matchMarketCap && matchRsi && matchPhase && matchEma10 && matchEma21 && matchEma50 && matchBucket;
     });
 
@@ -527,7 +528,7 @@ function applyFiltersAndRender() {
 function renderData() {
     const tableBody = document.getElementById('table-body');
     const emptyState = document.getElementById('empty-state');
-    
+
     // 如果沒有資料，顯示空狀態
     if (filteredData.length === 0) {
         tableBody.innerHTML = '';
@@ -539,22 +540,22 @@ function renderData() {
         document.getElementById('next-btn').disabled = true;
         return;
     }
-    
+
     emptyState.classList.add('hidden');
-    
+
     // 分頁索引計算
     const totalCount = filteredData.length;
     const maxPage = Math.ceil(totalCount / itemsPerPage);
-    
+
     // 安全保護以防 currentPage 超越邊界
     if (currentPage > maxPage) currentPage = maxPage;
     if (currentPage < 1) currentPage = 1;
-    
+
     const startIdx = (currentPage - 1) * itemsPerPage;
     const endIdx = Math.min(startIdx + itemsPerPage, totalCount);
-    
+
     const pageItems = filteredData.slice(startIdx, endIdx);
-    
+
     // 生成 HTML 內容
     let rowsHtml = '';
     pageItems.forEach(item => {
@@ -584,18 +585,18 @@ function renderData() {
             </tr>
         `;
     });
-    
+
     tableBody.innerHTML = rowsHtml;
-    
+
     // 更新分頁腳部資訊與狀態
     document.getElementById('start-idx').textContent = startIdx + 1;
     document.getElementById('end-idx').textContent = endIdx;
     document.getElementById('total-count').textContent = totalCount;
     document.getElementById('page-num').textContent = `第 ${currentPage} / ${maxPage} 頁`;
-    
+
     document.getElementById('prev-btn').disabled = currentPage === 1;
     document.getElementById('next-btn').disabled = currentPage === maxPage;
-    
+
     // 渲染 Lucide 圖示
     lucide.createIcons();
 }
@@ -654,3 +655,189 @@ function formatMarketCap(cap) {
     }
     return `$${cap.toLocaleString()}`;
 }
+
+// ========== 交易與研究討論區留言板邏輯 ==========
+let isServerOnline = false;
+let messagesList = [];
+
+// 初始化留言板
+async function initMessageBoard() {
+    const form = document.getElementById('message-form');
+    if (!form) return;
+
+    form.addEventListener('submit', handleMessageSubmit);
+
+    const exportBtn = document.getElementById('export-msg-btn');
+    if (exportBtn) {
+        exportBtn.addEventListener('click', exportMessagesToFile);
+    }
+
+    // 偵測伺服器連線狀態與讀取資料
+    try {
+        const response = await fetch('api/messages');
+        if (response.ok) {
+            messagesList = await response.json();
+            isServerOnline = true;
+            updateConnectionStatus(true);
+        } else {
+            throw new Error('Not connected');
+        }
+    } catch (e) {
+        isServerOnline = false;
+        updateConnectionStatus(false);
+        // Fallback: 讀取 localStorage 留言
+        const saved = localStorage.getItem('radar_discussion_messages');
+        if (saved) {
+            try {
+                messagesList = JSON.parse(saved);
+            } catch (err) {
+                messagesList = [];
+            }
+        } else {
+            messagesList = [];
+        }
+        // 顯示手動下載按鈕
+        if (exportBtn) {
+            exportBtn.classList.remove('hidden');
+        }
+    }
+}
+
+// 更新連線狀態顯示
+function updateConnectionStatus(online) {
+    const statusDiv = document.getElementById('connection-status');
+    const statusText = document.getElementById('connection-text');
+    if (!statusDiv || !statusText) return;
+
+    if (online) {
+        statusDiv.className = 'status-indicator online';
+        statusText.textContent = '伺服器已連線 (動態寫入 msg.txt)';
+    } else {
+        statusDiv.className = 'status-indicator offline';
+        statusText.textContent = '靜態網頁模式 (本機儲存，請下載導出)';
+    }
+}
+
+// 送出留言
+async function handleMessageSubmit(e) {
+    e.preventDefault();
+
+    const nameInput = document.getElementById('msg-username');
+    const textInput = document.getElementById('msg-text');
+    if (!textInput) return;
+
+    const name = nameInput.value.trim() || '路人甲';
+    const text = textInput.value.trim();
+
+    if (!text) return;
+
+    // 取得當前時間
+    const now = new Date();
+    const pad = (num) => String(num).padStart(2, '0');
+    const timestamp = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
+
+    if (isServerOnline) {
+        // 伺服器線上模式：透過 API 寫入硬碟
+        try {
+            const response = await fetch('api/messages', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ name, text })
+            });
+            if (response.ok) {
+                messagesList = await response.json();
+                textInput.value = '';
+                showSubmitNotification();
+            } else {
+                throw new Error('POST failed');
+            }
+        } catch (err) {
+            console.error('API 留言送出失敗，嘗試切換至本機暫存模式:', err);
+            isServerOnline = false;
+            updateConnectionStatus(false);
+            const exportBtn = document.getElementById('export-msg-btn');
+            if (exportBtn) exportBtn.classList.remove('hidden');
+            saveMessageLocally(name, text, timestamp);
+            textInput.value = '';
+            showSubmitNotification();
+        }
+    } else {
+        // 離線 / 靜態網頁模式：儲存至 localStorage
+        saveMessageLocally(name, text, timestamp);
+        textInput.value = '';
+        showSubmitNotification();
+    }
+}
+
+// 本機儲存留言 (localStorage)
+function saveMessageLocally(name, text, timestamp) {
+    const newMsg = {
+        name: name,
+        text: text,
+        time: timestamp
+    };
+
+    messagesList.push(newMsg);
+    localStorage.setItem('radar_discussion_messages', JSON.stringify(messagesList));
+}
+
+// 導出 / 下載留言檔案
+function exportMessagesToFile() {
+    if (messagesList.length === 0) {
+        alert('目前尚無留言可以導出。');
+        return;
+    }
+
+    let fileContent = '';
+    messagesList.forEach(msg => {
+        fileContent += `[${msg.time}] ${msg.name}: ${msg.text}\n`;
+    });
+
+    const blob = new Blob([fileContent], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'msg.txt';
+    document.body.appendChild(a);
+    a.click();
+
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+
+// 提示留言成功儲存
+function showSubmitNotification() {
+    const notification = document.createElement('div');
+    notification.style.position = 'fixed';
+    notification.style.bottom = '20px';
+    notification.style.right = '20px';
+    notification.style.background = 'rgba(16, 185, 129, 0.95)';
+    notification.style.color = '#ffffff';
+    notification.style.padding = '12px 24px';
+    notification.style.borderRadius = '8px';
+    notification.style.boxShadow = '0 4px 12px rgba(0,0,0,0.3)';
+    notification.style.zIndex = '9999';
+    notification.style.fontSize = '0.9rem';
+    notification.style.fontWeight = '600';
+    notification.style.display = 'flex';
+    notification.style.alignItems = 'center';
+    notification.style.gap = '8px';
+    notification.style.animation = 'msg-appear 0.3s ease-out';
+
+    notification.innerHTML = `<i data-lucide="check-circle" style="width: 18px; height: 18px;"></i> 留言已成功！`;
+    document.body.appendChild(notification);
+
+    lucide.createIcons();
+
+    setTimeout(() => {
+        notification.style.opacity = '0';
+        notification.style.transition = 'opacity 0.5s ease';
+        setTimeout(() => {
+            document.body.removeChild(notification);
+        }, 500);
+    }, 2500);
+}
+

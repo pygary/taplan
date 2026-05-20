@@ -136,6 +136,8 @@ body {
     font-size: 1.8rem;
     font-weight: 700;
     letter-spacing: 0.5px;
+    line-height: 1.3;
+    padding: 2px 0;
     background: linear-gradient(to right, #ffffff, var(--accent-cyan));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -1004,3 +1006,208 @@ select:focus {
         grid-template-columns: 1fr;
     }
 }
+
+/* ========== 交易與研究討論區留言板 ========== */
+.message-board-section {
+    margin-top: 45px;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 20px;
+    padding: 24px;
+    backdrop-filter: blur(10px);
+}
+
+.message-board-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    padding-bottom: 16px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.msg-title-area {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.msg-title-icon-wrapper {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.15);
+}
+
+.msg-title-icon-wrapper i {
+    color: white;
+    width: 20px;
+    height: 20px;
+}
+
+.message-board-section h2 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    line-height: 1.4;
+    padding: 2px 0;
+    margin-bottom: 4px;
+    background: linear-gradient(to right, #ffffff, var(--accent-cyan));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.message-board-section .subtitle {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+}
+
+.message-board-content {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+/* 留言表單 - 置中且限制合適寬度 */
+.msg-form-wrapper {
+    width: 100%;
+    max-width: 650px;
+    background: rgba(8, 12, 20, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 14px;
+    padding: 24px;
+}
+
+.msg-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.input-group label {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.input-group label i {
+    width: 14px;
+    height: 14px;
+    color: var(--accent-cyan);
+}
+
+.input-group input, .input-group textarea {
+    width: 100%;
+    background: rgba(8, 12, 20, 0.7);
+    border: 1px solid var(--card-border);
+    border-radius: 10px;
+    padding: 12px;
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    outline: none;
+    transition: var(--transition);
+    resize: none;
+}
+
+.input-group input:focus, .input-group textarea:focus {
+    border-color: var(--accent-cyan);
+    box-shadow: 0 0 10px rgba(0, 240, 255, 0.15);
+}
+
+.msg-form-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 6px;
+}
+
+.submit-msg-btn {
+    flex: 1;
+    background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+    border: none;
+    color: white;
+    padding: 12px;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: var(--transition);
+    box-shadow: 0 4px 15px rgba(0, 240, 255, 0.15);
+}
+
+.submit-msg-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(0, 240, 255, 0.25);
+}
+
+.submit-msg-btn i {
+    width: 16px;
+    height: 16px;
+}
+
+.export-msg-btn {
+    background: rgba(16, 185, 129, 0.08);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    color: #34d399;
+    padding: 12px 18px;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: var(--transition);
+}
+
+.export-msg-btn:hover {
+    background: rgba(16, 185, 129, 0.18);
+    border-color: #10b981;
+    box-shadow: 0 0 12px rgba(16, 185, 129, 0.15);
+}
+
+.export-msg-btn i {
+    width: 16px;
+    height: 16px;
+}
+
+/* 狀態列連線狀態樣式 */
+.status-indicator.online {
+    background: rgba(16, 185, 129, 0.08) !important;
+    border-color: rgba(16, 185, 129, 0.2) !important;
+    color: #34d399 !important;
+}
+.status-indicator.online .pulse-dot {
+    background-color: #10b981 !important;
+    box-shadow: 0 0 10px #10b981 !important;
+}
+
+.status-indicator.offline {
+    background: rgba(245, 158, 11, 0.08) !important;
+    border-color: rgba(245, 158, 11, 0.2) !important;
+    color: #fbbf24 !important;
+}
+.status-indicator.offline .pulse-dot {
+    background-color: #f59e0b !important;
+    box-shadow: 0 0 10px #f59e0b !important;
+}
+
