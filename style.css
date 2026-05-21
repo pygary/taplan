@@ -1211,3 +1211,68 @@ select:focus {
     box-shadow: 0 0 10px #f59e0b !important;
 }
 
+/* ========== RS 加速與抗跌性指數徽章樣式 ========== */
+
+/* RS Momentum Badges */
+.rs-mom-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    backdrop-filter: blur(5px);
+    transition: var(--transition);
+}
+
+.rs-mom-badge.crossover {
+    background: rgba(236, 72, 153, 0.12);
+    color: var(--accent-magenta);
+    border: 1px solid rgba(236, 72, 153, 0.3);
+    box-shadow: 0 0 10px rgba(236, 72, 153, 0.15);
+}
+
+.rs-mom-badge.accelerating {
+    background: rgba(0, 240, 255, 0.12);
+    color: var(--accent-cyan);
+    border: 1px solid rgba(0, 240, 255, 0.3);
+    box-shadow: 0 0 10px rgba(0, 240, 255, 0.15);
+}
+
+.rs-mom-badge.stable {
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--text-secondary);
+    border: 1px solid var(--card-border);
+}
+
+/* Beta Resiliency Badges */
+.resil-badge {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    backdrop-filter: blur(5px);
+    transition: var(--transition);
+}
+
+.resil-badge.high {
+    background: rgba(16, 185, 129, 0.15);
+    color: #34d399;
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    box-shadow: 0 0 10px rgba(16, 185, 129, 0.15);
+}
+
+.resil-badge.med {
+    background: rgba(59, 130, 246, 0.15);
+    color: #60a5fa;
+    border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.resil-badge.low {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-secondary);
+    border: 1px solid var(--card-border);
+}
+

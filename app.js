@@ -18,6 +18,8 @@ let currentPhase = '';
 let currentEma10 = '';
 let currentEma21 = '';
 let currentEma50 = '';
+let currentRsMom = '';
+let currentResilience = '';
 let currentBucket = 'all';
 let currentSort = 'score-desc';
 
@@ -64,7 +66,7 @@ async function fetchData() {
         console.error('❌ 讀取資料失敗:', error);
         document.getElementById('table-body').innerHTML = `
             <tr>
-                <td colspan="11" class="loading-state" style="color: #f87171;">
+                <td colspan="13" class="loading-state" style="color: #f87171;">
                     <i data-lucide="alert-circle" style="width: 32px; height: 32px; margin: 0 auto 10px; display: block;"></i>
                     <span>讀取資料失敗，請確認 score/sp500_leading_rs_radar_vectorized.js 或 .json 檔案已生成並放在正確路徑。</span>
                 </td>
@@ -142,6 +144,12 @@ function syncDropdownsToState() {
     const ema50Filter = document.getElementById('ema50-filter');
     if (ema50Filter) ema50Filter.value = currentEma50;
 
+    const rsMomFilter = document.getElementById('rs-mom-filter');
+    if (rsMomFilter) rsMomFilter.value = currentRsMom;
+
+    const resilienceFilter = document.getElementById('resilience-filter');
+    if (resilienceFilter) resilienceFilter.value = currentResilience;
+
     const sortSelect = document.getElementById('sort-select');
     if (sortSelect) sortSelect.value = currentSort;
 
@@ -168,6 +176,8 @@ function resetAllFilterStates(shouldRender = true) {
     currentEma10 = '';
     currentEma21 = '';
     currentEma50 = '';
+    currentRsMom = '';
+    currentResilience = '';
     currentBucket = 'all';
     currentSort = 'score-desc';
 
@@ -310,6 +320,22 @@ function setupEventListeners() {
     document.getElementById('ema50-filter').addEventListener('change', (e) => {
         currentEma50 = e.target.value;
         clearPresetActiveStyles(); // 自訂修改後清除策略高亮
+        currentPage = 1;
+        applyFiltersAndRender();
+    });
+
+    // RS Momentum 篩選監聽
+    document.getElementById('rs-mom-filter').addEventListener('change', (e) => {
+        currentRsMom = e.target.value;
+        clearPresetActiveStyles();
+        currentPage = 1;
+        applyFiltersAndRender();
+    });
+
+    // 抗跌指數篩選監聽
+    document.getElementById('resilience-filter').addEventListener('change', (e) => {
+        currentResilience = e.target.value;
+        clearPresetActiveStyles();
         currentPage = 1;
         applyFiltersAndRender();
     });
@@ -500,7 +526,27 @@ function applyFiltersAndRender() {
         // 相對強弱狀態篩選匹配
         const matchPhase = !currentPhase || item.TL_RS_Phase === currentPhase;
 
-        return matchSearch && matchSector && matchMarketCap && matchRsi && matchPhase && matchEma10 && matchEma21 && matchEma50 && matchBucket;
+        // RS Momentum 篩選匹配
+        const matchRsMom = !currentRsMom || item.RS_Momentum === currentRsMom;
+
+        // 抗跌指數篩選匹配
+        let matchResilience = true;
+        if (currentResilience) {
+            const res = item.Beta_Resiliency;
+            if (res === null || res === undefined) {
+                matchResilience = false;
+            } else {
+                if (currentResilience === 'high') {
+                    matchResilience = res >= 70;
+                } else if (currentResilience === 'med') {
+                    matchResilience = res >= 50 && res < 70;
+                } else if (currentResilience === 'low') {
+                    matchResilience = res < 50;
+                }
+            }
+        }
+
+        return matchSearch && matchSector && matchMarketCap && matchRsi && matchPhase && matchEma10 && matchEma21 && matchEma50 && matchBucket && matchRsMom && matchResilience;
     });
 
     // 2. 排序邏輯
@@ -510,6 +556,8 @@ function applyFiltersAndRender() {
                 return b.Leader_Radar_Score - a.Leader_Radar_Score;
             case 'score-asc':
                 return a.Leader_Radar_Score - b.Leader_Radar_Score;
+            case 'resilience-desc':
+                return b.Beta_Resiliency - a.Beta_Resiliency;
             case 'dist10-asc':
                 return Math.abs(a.Dist_EMA10 || 999) - Math.abs(b.Dist_EMA10 || 999);
             case 'dist21-asc':
@@ -573,6 +621,8 @@ function renderData() {
                     </div>
                 </td>
                 <td><span class="phase-badge">${item.TL_RS_Phase}</span></td>
+                <td>${renderRsMomBadge(item.RS_Momentum)}</td>
+                <td>${renderResilBadge(item.Beta_Resiliency)}</td>
                 <td class="dist-cell ${getDistColorClass(item.Dist_EMA10, false)}">${formatDist(item.Dist_EMA10)}</td>
                 <td class="dist-cell ${getDistColorClass(item.Dist_EMA21, item.Decision_Bucket === 'A3 均線回檔買點')}">${formatDist(item.Dist_EMA21)}</td>
                 <td class="dist-cell ${getDistColorClass(item.Dist_EMA50, item.Decision_Bucket === 'A3 均線回檔買點')}">${formatDist(item.Dist_EMA50)}</td>
@@ -641,6 +691,24 @@ function getBucketBadgeClass(bucket) {
         case 'C 強勢回檔觀察': return 'c';
         default: return '';
     }
+}
+
+// 渲染 RS Momentum 徽章
+function renderRsMomBadge(mom) {
+    if (!mom) return '-';
+    let className = 'stable';
+    if (mom === '🚀 交叉啟動') className = 'crossover';
+    else if (mom === '📈 加速中') className = 'accelerating';
+    return `<span class="rs-mom-badge ${className}">${mom}</span>`;
+}
+
+// 渲染抗跌指數徽章
+function renderResilBadge(resil) {
+    if (resil === undefined || resil === null) return '-';
+    let className = 'low';
+    if (resil >= 70) className = 'high';
+    else if (resil >= 50) className = 'med';
+    return `<span class="resil-badge ${className}">${resil.toFixed(1)}%</span>`;
 }
 
 // 將巨大市值格式化為千億/百億(B)或百萬(M)美元
