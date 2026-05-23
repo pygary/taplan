@@ -76,6 +76,18 @@ async function fetchData() {
     }
 }
 
+function formatPrice(price, changePct) {
+    if (price === undefined || price === null) return '-';
+    const priceFormatted = price.toFixed(2);
+    if (changePct === undefined || changePct === null) return `$${priceFormatted}`;
+    
+    const arrow = changePct > 0 ? '▲' : (changePct < 0 ? '▼' : '');
+    const color = changePct > 0 ? '#00c853' : (changePct < 0 ? '#ff4d4d' : '#888');
+    const changeAbs = Math.abs(changePct).toFixed(2);
+    const sign = changePct > 0 ? '+' : '';
+    return `<span style="color: ${color};">${arrow} $${priceFormatted} (${sign}${changeAbs}%)</span>`;
+}
+
 // ========== 建立過濾板塊下拉選單 ==========
 function populateSectorDropdown() {
     const dropdown = document.getElementById('sector-filter');
@@ -532,7 +544,7 @@ function applyFiltersAndRender() {
         // 抗跌指數篩選匹配
         let matchResilience = true;
         if (currentResilience) {
-            const res = item.Beta_Resiliency;
+            const res = item.RS_Resiliency;
             if (res === null || res === undefined) {
                 matchResilience = false;
             } else {
@@ -557,7 +569,7 @@ function applyFiltersAndRender() {
             case 'score-asc':
                 return a.Leader_Radar_Score - b.Leader_Radar_Score;
             case 'resilience-desc':
-                return b.Beta_Resiliency - a.Beta_Resiliency;
+                return b.RS_Resiliency - a.RS_Resiliency;
             case 'dist10-asc':
                 return Math.abs(a.Dist_EMA10 || 999) - Math.abs(b.Dist_EMA10 || 999);
             case 'dist21-asc':
@@ -610,7 +622,7 @@ function renderData() {
         rowsHtml += `
             <tr>
                 <td class="ticker-cell"><a href="https://finance.yahoo.com/quote/${item.Ticker}/" target="_blank" class="ticker-link">${item.Ticker}</a></td>
-                <td class="price-cell">$${formatPrice(item.Price)}</td>
+				<td class="price-cell">${formatPrice(item.Price, item.Daily_Change_Pct)}</td>
                 <td><span class="bucket-badge ${getBucketBadgeClass(item.Decision_Bucket)}">${item.Decision_Bucket}</span></td>
                 <td>
                     <div class="score-wrapper">
@@ -622,7 +634,7 @@ function renderData() {
                 </td>
                 <td><span class="phase-badge">${item.TL_RS_Phase}</span></td>
                 <td>${renderRsMomBadge(item.RS_Momentum)}</td>
-                <td>${renderResilBadge(item.Beta_Resiliency)}</td>
+                <td>${renderResilBadge(item.RS_Resiliency)}</td>
                 <td class="dist-cell ${getDistColorClass(item.Dist_EMA10, false)}">${formatDist(item.Dist_EMA10)}</td>
                 <td class="dist-cell ${getDistColorClass(item.Dist_EMA21, item.Decision_Bucket === 'A3 均線回檔買點')}">${formatDist(item.Dist_EMA21)}</td>
                 <td class="dist-cell ${getDistColorClass(item.Dist_EMA50, item.Decision_Bucket === 'A3 均線回檔買點')}">${formatDist(item.Dist_EMA50)}</td>
@@ -653,11 +665,6 @@ function renderData() {
 
 // ========== 輔助與格式化函式 ==========
 
-// 格式化價格
-function formatPrice(price) {
-    if (price === undefined || price === null) return '-';
-    return price.toFixed(2);
-}
 
 // 格式化偏離比率
 function formatDist(dist) {
@@ -704,11 +711,43 @@ function renderRsMomBadge(mom) {
 
 // 渲染抗跌指數徽章
 function renderResilBadge(resil) {
-    if (resil === undefined || resil === null) return '-';
-    let className = 'low';
-    if (resil >= 70) className = 'high';
-    else if (resil >= 50) className = 'med';
-    return `<span class="resil-badge ${className}">${resil.toFixed(1)}%</span>`;
+    if (resil === undefined || resil === null || Number.isNaN(Number(resil))) return '-';
+
+    const value = Number(resil);
+    let tier = 'very-weak';
+    let label = '弱抗跌';
+    let tooltip = '弱抗跌：大盤轉弱時通常表現比大盤更差';
+    let filled = 1;
+
+    if (value >= 85) {
+        tier = 'very-strong';
+        label = '極強抗跌';
+        tooltip = '極強抗跌：大盤下跌日時，這檔股票多數能跑贏大盤，且領先幅度明顯';
+        filled = 5;
+    } else if (value >= 70) {
+        tier = 'strong';
+        label = '明顯抗跌';
+        tooltip = '明顯抗跌：大盤走弱時通常比大盤穩';
+        filled = 4;
+    } else if (value >= 55) {
+        tier = 'neutral';
+        label = '中性';
+        tooltip = '中性：沒有明顯防守優勢';
+        filled = 3;
+    } else if (value >= 40) {
+        tier = 'weak';
+        label = '偏弱';
+        tooltip = '偏弱：大盤跌時常跟跌，抗壓一般';
+        filled = 2;
+    }
+
+    const lights = Array.from({ length: 5 }, (_, idx) => {
+        const active = idx < filled ? 'active' : '';
+        return `<span class="resil-light ${active}"></span>`;
+    }).join('');
+
+    const score = Math.round(value);
+    return `<span class="resil-badge ${tier}" title="${tooltip}" aria-label="${label}，分數 ${score}。${tooltip}"><span class="resil-lights">${lights}</span><span class="resil-label">${label}</span><span class="resil-score">${score}</span></span>`;
 }
 
 // 將巨大市值格式化為千億/百億(B)或百萬(M)美元

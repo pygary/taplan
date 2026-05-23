@@ -146,10 +146,12 @@
                 <div class="select-wrapper">
                     <i data-lucide="shield" class="select-icon"></i>
                     <select id="resilience-filter">
-                        <option value="">所有抗跌性 (All Resil)</option>
-                        <option value="high">極佳抗跌性 (≥ 70%)</option>
-                        <option value="med">中等抗跌性 (50% - 70%)</option>
-                        <option value="low">普通/弱勢 (< 50%)</option>
+                        <option value="">所有抗跌強度 (All Resilience)</option>
+                        <option value="very-strong">極強抗跌</option>
+                        <option value="strong">明顯抗跌</option>
+                        <option value="neutral">中性</option>
+                        <option value="weak">偏弱</option>
+                        <option value="very-weak">弱抗跌</option>
                     </select>
                 </div>
 
@@ -185,7 +187,7 @@
                     <select id="sort-select">
                         <option value="score-desc">依雷達分數 (高到低)</option>
                         <option value="score-asc">依雷達分數 (低到高)</option>
-                        <option value="resilience-desc">依抗跌指數 (高到低)</option>
+                        <option value="resilience-desc">依抗跌強度 (高到低)</option>
                         <option value="dist10-asc">回檔 EMA10 距離 (近到遠)</option>
                         <option value="dist21-asc">回檔 EMA21 距離 (近到遠)</option>
                         <option value="dist50-asc">回檔 EMA50 距離 (近到遠)</option>
@@ -243,7 +245,7 @@
                             <th>雷達綜合分數</th>
                             <th>相對強弱狀態</th>
                             <th>RS 加速 (Mom)</th>
-                            <th>抗跌指數 (Resil)</th>
+                            <th>抗跌強度</th>
                             <th>EMA10 偏離</th>
                             <th>EMA21 偏離</th>
                             <th>EMA50 偏離</th>
@@ -431,6 +433,7 @@
 
     <script src="score/sp500_leading_rs_radar_vectorized.js"></script>
     <script src="app.js"></script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ==" data-cf-beacon='{"version":"2024.11.0","token":"f7a3268ea56841db8cf028773ac41ab7","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 </body>
 
 </html>
