@@ -4,6 +4,7 @@
 let allData = [];
 let filteredData = [];
 let uniqueSectors = new Set();
+let uniquePhases = new Set();
 
 // 分頁控制
 let currentPage = 1;
@@ -52,10 +53,14 @@ async function fetchData() {
             if (item.Sector && item.Sector !== '其他') {
                 uniqueSectors.add(item.Sector);
             }
+            if (item.TL_RS_Phase) {
+                uniquePhases.add(item.TL_RS_Phase);
+            }
         });
 
         // 初始化面板
         populateSectorDropdown();
+        populatePhaseDropdown();
         updateStats();
         renderData();
 
@@ -102,6 +107,28 @@ function populateSectorDropdown() {
         option.textContent = sector;
         dropdown.appendChild(option);
     });
+}
+
+function populatePhaseDropdown() {
+    const dropdown = document.getElementById('phase-filter');
+    if (!dropdown) return;
+
+    const previousValue = currentPhase;
+    dropdown.innerHTML = '<option value="">所有強弱狀態 (All Phases)</option>';
+
+    Array.from(uniquePhases)
+        .filter(Boolean)
+        .sort((a, b) => a.localeCompare(b, 'zh-Hant'))
+        .forEach(phase => {
+            const option = document.createElement('option');
+            option.value = phase;
+            option.textContent = phase;
+            dropdown.appendChild(option);
+        });
+
+    if (previousValue && uniquePhases.has(previousValue)) {
+        dropdown.value = previousValue;
+    }
 }
 
 // ========== 計算與更新統計數字 ==========
