@@ -138,6 +138,18 @@
                 </div>
 
                 <div class="select-wrapper">
+                    <i data-lucide="layers" class="select-icon"></i>
+                    <select id="stage-filter">
+                        <option value="">所有階段 (All Stages)</option>
+                        <option value="stage2-action">🟢 Stage 2 Action Zone</option>
+                        <option value="stage2-early">🟢 Stage 2 Early</option>
+                        <option value="stage2">✅ Stage 2 上升趨勢</option>
+                        <option value="stage2-extended">🔥 Stage 2 Extended</option>
+                        <option value="non-stage2">⚪ 非 Stage 2</option>
+                    </select>
+                </div>
+
+                <div class="select-wrapper">
                     <i data-lucide="zap" class="select-icon"></i>
                     <select id="rs-mom-filter">
                         <option value="">所有 RS 加速 (All Mom)</option>
@@ -187,6 +199,15 @@
                 </div>
 
                 <div class="select-wrapper">
+                    <i data-lucide="trending-up" class="select-icon"></i>
+                    <select id="ema200-filter">
+                        <option value="">EMA200 偏離 (All)</option>
+                        <option value="above">Price > EMA200</option>
+                        <option value="below">Price < EMA200</option>
+                    </select>
+                </div>
+
+                <div class="select-wrapper">
                     <i data-lucide="sliders-horizontal" class="select-icon"></i>
                     <select id="sort-select">
                         <option value="score-desc">依雷達分數 (高到低)</option>
@@ -195,6 +216,7 @@
                         <option value="dist10-asc">回檔 EMA10 距離 (近到遠)</option>
                         <option value="dist21-asc">回檔 EMA21 距離 (近到遠)</option>
                         <option value="dist50-asc">回檔 EMA50 距離 (近到遠)</option>
+                        <option value="dist200-asc">回檔 EMA200 距離 (近到遠)</option>
                     </select>
                 </div>
             </div>
@@ -248,11 +270,13 @@
                             <th>決策分級</th>
                             <th>雷達綜合分數</th>
                             <th>相對強弱狀態</th>
+                            <th>Stage</th>
                             <th>RS 加速 (Mom)</th>
                             <th>抗跌強度</th>
                             <th>EMA10 偏離</th>
                             <th>EMA21 偏離</th>
                             <th>EMA50 偏離</th>
+                            <th>EMA200 偏離</th>
                             <th>RSI (14)</th>
                             <th>板塊/行業</th>
                             <th>市值 (MarketCap)</th>
@@ -260,7 +284,7 @@
                     </thead>
                     <tbody id="table-body">
                         <tr>
-                            <td colspan="13" class="loading-state">
+                            <td colspan="15" class="loading-state">
                                 <div class="spinner"></div>
                                 <span>載入數據中，請稍候...</span>
                             </td>

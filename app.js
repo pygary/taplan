@@ -16,9 +16,11 @@ let currentSector = '';
 let currentMarketCap = '';
 let currentRsi = '';
 let currentPhase = '';
+let currentStage = '';
 let currentEma10 = '';
 let currentEma21 = '';
 let currentEma50 = '';
+let currentEma200 = '';
 let currentRsMom = '';
 let currentResilience = '';
 let currentBucket = 'all';
@@ -70,9 +72,9 @@ async function fetchData() {
         console.error('❌ 讀取資料失敗:', error);
         document.getElementById('table-body').innerHTML = `
             <tr>
-                <td colspan="13" class="loading-state" style="color: #f87171;">
-                    <i data-lucide="alert-circle" style="width: 32px; height: 32px; margin: 0 auto 10px; display: block;"></i>
-                    <span>讀取資料失敗，請確認 score/sp500_leading_rs_radar_vectorized.js 或 .json 檔案已生成並放在正確路徑。</span>
+                <td colspan="15" class="loading-state" style="color: #f87171;">
+                    <i data-lucide="alert-circle" style="width: 32px; height: 32px; margin: 0 auto 12px;"></i>
+                    無法讀取資料檔案，請確認 scorev4.py 已執行並產生 JSON。
                 </td>
             </tr>
         `;
@@ -173,6 +175,9 @@ function syncDropdownsToState() {
     const phaseFilter = document.getElementById('phase-filter');
     if (phaseFilter) phaseFilter.value = currentPhase;
 
+    const stageFilter = document.getElementById('stage-filter');
+    if (stageFilter) stageFilter.value = currentStage;
+
     const ema10Filter = document.getElementById('ema10-filter');
     if (ema10Filter) ema10Filter.value = currentEma10;
 
@@ -181,6 +186,9 @@ function syncDropdownsToState() {
 
     const ema50Filter = document.getElementById('ema50-filter');
     if (ema50Filter) ema50Filter.value = currentEma50;
+
+    const ema200Filter = document.getElementById('ema200-filter');
+    if (ema200Filter) ema200Filter.value = currentEma200;
 
     const rsMomFilter = document.getElementById('rs-mom-filter');
     if (rsMomFilter) rsMomFilter.value = currentRsMom;
@@ -211,9 +219,11 @@ function resetAllFilterStates(shouldRender = true) {
     currentMarketCap = '';
     currentRsi = '';
     currentPhase = '';
+    currentStage = '';
     currentEma10 = '';
     currentEma21 = '';
     currentEma50 = '';
+    currentEma200 = '';
     currentRsMom = '';
     currentResilience = '';
     currentBucket = 'all';
@@ -247,6 +257,7 @@ function applyStrategyPreset(strategyId) {
             currentPhase = '🏆 領先突破(RSNHBP)';
             currentEma21 = 'above';
             currentEma50 = 'above';
+            currentEma200 = 'above';
             currentRsi = ''; // 允許超買及強勢 (RSI >= 50)，故保持 All 不限，由領先突破狀態與 EMA 保證強度
             currentSort = 'score-desc';
             break;
@@ -256,6 +267,7 @@ function applyStrategyPreset(strategyId) {
             currentPhase = '🎯 均線量縮回檔';
             currentEma21 = 'above';
             currentEma50 = 'above';
+            currentEma200 = 'above';
             currentSort = 'dist21-asc'; // 預設使用 EMA21 距離 (近到遠)
             break;
 
@@ -265,6 +277,7 @@ function applyStrategyPreset(strategyId) {
             currentEma10 = 'above';
             currentEma21 = 'above';
             currentEma50 = 'above';
+            currentEma200 = 'above';
             currentSort = 'score-desc';
             break;
 
@@ -280,6 +293,7 @@ function applyStrategyPreset(strategyId) {
             currentEma10 = 'below';
             currentEma21 = 'below';
             currentEma50 = 'below';
+            currentEma200 = 'below';
             currentRsi = 'weak'; // 預設篩選 RSI 弱勢 (30 - 50) 的標的
             currentSort = 'score-asc'; // 雷達分數由低到高 (最弱的優先)
             break;
@@ -340,6 +354,14 @@ function setupEventListeners() {
         applyFiltersAndRender();
     });
 
+    // Stage2 篩選監聽
+    document.getElementById('stage-filter').addEventListener('change', (e) => {
+        currentStage = e.target.value;
+        clearPresetActiveStyles();
+        currentPage = 1;
+        applyFiltersAndRender();
+    });
+
     // 趨勢篩選監聽
     document.getElementById('ema10-filter').addEventListener('change', (e) => {
         currentEma10 = e.target.value;
@@ -357,6 +379,13 @@ function setupEventListeners() {
 
     document.getElementById('ema50-filter').addEventListener('change', (e) => {
         currentEma50 = e.target.value;
+        clearPresetActiveStyles(); // 自訂修改後清除策略高亮
+        currentPage = 1;
+        applyFiltersAndRender();
+    });
+
+    document.getElementById('ema200-filter').addEventListener('change', (e) => {
+        currentEma200 = e.target.value;
         clearPresetActiveStyles(); // 自訂修改後清除策略高亮
         currentPage = 1;
         applyFiltersAndRender();
@@ -558,11 +587,40 @@ function applyFiltersAndRender() {
             }
         }
 
+        // EMA200 篩選匹配
+        let matchEma200 = true;
+        if (currentEma200) {
+            const d200 = item.Dist_EMA200;
+            if (d200 === null || d200 === undefined) {
+                matchEma200 = false;
+            } else {
+                if (currentEma200 === 'above') {
+                    matchEma200 = d200 > 0;
+                } else if (currentEma200 === 'below') {
+                    matchEma200 = d200 < 0;
+                }
+            }
+        }
+
         // 決策池分級匹配
         const matchBucket = currentBucket === 'all' || item.Decision_Bucket === currentBucket;
 
         // 相對強弱狀態篩選匹配
         const matchPhase = !currentPhase || item.TL_RS_Phase === currentPhase;
+
+        // Stage2 篩選匹配
+        let matchStage = true;
+        if (currentStage === 'stage2-action') {
+            matchStage = item.Stage2_Action_Zone === true;
+        } else if (currentStage === 'stage2-early') {
+            matchStage = item.Stage2_Early === true;
+        } else if (currentStage === 'stage2') {
+            matchStage = item.Stage2 === true;
+        } else if (currentStage === 'stage2-extended') {
+            matchStage = item.Stage2_Extended === true;
+        } else if (currentStage === 'non-stage2') {
+            matchStage = item.Stage2 !== true;
+        }
 
         // RS Momentum 篩選匹配
         const matchRsMom = !currentRsMom || item.RS_Momentum === currentRsMom;
@@ -584,7 +642,7 @@ function applyFiltersAndRender() {
             }
         }
 
-        return matchSearch && matchSector && matchMarketCap && matchRsi && matchPhase && matchEma10 && matchEma21 && matchEma50 && matchBucket && matchRsMom && matchResilience;
+        return matchSearch && matchSector && matchMarketCap && matchRsi && matchPhase && matchStage && matchEma10 && matchEma21 && matchEma50 && matchEma200 && matchBucket && matchRsMom && matchResilience;
     });
 
     // 2. 排序邏輯
@@ -602,6 +660,8 @@ function applyFiltersAndRender() {
                 return Math.abs(a.Dist_EMA21 || 999) - Math.abs(b.Dist_EMA21 || 999);
             case 'dist50-asc':
                 return Math.abs(a.Dist_EMA50 || 999) - Math.abs(b.Dist_EMA50 || 999);
+            case 'dist200-asc':
+                return Math.abs(a.Dist_EMA200 || 999) - Math.abs(b.Dist_EMA200 || 999);
             default:
                 return 0;
         }
@@ -659,11 +719,13 @@ function renderData() {
                     </div>
                 </td>
                 <td><span class="phase-badge">${item.TL_RS_Phase}</span></td>
+                <td><span class="phase-badge">${item.Market_Stage || (item.Stage2 ? '✅ Stage 2 上升趨勢' : '⚪ 非 Stage 2')}</span></td>
                 <td>${renderRsMomBadge(item.RS_Momentum)}</td>
                 <td>${renderResilBadge(item.RS_Resiliency)}</td>
                 <td class="dist-cell ${getDistColorClass(item.Dist_EMA10, false)}">${formatDist(item.Dist_EMA10)}</td>
                 <td class="dist-cell ${getDistColorClass(item.Dist_EMA21, item.Decision_Bucket === 'A3 均線回檔買點')}">${formatDist(item.Dist_EMA21)}</td>
                 <td class="dist-cell ${getDistColorClass(item.Dist_EMA50, item.Decision_Bucket === 'A3 均線回檔買點')}">${formatDist(item.Dist_EMA50)}</td>
+                <td class="dist-cell ${getDistColorClass(item.Dist_EMA200, false)}">${formatDist(item.Dist_EMA200)}</td>
                 <td><span class="rsi-badge ${getRsiClass(item.RSI)}">${item.RSI ? item.RSI.toFixed(1) : '-'}</span></td>
                 <td class="sector-cell">
                     <span>${item.Sector || '其他'}</span>
