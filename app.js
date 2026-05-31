@@ -2,9 +2,11 @@
 
 // ========== 全域變數定義 ==========
 let allData = [];
+let radarMetadata = null;
 let filteredData = [];
 let uniqueSectors = new Set();
 let uniquePhases = new Set();
+let uniqueSetups = new Set();
 
 // 分頁控制
 let currentPage = 1;
@@ -23,8 +25,10 @@ let currentEma50 = '';
 let currentEma200 = '';
 let currentRsMom = '';
 let currentResilience = '';
+let currentMlDirection = '';
 let currentBucket = 'all';
 let currentSort = 'score-desc';
+let currentSetup = '';
 
 // ========== 頁面載入初始化 ==========
 document.addEventListener('DOMContentLoaded', () => {
@@ -47,6 +51,7 @@ async function fetchData() {
             allData = await response.json();
         }
 
+        radarMetadata = await loadMetadata();
         filteredData = [...allData];
 
         // 提取所有不重複的板塊 (Sector)
@@ -57,28 +62,104 @@ async function fetchData() {
             if (item.TL_RS_Phase) {
                 uniquePhases.add(item.TL_RS_Phase);
             }
+            if (item.Setup_Type) {
+                uniqueSetups.add(item.Setup_Type);
+            }
         });
 
         // 初始化面板
         populateSectorDropdown();
         populatePhaseDropdown();
+        populateSetupDropdown();
         updateStats();
         renderData();
 
-        // 更新狀態時間為目前時間或檔案最後更新
-        document.getElementById('update-time').innerText = `最後更新: ${new Date().toLocaleTimeString()}`;
+        updateMetadataDisplay();
 
     } catch (error) {
         console.error('❌ 讀取資料失敗:', error);
         document.getElementById('table-body').innerHTML = `
             <tr>
-                <td colspan="15" class="loading-state" style="color: #f87171;">
+                <td colspan="16" class="loading-state" style="color: #f87171;">
                     <i data-lucide="alert-circle" style="width: 32px; height: 32px; margin: 0 auto 12px;"></i>
                     無法讀取資料檔案，請確認 scorev4.py 已執行並產生 JSON。
                 </td>
             </tr>
         `;
         lucide.createIcons();
+    }
+}
+
+async function loadMetadata() {
+    if (window.radarMetadata && typeof window.radarMetadata === 'object') {
+        return window.radarMetadata;
+    }
+
+    try {
+        const response = await fetch('score/sp500_leading_rs_radar_metadata.json');
+        if (!response.ok) return null;
+        return await response.json();
+    } catch (error) {
+        return null;
+    }
+}
+
+function formatMetadataDate(dateText) {
+    if (!dateText) return '-';
+    return String(dateText).slice(0, 10);
+}
+
+function updateMetadataDisplay() {
+    const updateTimeEl = document.getElementById('update-time');
+    const statDataDate = document.getElementById('stat-data-date');
+    const statScanCount = document.getElementById('stat-scan-count');
+    const statMarketRegime = document.getElementById('stat-market-regime');
+    const statMarketDetail = document.getElementById('stat-market-detail');
+    const marketCard = document.getElementById('market-regime-card');
+
+    if (!radarMetadata) {
+        if (updateTimeEl) updateTimeEl.innerText = `最後更新: ${new Date().toLocaleTimeString()}（未含metadata）`;
+        if (statDataDate) statDataDate.textContent = '-';
+        if (statScanCount) statScanCount.textContent = `候選 ${allData.length} 檔`;
+        if (statMarketRegime) statMarketRegime.textContent = '-';
+        if (statMarketDetail) statMarketDetail.textContent = '請重新執行 scorev4.py 產生 metadata';
+        return;
+    }
+
+    const lastDataDate = formatMetadataDate(radarMetadata.last_data_date);
+    const generatedAt = radarMetadata.generated_at || '';
+    const market = radarMetadata.market_regime || {};
+
+    if (updateTimeEl) {
+        updateTimeEl.innerText = `資料日期: ${lastDataDate}${generatedAt ? `｜產生: ${generatedAt}` : ''}`;
+    }
+    if (statDataDate) statDataDate.textContent = lastDataDate;
+    if (statScanCount) {
+        const total = radarMetadata.total_universe_count ?? '-';
+        const valid = radarMetadata.valid_scanned_count ?? '-';
+        const exported = radarMetadata.exported_candidate_count ?? allData.length;
+        statScanCount.textContent = `Universe ${total}｜有效 ${valid}｜候選 ${exported}`;
+    }
+    if (statMarketRegime) statMarketRegime.textContent = market.label || market.status || '-';
+    if (statMarketDetail) {
+        const parts = [];
+        if (market.benchmark_price !== undefined) parts.push(`${radarMetadata.benchmark_ticker || 'SPY'} ${market.benchmark_price}`);
+        if (market.benchmark_20d_return_pct !== undefined && market.benchmark_20d_return_pct !== null) parts.push(`20D ${market.benchmark_20d_return_pct}%`);
+        if (market.benchmark_50d_return_pct !== undefined && market.benchmark_50d_return_pct !== null) parts.push(`50D ${market.benchmark_50d_return_pct}%`);
+        if (radarMetadata.ml_direction?.status === 'trained') {
+            parts.push(`ML ${radarMetadata.ml_direction.horizon_days}D｜樣本 ${radarMetadata.ml_direction.train_samples}`);
+        }
+        statMarketDetail.textContent = parts.length ? parts.join('｜') : (market.description || '-');
+        const mlNote = radarMetadata.ml_direction?.status === 'trained'
+            ? `\nML升跌分類器：訓練準確率 ${(radarMetadata.ml_direction.train_accuracy * 100).toFixed(1)}%，基準升率 ${(radarMetadata.ml_direction.base_up_rate * 100).toFixed(1)}%。${radarMetadata.ml_direction.note || ''}`
+            : '';
+        if (market.description || mlNote) statMarketDetail.title = `${market.description || ''}${mlNote}`;
+    }
+    if (marketCard) {
+        marketCard.classList.remove('risk-on', 'risk-off', 'risk-neutral');
+        if (market.status === 'Risk-On') marketCard.classList.add('risk-on');
+        else if (market.status === 'Risk-Off') marketCard.classList.add('risk-off');
+        else if (market.status === 'Neutral') marketCard.classList.add('risk-neutral');
     }
 }
 
@@ -132,6 +213,28 @@ function populatePhaseDropdown() {
     }
 }
 
+function populateSetupDropdown() {
+    const dropdown = document.getElementById('setup-filter');
+    if (!dropdown) return;
+
+    const previousValue = currentSetup;
+    dropdown.innerHTML = '<option value="">Setup 型態 / VCP (All Setups)</option>';
+
+    Array.from(uniqueSetups)
+        .filter(Boolean)
+        .sort((a, b) => a.localeCompare(b, 'zh-Hant'))
+        .forEach(setup => {
+            const option = document.createElement('option');
+            option.value = setup;
+            option.textContent = setup;
+            dropdown.appendChild(option);
+        });
+
+    if (previousValue && uniqueSetups.has(previousValue)) {
+        dropdown.value = previousValue;
+    }
+}
+
 // ========== 計算與更新統計數字 ==========
 function updateStats() {
     // 1. 總掃描數
@@ -178,6 +281,9 @@ function syncDropdownsToState() {
     const stageFilter = document.getElementById('stage-filter');
     if (stageFilter) stageFilter.value = currentStage;
 
+    const setupFilter = document.getElementById('setup-filter');
+    if (setupFilter) setupFilter.value = currentSetup;
+
     const ema10Filter = document.getElementById('ema10-filter');
     if (ema10Filter) ema10Filter.value = currentEma10;
 
@@ -195,6 +301,11 @@ function syncDropdownsToState() {
 
     const resilienceFilter = document.getElementById('resilience-filter');
     if (resilienceFilter) resilienceFilter.value = currentResilience;
+
+    const mlDirectionFilter = document.getElementById('ml-direction-filter');
+    if (mlDirectionFilter) mlDirectionFilter.value = currentMlDirection;
+
+    const bucketTabs = document.querySelectorAll('.tab-btn');
 
     const sortSelect = document.getElementById('sort-select');
     if (sortSelect) sortSelect.value = currentSort;
@@ -226,8 +337,10 @@ function resetAllFilterStates(shouldRender = true) {
     currentEma200 = '';
     currentRsMom = '';
     currentResilience = '';
+    currentMlDirection = '';
     currentBucket = 'all';
     currentSort = 'score-desc';
+    currentSetup = '';
 
     if (shouldRender) {
         clearPresetActiveStyles();
@@ -362,6 +475,16 @@ function setupEventListeners() {
         applyFiltersAndRender();
     });
 
+    const setupFilter = document.getElementById('setup-filter');
+    if (setupFilter) {
+        setupFilter.addEventListener('change', (e) => {
+            currentSetup = e.target.value;
+            clearPresetActiveStyles();
+            currentPage = 1;
+            applyFiltersAndRender();
+        });
+    }
+
     // 趨勢篩選監聽
     document.getElementById('ema10-filter').addEventListener('change', (e) => {
         currentEma10 = e.target.value;
@@ -406,6 +529,17 @@ function setupEventListeners() {
         currentPage = 1;
         applyFiltersAndRender();
     });
+
+    // ML 升跌方向篩選監聽
+    const mlDirectionFilter = document.getElementById('ml-direction-filter');
+    if (mlDirectionFilter) {
+        mlDirectionFilter.addEventListener('change', (e) => {
+            currentMlDirection = e.target.value;
+            clearPresetActiveStyles();
+            currentPage = 1;
+            applyFiltersAndRender();
+        });
+    }
 
     // 排序篩選監聽
     document.getElementById('sort-select').addEventListener('change', (e) => {
@@ -625,24 +759,44 @@ function applyFiltersAndRender() {
         // RS Momentum 篩選匹配
         const matchRsMom = !currentRsMom || item.RS_Momentum === currentRsMom;
 
-        // 抗跌指數篩選匹配
+        // 抗跌指數篩選匹配：需對應 HTML option value
         let matchResilience = true;
         if (currentResilience) {
             const res = item.RS_Resiliency;
             if (res === null || res === undefined) {
                 matchResilience = false;
-            } else {
-                if (currentResilience === 'high') {
-                    matchResilience = res >= 70;
-                } else if (currentResilience === 'med') {
-                    matchResilience = res >= 50 && res < 70;
-                } else if (currentResilience === 'low') {
-                    matchResilience = res < 50;
-                }
+            } else if (currentResilience === 'very-strong') {
+                matchResilience = res >= 85;
+            } else if (currentResilience === 'strong') {
+                matchResilience = res >= 70 && res < 85;
+            } else if (currentResilience === 'neutral') {
+                matchResilience = res >= 55 && res < 70;
+            } else if (currentResilience === 'weak') {
+                matchResilience = res >= 40 && res < 55;
+            } else if (currentResilience === 'very-weak') {
+                matchResilience = res < 40;
             }
         }
 
-        return matchSearch && matchSector && matchMarketCap && matchRsi && matchPhase && matchStage && matchEma10 && matchEma21 && matchEma50 && matchEma200 && matchBucket && matchRsMom && matchResilience;
+        let matchMlDirection = true;
+        if (currentMlDirection) {
+            const prob = Number(item.ML_Up_Prob);
+            if (!Number.isFinite(prob)) {
+                matchMlDirection = false;
+            } else if (currentMlDirection === 'up') {
+                matchMlDirection = prob >= 55;
+            } else if (currentMlDirection === 'down') {
+                matchMlDirection = prob <= 45;
+            } else if (currentMlDirection === 'neutral') {
+                matchMlDirection = prob > 45 && prob < 55;
+            } else if (currentMlDirection === 'confident') {
+                matchMlDirection = Number(item.ML_Confidence) >= 20;
+            }
+        }
+
+        const matchSetup = !currentSetup || item.Setup_Type === currentSetup;
+
+        return matchSearch && matchSector && matchMarketCap && matchRsi && matchPhase && matchStage && matchEma10 && matchEma21 && matchEma50 && matchEma200 && matchBucket && matchRsMom && matchResilience && matchMlDirection && matchSetup;
     });
 
     // 2. 排序邏輯
@@ -652,6 +806,10 @@ function applyFiltersAndRender() {
                 return b.Leader_Radar_Score - a.Leader_Radar_Score;
             case 'score-asc':
                 return a.Leader_Radar_Score - b.Leader_Radar_Score;
+            case 'ml-up-desc':
+                return (b.ML_Up_Prob ?? -1) - (a.ML_Up_Prob ?? -1);
+            case 'ml-down-asc':
+                return (a.ML_Up_Prob ?? 101) - (b.ML_Up_Prob ?? 101);
             case 'resilience-desc':
                 return b.RS_Resiliency - a.RS_Resiliency;
             case 'dist10-asc':
@@ -720,6 +878,7 @@ function renderData() {
                 </td>
                 <td><span class="phase-badge">${item.TL_RS_Phase}</span></td>
                 <td><span class="phase-badge">${item.Market_Stage || (item.Stage2 ? '✅ Stage 2 上升趨勢' : '⚪ 非 Stage 2')}</span></td>
+                <td>${renderSetupBadge(item.Setup_Type)}</td>
                 <td>${renderRsMomBadge(item.RS_Momentum)}</td>
                 <td>${renderResilBadge(item.RS_Resiliency)}</td>
                 <td class="dist-cell ${getDistColorClass(item.Dist_EMA10, false)}">${formatDist(item.Dist_EMA10)}</td>
@@ -797,6 +956,17 @@ function renderRsMomBadge(mom) {
     return `<span class="rs-mom-badge ${className}">${mom}</span>`;
 }
 
+function renderMlDirectionBadge(direction, upProb, confidence) {
+    const prob = Number(upProb);
+    if (!Number.isFinite(prob)) return '<span class="ml-dir-badge neutral">資料不足</span>';
+    let className = 'neutral';
+    let label = direction || '⚪ 中性';
+    if (prob >= 55) className = 'up';
+    else if (prob <= 45) className = 'down';
+    const confText = Number.isFinite(Number(confidence)) ? `｜信心 ${Number(confidence).toFixed(0)}` : '';
+    return `<span class="ml-dir-badge ${className}" title="未來 ${radarMetadata?.ml_direction?.horizon_days || 5} 個交易日看升機率 ${prob.toFixed(1)}%；這是機率，不是保證。"><span>${label}</span><strong>${prob.toFixed(1)}%</strong><small>${confText}</small></span>`;
+}
+
 // 渲染抗跌指數徽章
 function renderResilBadge(resil) {
     if (resil === undefined || resil === null || Number.isNaN(Number(resil))) return '-';
@@ -845,5 +1015,11 @@ function formatMarketCap(cap) {
     if (cap >= 1e9) return `$${(cap / 1e9).toFixed(1)}B`;
     if (cap >= 1e6) return `$${(cap / 1e6).toFixed(1)}M`;
     return `$${cap.toLocaleString()}`;
+}
+
+function renderSetupBadge(setup) {
+    if (!setup) return '-';
+    const className = setup.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+    return `<span class="setup-badge ${className}">${setup}</span>`;
 }
 

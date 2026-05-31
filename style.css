@@ -1282,3 +1282,35 @@ select:focus {
     border-color: rgba(251, 113, 133, 0.62);
     box-shadow: 0 0 7px rgba(251, 113, 133, 0.45);
 }
+/* ========== Metadata / Market Regime cards ========== */
+.stat-icon.cyan {
+    background: rgba(0, 240, 255, 0.14);
+    color: var(--accent-cyan);
+}
+
+.stat-detail {
+    color: var(--text-secondary);
+    font-size: 0.74rem;
+    line-height: 1.35;
+    margin-top: 4px;
+}
+
+.guide-link {
+    text-decoration: none;
+    color: var(--accent-cyan);
+}
+
+.market-regime-card.risk-on {
+    border-color: rgba(16, 185, 129, 0.45);
+    box-shadow: 0 0 24px rgba(16, 185, 129, 0.08);
+}
+
+.market-regime-card.risk-neutral {
+    border-color: rgba(245, 158, 11, 0.45);
+    box-shadow: 0 0 24px rgba(245, 158, 11, 0.08);
+}
+
+.market-regime-card.risk-off {
+    border-color: rgba(244, 63, 94, 0.5);
+    box-shadow: 0 0 24px rgba(244, 63, 94, 0.10);
+}

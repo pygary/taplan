@@ -27,15 +27,16 @@
                         <i data-lucide="radar" class="icon-pulse"></i>
                     </div>
                     <div>
-                        <h1>SP500 領先強勢雷達 測試數據,不完整</h1>
+                        <h1>SP500 領先強勢雷達</h1>
                         <p class="subtitle">S&P 500 Vectorized Relative Strength Scanner</p>
                     </div>
                 </div>
                 <div class="header-actions">
-				                    <button class="guide-btn" id="">
+                    <a class="guide-btn guide-link" href="etf.html">
                         <i data-lucide="book-open"></i>
-						<a href="etf.html" style="color: #00f0ff;"> <span>ETF 板塊指南</span></a></button>
-				
+                        <span>ETF 板塊指南</span>
+                    </a>
+
                     <button class="guide-btn" id="open-guide-btn">
                         <i data-lucide="book-open"></i>
                         <span>策略選股指南</span>
@@ -84,6 +85,26 @@
                 <div class="stat-info">
                     <span class="stat-label">板塊共振強勢度 (90+)</span>
                     <h3 class="stat-value" id="stat-resonance">-</h3>
+                </div>
+            </div>
+            <div class="stat-card market-regime-card" id="market-regime-card">
+                <div class="stat-icon cyan">
+                    <i data-lucide="activity"></i>
+                </div>
+                <div class="stat-info">
+                    <span class="stat-label">大盤狀態</span>
+                    <h3 class="stat-value" id="stat-market-regime">-</h3>
+                    <span class="stat-detail" id="stat-market-detail">等待資料...</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon purple">
+                    <i data-lucide="database"></i>
+                </div>
+                <div class="stat-info">
+                    <span class="stat-label">資料日期 / 有效掃描</span>
+                    <h3 class="stat-value" id="stat-data-date">-</h3>
+                    <span class="stat-detail" id="stat-scan-count">-</span>
                 </div>
             </div>
         </section>
@@ -146,6 +167,18 @@
                         <option value="stage2">✅ Stage 2 上升趨勢</option>
                         <option value="stage2-extended">🔥 Stage 2 Extended</option>
                         <option value="non-stage2">⚪ 非 Stage 2</option>
+                    </select>
+                </div>
+
+                <div class="select-wrapper">
+                    <i data-lucide="zap" class="select-icon"></i>
+                    <select id="setup-filter">
+                        <option value="">所有型態 / VCP (All Setups)</option>
+                        <option value="VCP">VCP</option>
+                        <option value="PocketPivot">PocketPivot</option>
+                        <option value="TightFlag">TightFlag</option>
+                        <option value="EMAPullback">EMAPullback</option>
+                        <option value="GapExpansion">GapExpansion</option>
                     </select>
                 </div>
 
@@ -271,6 +304,7 @@
                             <th>雷達綜合分數</th>
                             <th>相對強弱狀態</th>
                             <th>Stage</th>
+                            <th>Setup 型態</th>
                             <th>RS 加速 (Mom)</th>
                             <th>抗跌強度</th>
                             <th>EMA10 偏離</th>
@@ -284,7 +318,7 @@
                     </thead>
                     <tbody id="table-body">
                         <tr>
-                            <td colspan="15" class="loading-state">
+                            <td colspan="16" class="loading-state">
                                 <div class="spinner"></div>
                                 <span>載入數據中，請稍候...</span>
                             </td>
