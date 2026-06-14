@@ -147,6 +147,17 @@
                 </div>
 
                 <div class="select-wrapper">
+                    <i data-lucide="trending-up" class="select-icon"></i>
+                    <select id="ytd-filter">
+                        <option value="">所有 YTD (All YTD)</option>
+                        <option value="very-strong">極強 YTD (≥ 30%)</option>
+                        <option value="strong">強勢 YTD (15% - 30%)</option>
+                        <option value="moderate">穩健 YTD (0% - 15%)</option>
+                        <option value="negative">負值 YTD (< 0%)</option>
+                    </select>
+                </div>
+
+                <div class="select-wrapper">
                     <i data-lucide="compass" class="select-icon"></i>
                     <select id="phase-filter">
                         <option value="">所有強弱狀態 (All Phases)</option>
@@ -246,6 +257,8 @@
                         <option value="score-desc">依雷達分數 (高到低)</option>
                         <option value="score-asc">依雷達分數 (低到高)</option>
                         <option value="resilience-desc">依抗跌強度 (高到低)</option>
+                        <option value="ytd-desc">依 YTD 報酬率 (高到低)</option>
+                        <option value="ytd-asc">依 YTD 報酬率 (低到高)</option>
                         <option value="dist10-asc">回檔 EMA10 距離 (近到遠)</option>
                         <option value="dist21-asc">回檔 EMA21 距離 (近到遠)</option>
                         <option value="dist50-asc">回檔 EMA50 距離 (近到遠)</option>
@@ -282,12 +295,9 @@
                     <button class="preset-btn" data-strategy="1" title="強勢領先突破流">📈 強勢領先突破流 (Breakout Buyer)</button>
                     <button class="preset-btn" data-strategy="2" title="極致黃金回檔流">📥 極致黃金回檔流 (Buy the Dip)</button>
                     <button class="preset-btn" data-strategy="3" title="巨頭機構抱團流">🏛️ 巨頭機構抱團流 (Trend Following)</button>
-                    <button class="preset-btn" data-strategy="4" title="強勢股「錯殺超跌」反彈流">🛡️ 強勢股「錯殺超跌」反彈流 (Mean
-                        Reversion)</button>
-                    <button class="preset-btn" data-strategy="5" title="空頭避險 / 放空流">📉 空頭避險 / 放空流 (Short /
-                        Hedging)</button>
-                    <button class="preset-btn reset-btn" id="reset-filters-btn" title="重置所有過濾條件"><i
-                            data-lucide="rotate-ccw"></i> 重置</button>
+                    <button class="preset-btn" data-strategy="4" title="強勢股「錯殺超跌」反彈流">🛡️ 強勢股「錯殺超跌」反彈流 (Mean Reversion)</button>
+                    <button class="preset-btn" data-strategy="5" title="空頭避險 / 放空流">📉 空頭避險 / 放空流 (Short / Hedging)</button>
+                    <button class="preset-btn reset-btn" id="reset-filters-btn" title="重置所有過濾條件"><i data-lucide="rotate-ccw"></i> 重置</button>
                 </div>
             </div>
         </section>
@@ -297,28 +307,29 @@
             <div class="table-wrapper">
                 <table class="radar-table" id="data-table">
                     <thead>
-                        <tr>
-                            <th>代號 (Ticker)</th>
-                            <th>價格 (Price)</th>
-                            <th>決策分級</th>
-                            <th>雷達綜合分數</th>
-                            <th>相對強弱狀態</th>
-                            <th>Stage</th>
-                            <th>Setup 型態</th>
-                            <th>RS 加速 (Mom)</th>
-                            <th>抗跌強度</th>
-                            <th>EMA10 偏離</th>
-                            <th>EMA21 偏離</th>
-                            <th>EMA50 偏離</th>
-                            <th>EMA200 偏離</th>
-                            <th>RSI (14)</th>
-                            <th>板塊/行業</th>
-                            <th>市值 (MarketCap)</th>
+                        <tr id="sort-header-row">
+                            <th class="sortable-th" data-col="ticker">代號 (Ticker)</th>
+                            <th class="sortable-th" data-col="price">價格 (Price)</th>
+                            <th class="sortable-th" data-col="ytd">YTD 報酬率</th>
+                            <th class="sortable-th" data-col="bucket">決策分級</th>
+                            <th class="sortable-th" data-col="score">雷達綜合分數</th>
+                            <th class="sortable-th" data-col="phase">相對強弱狀態</th>
+                            <th class="sortable-th" data-col="stage">Stage</th>
+                            <th class="sortable-th" data-col="setup">Setup 型態</th>
+                            <th class="sortable-th" data-col="rs-mom">RS 加速 (Mom)</th>
+                            <th class="sortable-th" data-col="resilience">抗跌強度</th>
+                            <th class="sortable-th" data-col="dist10">EMA10 偏離</th>
+                            <th class="sortable-th" data-col="dist21">EMA21 偏離</th>
+                            <th class="sortable-th" data-col="dist50">EMA50 偏離</th>
+                            <th class="sortable-th" data-col="dist200">EMA200 偏離</th>
+                            <th class="sortable-th" data-col="rsi">RSI (14)</th>
+                            <th class="sortable-th" data-col="sector">板塊/行業</th>
+                            <th class="sortable-th" data-col="marketcap">市值 (MarketCap)</th>
                         </tr>
                     </thead>
                     <tbody id="table-body">
                         <tr>
-                            <td colspan="16" class="loading-state">
+                            <td colspan="17" class="loading-state">
                                 <div class="spinner"></div>
                                 <span>載入數據中，請稍候...</span>
                             </td>
@@ -453,8 +464,6 @@
 
     <script src="score/sp500_leading_rs_radar_vectorized.js"></script>
     <script src="app.js"></script>
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ==" data-cf-beacon='{"version":"2024.11.0","token":"f7a3268ea56841db8cf028773ac41ab7","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ==" data-cf-beacon='{"version":"2024.11.0","token":"f7a3268ea56841db8cf028773ac41ab7","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 </body>
 
 </html>
