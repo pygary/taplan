@@ -28,7 +28,6 @@
                     </div>
                     <div>
                         <h1>SP500 領先強勢雷達</h1>
-                        <p class="subtitle">S&P 500 Vectorized Relative Strength Scanner</p>
                     </div>
                 </div>
                 <div class="header-actions">
@@ -37,10 +36,6 @@
                         <span>ETF 板塊指南</span>
                     </a>
 
-                    <button class="guide-btn" id="open-guide-btn">
-                        <i data-lucide="book-open"></i>
-                        <span>策略選股指南</span>
-                    </button>
                     <div class="status-indicator">
                         <span class="pulse-dot"></span>
                         <span id="update-time">資料載入中...</span>
@@ -58,53 +53,6 @@
                 <div class="stat-info">
                     <span class="stat-label">掃描股票總數</span>
                     <h3 class="stat-value" id="stat-total">-</h3>
-                </div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon green">
-                    <i data-lucide="crown"></i>
-                </div>
-                <div class="stat-info">
-                    <span class="stat-label">A1 核心領先股</span>
-                    <h3 class="stat-value" id="stat-a1">-</h3>
-                </div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon blue">
-                    <i data-lucide="target"></i>
-                </div>
-                <div class="stat-info">
-                    <span class="stat-label">A3 均線回檔買點</span>
-                    <h3 class="stat-value" id="stat-pullback">-</h3>
-                </div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon yellow">
-                    <i data-lucide="award"></i>
-                </div>
-                <div class="stat-info">
-                    <span class="stat-label">板塊共振強勢度 (90+)</span>
-                    <h3 class="stat-value" id="stat-resonance">-</h3>
-                </div>
-            </div>
-            <div class="stat-card market-regime-card" id="market-regime-card">
-                <div class="stat-icon cyan">
-                    <i data-lucide="activity"></i>
-                </div>
-                <div class="stat-info">
-                    <span class="stat-label">大盤狀態</span>
-                    <h3 class="stat-value" id="stat-market-regime">-</h3>
-                    <span class="stat-detail" id="stat-market-detail">等待資料...</span>
-                </div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon purple">
-                    <i data-lucide="database"></i>
-                </div>
-                <div class="stat-info">
-                    <span class="stat-label">資料日期 / 有效掃描</span>
-                    <h3 class="stat-value" id="stat-data-date">-</h3>
-                    <span class="stat-detail" id="stat-scan-count">-</span>
                 </div>
             </div>
         </section>
@@ -170,48 +118,12 @@
                 </div>
 
                 <div class="select-wrapper">
-                    <i data-lucide="layers" class="select-icon"></i>
-                    <select id="stage-filter">
-                        <option value="">所有階段 (All Stages)</option>
-                        <option value="stage2-action">🟢 Stage 2 Action Zone</option>
-                        <option value="stage2-early">🟢 Stage 2 Early</option>
-                        <option value="stage2">✅ Stage 2 上升趨勢</option>
-                        <option value="stage2-extended">🔥 Stage 2 Extended</option>
-                        <option value="non-stage2">⚪ 非 Stage 2</option>
-                    </select>
-                </div>
-
-                <div class="select-wrapper">
-                    <i data-lucide="zap" class="select-icon"></i>
-                    <select id="setup-filter">
-                        <option value="">所有型態 / VCP (All Setups)</option>
-                        <option value="VCP">VCP</option>
-                        <option value="PocketPivot">PocketPivot</option>
-                        <option value="TightFlag">TightFlag</option>
-                        <option value="EMAPullback">EMAPullback</option>
-                        <option value="GapExpansion">GapExpansion</option>
-                    </select>
-                </div>
-
-                <div class="select-wrapper">
                     <i data-lucide="zap" class="select-icon"></i>
                     <select id="rs-mom-filter">
                         <option value="">所有 RS 加速 (All Mom)</option>
                         <option value="🚀 交叉啟動">🚀 交叉啟動 (Crossover)</option>
                         <option value="📈 加速中">📈 加速中 (Accelerating)</option>
                         <option value="⚪ 整理中">⚪ 整理中 (Consolidating)</option>
-                    </select>
-                </div>
-
-                <div class="select-wrapper">
-                    <i data-lucide="shield" class="select-icon"></i>
-                    <select id="resilience-filter">
-                        <option value="">所有抗跌強度 (All Resilience)</option>
-                        <option value="very-strong">極強抗跌</option>
-                        <option value="strong">明顯抗跌</option>
-                        <option value="neutral">中性</option>
-                        <option value="weak">偏弱</option>
-                        <option value="very-weak">弱抗跌</option>
                     </select>
                 </div>
 
@@ -256,7 +168,6 @@
                     <select id="sort-select">
                         <option value="score-desc">依雷達分數 (高到低)</option>
                         <option value="score-asc">依雷達分數 (低到高)</option>
-                        <option value="resilience-desc">依抗跌強度 (高到低)</option>
                         <option value="ytd-desc">依 YTD 報酬率 (高到低)</option>
                         <option value="ytd-asc">依 YTD 報酬率 (低到高)</option>
                         <option value="dist10-asc">回檔 EMA10 距離 (近到遠)</option>
@@ -267,29 +178,6 @@
                 </div>
             </div>
 
-            <!-- Tabs & Strategy Presets -->
-            <div class="tabs-and-presets-container">
-                <!-- Bucket Tabs -->
-                <div class="bucket-tabs" id="bucket-filters">
-                    <button class="tab-btn active" data-bucket="all">全部標的</button>
-                    <button class="tab-btn" data-bucket="A1 核心領先股">
-                        <span class="dot a1"></span> A1 核心領先
-                    </button>
-                    <button class="tab-btn" data-bucket="A2 RS突破候選">
-                        <span class="dot a2"></span> A2 突破候選
-                    </button>
-                    <button class="tab-btn" data-bucket="A3 均線回檔買點">
-                        <span class="dot a3"></span> A3 均線回檔
-                    </button>
-                    <button class="tab-btn" data-bucket="B 穩定領先股">
-                        <span class="dot b"></span> B 穩定領先
-                    </button>
-                    <button class="tab-btn" data-bucket="C 強勢回檔觀察">
-                        <span class="dot c"></span> C 回檔觀察
-                    </button>
-                </div>
-
-            </div>
         </section>
 
         <!-- Main Data View -->
@@ -301,13 +189,9 @@
                             <th class="sortable-th" data-col="ticker">代號 (Ticker)</th>
                             <th class="sortable-th" data-col="price">價格 (Price)</th>
                             <th class="sortable-th" data-col="ytd">YTD 報酬率</th>
-                            <th class="sortable-th" data-col="bucket">決策分級</th>
                             <th class="sortable-th" data-col="score">雷達綜合分數</th>
                             <th class="sortable-th" data-col="phase">相對強弱狀態</th>
-                            <th class="sortable-th" data-col="stage">Stage</th>
-                            <th class="sortable-th" data-col="setup">Setup 型態</th>
                             <th class="sortable-th" data-col="rs-mom">RS 加速 (Mom)</th>
-                            <th class="sortable-th" data-col="resilience">抗跌強度</th>
                             <th class="sortable-th" data-col="dist10">EMA10 偏離</th>
                             <th class="sortable-th" data-col="dist21">EMA21 偏離</th>
                             <th class="sortable-th" data-col="dist50">EMA50 偏離</th>
@@ -319,7 +203,7 @@
                     </thead>
                     <tbody id="table-body">
                         <tr>
-                            <td colspan="17" class="loading-state">
+                            <td colspan="14" class="loading-state">
                                 <div class="spinner"></div>
                                 <span>載入數據中，請稍候...</span>
                             </td>
@@ -350,110 +234,570 @@
         </main>
     </div>
 
-
-    <!-- Strategy Guide Modal -->
-    <div class="modal-overlay hidden" id="guide-modal">
-        <div class="modal-card">
-            <header class="modal-header">
-                <div class="modal-title-area">
-                    <i data-lucide="book-open" class="modal-title-icon"></i>
-                    <h2>五大經典交易策略選股指南</h2>
-                </div>
-                <button class="modal-close-btn" id="close-guide-btn">
-                    <i data-lucide="x"></i>
-                </button>
-            </header>
-            <div class="modal-body">
-                <div class="strategy-list">
-                    <!-- Strategy 1 -->
-                    <div class="strategy-item">
-                        <div class="strategy-badge s1">📈 策略 1</div>
-                        <h3>強勢領先突破流 (Breakout Buyer)</h3>
-                        <p class="desc">尋找在整體市場中相對強度最高、正值爆發性突破的超級強勢股。這些標的通常在長中期均線之上，並展現出超越大盤的強烈突破動能。</p>
-                        <div class="setup-box">
-                            <span class="setup-title"><i data-lucide="sliders"></i> 推薦參數設定：</span>
-                            <ul class="setup-params">
-                                <li><strong>相對強弱狀態：</strong> 🏆 領先突破(RSNHBP)</li>
-                                <li><strong>EMA21 偏離：</strong> Price > EMA21</li>
-                                <li><strong>EMA50 偏離：</strong> Price > EMA50</li>
-                                <li><strong>RSI (14)：</strong> 超買 (≥ 70) 或 強勢 (50 - 70)</li>
-                                <li><strong>排序方式：</strong> 依雷達分數 (高到低)</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <!-- Strategy 2 -->
-                    <div class="strategy-item">
-                        <div class="strategy-badge s2">📥 策略 2</div>
-                        <h3>極致黃金回檔流 (Buy the Dip)</h3>
-                        <p class="desc">尋找「超級強勢股短線拉回至關鍵均線」的低風險高勝率買點。這類股票在雷達分數中評分極高，但因為近期回檔，價格極度貼近 EMA21 或 EMA50
-                            均線，是絕佳的「均線支撐測試」機會。</p>
-                        <div class="setup-box">
-                            <span class="setup-title"><i data-lucide="sliders"></i> 推薦參數設定：</span>
-                            <ul class="setup-params">
-                                <li><strong>決策分級頁籤：</strong> A3 均線回檔</li>
-                                <li><strong>相對強弱狀態：</strong> 🎯 均線量縮回檔</li>
-                                <li><strong>EMA21 偏離：</strong> Price > EMA21</li>
-                                <li><strong>EMA50 偏離：</strong> Price > EMA50</li>
-                                <li><strong>排序方式：</strong> 回檔 EMA21 距離 (近到遠) 或 回檔 EMA50 距離 (近到遠)</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <!-- Strategy 3 -->
-                    <div class="strategy-item">
-                        <div class="strategy-badge s3">🏛️ 策略 3</div>
-                        <h3>巨頭機構抱團流 (Trend Following)</h3>
-                        <p class="desc">尋找機構資金長期鎖定、只漲不跌的超級權值龍頭大股。這些股往往市值巨大，雷達綜合分數名列前茅，且三條均線呈現完美的多頭排列。</p>
-                        <div class="setup-box">
-                            <span class="setup-title"><i data-lucide="sliders"></i> 推薦參數設定：</span>
-                            <ul class="setup-params">
-                                <li><strong>決策分級頁籤：</strong> A1 核心領先</li>
-                                <li><strong>市值篩選：</strong> 超大型股 Mega (≥ $200B) 或 大型股 Large</li>
-                                <li><strong>EMA 偏離：</strong> Price > EMA10、EMA21、EMA50 三項全選</li>
-                                <li><strong>排序方式：</strong> 依雷達分數 (高到低)</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <!-- Strategy 4 -->
-                    <div class="strategy-item">
-                        <div class="strategy-badge s4">🛡️ 策略 4</div>
-                        <h3>強勢股「錯殺超跌」反彈流 (Mean Reversion)</h3>
-                        <p class="desc">尋找原本底層基因良好（雷達分數高）的優質強勢股，但因為大盤恐慌性拋售導致 RSI 進入超賣區（≤30），且價格嚴重偏離 EMA 均線，存在強烈的反彈需求。
-                        </p>
-                        <div class="setup-box">
-                            <span class="setup-title"><i data-lucide="sliders"></i> 推薦參數設定：</span>
-                            <ul class="setup-params">
-                                <li><strong>RSI (14)：</strong> 超賣 Oversold (≤ 30)</li>
-                                <li><strong>EMA10/21 偏離：</strong> Price < EMA10 且 Price < EMA21</li>
-                                <li><strong>排序方式：</strong> 依雷達分數 (高到低) (保證底層品質)</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <!-- Strategy 5 -->
-                    <div class="strategy-item">
-                        <div class="strategy-badge s5">📉 策略 5</div>
-                        <h3>空頭避險 / 放空流 (Short / Hedging)</h3>
-                        <p class="desc">在大盤轉弱或處於熊市時，尋找跌破所有均線、動能消失且相對強度評級極低的弱勢股，進行放空或對沖持倉風險。</p>
-                        <div class="setup-box">
-                            <span class="setup-title"><i data-lucide="sliders"></i> 推薦參數設定：</span>
-                            <ul class="setup-params">
-                                <li><strong>相對強弱狀態：</strong> ⚪ 中性</li>
-                                <li><strong>EMA 偏離：</strong> Price < EMA10、EMA21、EMA50 三項全選</li>
-                                <li><strong>RSI (14)：</strong> 弱勢 (30-50) 或 超賣 (≤ 30)</li>
-                                <li><strong>排序方式：</strong> 依雷達分數 (低到高)</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
+    <!-- 引入數據資料檔案 -->
     <script src="score/sp500_leading_rs_radar_vectorized.js"></script>
-    <script src="app.js"></script>
+    <script>
+        /** 預設過濾狀態集中管理 */
+        const DEFAULT_FILTERS = {
+            search: '',
+            sector: '',
+            marketCap: '',
+            rsi: '',
+            ytd: '',
+            ema10: '',
+            ema21: '',
+            ema50: '',
+            ema200: '',
+            rsMom: '',
+            sort: 'score-desc'
+        };
+
+        /** RS Momentum 徽章配置 */
+        const RS_MOM_BADGE_CONFIG = {
+            '🚀 交叉啟動': 'crossover',
+            '📈 加速中': 'accelerating',
+            '⚪ 整理中': 'stable'
+        };
+
+        /** 表格排序列配置 (已移除 Setup & Stage) */
+        const TABLE_SORT_COLUMNS = {
+            ticker: { label: '代號', type: 'text', defaultDir: 'asc', value: item => item.Ticker },
+            price: { label: '價格', type: 'number', defaultDir: 'desc', value: item => item.Price },
+            ytd: { label: 'YTD', type: 'number', defaultDir: 'desc', value: item => item.YTD },
+            score: { label: '雷達分數', type: 'number', defaultDir: 'desc', value: item => item.Leader_Radar_Score },
+            phase: { label: '相對強弱狀態', type: 'text', defaultDir: 'asc', value: item => item.TL_RS_Phase },
+            'rs-mom': { label: 'RS 加速', type: 'number', defaultDir: 'asc', value: item => rsMomSortRank(item.RS_Momentum) },
+            dist10: { label: 'EMA10 偏離', type: 'number', defaultDir: 'desc', value: item => item.Dist_EMA10 },
+            dist21: { label: 'EMA21 偏離', type: 'number', defaultDir: 'desc', value: item => item.Dist_EMA21 },
+            dist50: { label: 'EMA50 偏離', type: 'number', defaultDir: 'desc', value: item => item.Dist_EMA50 },
+            dist200: { label: 'EMA200 偏離', type: 'number', defaultDir: 'desc', value: item => item.Dist_EMA200 },
+            rsi: { label: 'RSI', type: 'number', defaultDir: 'desc', value: item => item.RSI },
+            sector: { label: '板塊/行業', type: 'text', defaultDir: 'asc', value: item => `${item.Sector || ''} ${item.Industry || ''}`.trim() },
+            marketcap: { label: '市值', type: 'number', defaultDir: 'desc', value: item => item.MarketCap }
+        };
+
+        // ========== 全域變數 ==========
+        let allData = [];
+        let filteredData = [];
+        let uniqueSectors = new Set();
+        let uniquePhases = new Set();
+
+        // 分頁控制
+        let currentPage = 1;
+        const ITEMS_PER_PAGE = 30;
+
+        // 當前過濾狀態
+        let currentFilters = { ...DEFAULT_FILTERS };
+
+        // ========== 輔助函式：排序排名計算 ==========
+        function rsMomSortRank(momentum) {
+            const rankMap = {
+                '🚀 交叉啟動': 1,
+                '📈 加速中': 2,
+                '⚪ 整理中': 3
+            };
+            return rankMap[momentum] ?? 9;
+        }
+
+        // ========== 格式化函式集合 ==========
+        function formatPrice(price, changePct) {
+            if (price === undefined || price === null) return '-';
+            const priceFormatted = price.toFixed(2);
+            if (changePct === undefined || changePct === null) return `$${priceFormatted}`;
+            
+            const arrow = changePct > 0 ? '▲' : (changePct < 0 ? '▼' : '');
+            const color = changePct > 0 ? '#00c853' : (changePct < 0 ? '#ff4d4d' : '#888');
+            const changeAbs = Math.abs(changePct).toFixed(2);
+            const sign = changePct > 0 ? '+' : '';
+            return `<span style="color: ${color};">${arrow} $${priceFormatted} (${sign}${changeAbs}%)</span>`;
+        }
+
+        function formatYtd(ytd) {
+            if (ytd === undefined || ytd === null || Number.isNaN(Number(ytd))) return '-';
+            const sign = ytd > 0 ? '+' : '';
+            return `${sign}${ytd.toFixed(1)}%`;
+        }
+
+        function formatDist(dist) {
+            if (dist === undefined || dist === null) return '-';
+            const sign = dist >= 0 ? '+' : '';
+            return `${sign}${dist.toFixed(2)}%`;
+        }
+
+        function formatMarketCap(cap) {
+            if (cap === undefined || cap === null || cap === 0) return '-';
+            if (cap >= 1e12) return `$${(cap / 1e12).toFixed(2)}T`;
+            if (cap >= 1e9) return `$${(cap / 1e9).toFixed(1)}B`;
+            if (cap >= 1e6) return `$${(cap / 1e6).toFixed(1)}M`;
+            return `$${cap.toLocaleString()}`;
+        }
+
+        // ========== 分類函式集合 ==========
+        function getDistColorClass(dist, isPullback) {
+            if (dist === undefined || dist === null) return '';
+            if (isPullback && dist >= -1.0 && dist <= 3.0) return 'pullback';
+            return dist >= 0 ? 'positive' : 'negative';
+        }
+
+        function getRsiClass(rsi) {
+            if (rsi === undefined || rsi === null) return 'normal';
+            if (rsi >= 70) return 'overbought';
+            if (rsi <= 30) return 'oversold';
+            return 'normal';
+        }
+
+        function getYtdColorClass(ytd) {
+            if (ytd === undefined || ytd === null) return '';
+            return ytd > 0 ? 'positive' : (ytd < 0 ? 'negative' : '');
+        }
+
+        function renderRsMomBadge(mom) {
+            if (!mom) return '-';
+            const className = RS_MOM_BADGE_CONFIG[mom] || 'stable';
+            return `<span class="rs-mom-badge ${className}">${mom}</span>`;
+        }
+
+        // ========== 排序邏輯 ==========
+        function parseHeaderSort(sortValue = currentFilters.sort) {
+            const match = String(sortValue).match(/^header:([^:]+):(asc|desc)$/);
+            if (match && TABLE_SORT_COLUMNS[match[1]]) {
+                return { col: match[1], dir: match[2] };
+            }
+
+            const legacyMap = {
+                'score-desc': { col: 'score', dir: 'desc' },
+                'score-asc': { col: 'score', dir: 'asc' },
+                'ytd-desc': { col: 'ytd', dir: 'desc' },
+                'ytd-asc': { col: 'ytd', dir: 'asc' }
+            };
+            return legacyMap[sortValue] || null;
+        }
+
+        function compareSortValues(aValue, bValue, type, direction) {
+            const dir = direction === 'desc' ? -1 : 1;
+            const aEmpty = aValue === undefined || aValue === null || aValue === '' || Number.isNaN(aValue);
+            const bEmpty = bValue === undefined || bValue === null || bValue === '' || Number.isNaN(bValue);
+
+            if (aEmpty && bEmpty) return 0;
+            if (aEmpty) return 1;
+            if (bEmpty) return -1;
+
+            if (type === 'number') {
+                const aNum = Number(aValue);
+                const bNum = Number(bValue);
+                const aInvalid = !Number.isFinite(aNum);
+                const bInvalid = !Number.isFinite(bNum);
+                if (aInvalid && bInvalid) return 0;
+                if (aInvalid) return 1;
+                if (bInvalid) return -1;
+                return (aNum - bNum) * dir;
+            }
+
+            return String(aValue).localeCompare(String(bValue), 'zh-Hant', { numeric: true, sensitivity: 'base' }) * dir;
+        }
+
+        function compareByHeaderSort(a, b, col, direction) {
+            const config = TABLE_SORT_COLUMNS[col];
+            if (!config) return 0;
+            const result = compareSortValues(config.value(a), config.value(b), config.type, direction);
+            if (result !== 0) return result;
+            return String(a.Ticker || '').localeCompare(String(b.Ticker || ''), 'en', { numeric: true, sensitivity: 'base' });
+        }
+
+        function compareByCurrentSort(a, b) {
+            const headerSort = parseHeaderSort(currentFilters.sort);
+            if (String(currentFilters.sort).startsWith('header:') && headerSort) {
+                return compareByHeaderSort(a, b, headerSort.col, headerSort.dir);
+            }
+
+            switch (currentFilters.sort) {
+                case 'score-desc':
+                    return compareByHeaderSort(a, b, 'score', 'desc');
+                case 'score-asc':
+                    return compareByHeaderSort(a, b, 'score', 'asc');
+                case 'ytd-desc':
+                    return compareByHeaderSort(a, b, 'ytd', 'desc');
+                case 'ytd-asc':
+                    return compareByHeaderSort(a, b, 'ytd', 'asc');
+                case 'dist10-asc':
+                    return Math.abs(a.Dist_EMA10 ?? 999) - Math.abs(b.Dist_EMA10 ?? 999);
+                case 'dist21-asc':
+                    return Math.abs(a.Dist_EMA21 ?? 999) - Math.abs(b.Dist_EMA21 ?? 999);
+                case 'dist50-asc':
+                    return Math.abs(a.Dist_EMA50 ?? 999) - Math.abs(b.Dist_EMA50 ?? 999);
+                case 'dist200-asc':
+                    return Math.abs(a.Dist_EMA200 ?? 999) - Math.abs(b.Dist_EMA200 ?? 999);
+                default:
+                    return 0;
+            }
+        }
+
+        function updateSortSelectForCurrentSort() {
+            const sortSelect = document.getElementById('sort-select');
+            if (!sortSelect) return;
+
+            const headerSort = String(currentFilters.sort).startsWith('header:') ? parseHeaderSort(currentFilters.sort) : null;
+            const headerOptionValue = '__header-sort__';
+            let headerOption = sortSelect.querySelector(`option[value="${headerOptionValue}"]`);
+
+            if (headerSort) {
+                if (!headerOption) {
+                    headerOption = document.createElement('option');
+                    headerOption.value = headerOptionValue;
+                    headerOption.disabled = true;
+                    sortSelect.prepend(headerOption);
+                }
+                const directionLabel = headerSort.dir === 'asc' ? '低到高 / A→Z' : '高到低 / Z→A';
+                headerOption.textContent = `表頭排序：${TABLE_SORT_COLUMNS[headerSort.col].label}（${directionLabel}）`;
+                sortSelect.value = headerOptionValue;
+            } else {
+                if (headerOption) headerOption.remove();
+                sortSelect.value = currentFilters.sort;
+            }
+        }
+
+        function updateSortHeaderIndicators() {
+            updateSortSelectForCurrentSort();
+            const headerSort = parseHeaderSort(currentFilters.sort);
+            document.querySelectorAll('#sort-header-row .sortable-th').forEach(th => {
+                const isActive = headerSort && th.dataset.col === headerSort.col;
+                th.classList.toggle('sorted-asc', Boolean(isActive && headerSort.dir === 'asc'));
+                th.classList.toggle('sorted-desc', Boolean(isActive && headerSort.dir === 'desc'));
+                th.setAttribute('aria-sort', isActive ? (headerSort.dir === 'asc' ? 'ascending' : 'descending') : 'none');
+                th.setAttribute('tabindex', '0');
+                th.setAttribute('title', '點擊切換升序 / 降序排序');
+            });
+        }
+
+        function sortByTableHeader(th) {
+            const col = th?.dataset?.col;
+            const config = TABLE_SORT_COLUMNS[col];
+            if (!config) return;
+
+            const activeSort = parseHeaderSort(currentFilters.sort);
+            const nextDir = activeSort && activeSort.col === col
+                ? (activeSort.dir === 'asc' ? 'desc' : 'asc')
+                : config.defaultDir;
+
+            currentFilters.sort = `header:${col}:${nextDir}`;
+            currentPage = 1;
+            applyFiltersAndRender();
+        }
+
+        // ========== 資料載入與初始化 ==========
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchData();
+            setupEventListeners();
+        });
+
+        async function fetchData() {
+            try {
+                if (window.radarData && Array.isArray(window.radarData) && window.radarData.length > 0) {
+                    allData = window.radarData;
+                } else {
+                    const response = await fetch('score/sp500_leading_rs_radar_vectorized.json');
+                    if (!response.ok) {
+                        throw new Error(`HTTP 錯誤! 狀態碼: ${response.status}`);
+                    }
+                    allData = await response.json();
+                }
+
+                allData.forEach(item => {
+                    if (item.Sector && item.Sector !== '其他') uniqueSectors.add(item.Sector);
+                    if (item.TL_RS_Phase) uniquePhases.add(item.TL_RS_Phase);
+                });
+
+                populateSectorDropdown();
+                populatePhaseDropdown();
+                updateStats();
+                applyFiltersAndRender();
+                updateUpdateTime();
+
+                if (window.lucide) {
+                    lucide.createIcons();
+                }
+
+            } catch (error) {
+                console.error('❌ 讀取資料失敗:', error);
+                document.getElementById('table-body').innerHTML = `
+                    <tr>
+                        <td colspan="14" class="loading-state" style="color: #f87171;">
+                            <i data-lucide="alert-circle" style="width: 32px; height: 32px; margin: 0 auto 12px;"></i>
+                            無法讀取資料檔案，請確認 Python 腳本已執行並產生 JSON。
+                        </td>
+                    </tr>
+                `;
+                if (window.lucide) lucide.createIcons();
+            }
+        }
+
+        function updateUpdateTime() {
+            const updateTimeEl = document.getElementById('update-time');
+            if (updateTimeEl) {
+                updateTimeEl.innerText = `資料載入完成: ${new Date().toLocaleString()}`;
+            }
+        }
+
+        function updateStats() {
+            document.getElementById('stat-total').textContent = allData.length;
+        }
+
+        // ========== UI 填充 ==========
+        function populateSectorDropdown() {
+            const dropdown = document.getElementById('sector-filter');
+            if (!dropdown) return;
+            dropdown.innerHTML = '<option value="">所有板塊 (All Sectors)</option>';
+            Array.from(uniqueSectors).sort().forEach(sector => {
+                const option = document.createElement('option');
+                option.value = sector;
+                option.textContent = sector;
+                dropdown.appendChild(option);
+            });
+        }
+
+        function populatePhaseDropdown() {
+            const dropdown = document.getElementById('phase-filter');
+            if (!dropdown) return;
+            const previousValue = currentFilters.phase;
+            dropdown.innerHTML = '<option value="">所有強弱狀態 (All Phases)</option>';
+
+            Array.from(uniquePhases)
+                .filter(Boolean)
+                .sort((a, b) => a.localeCompare(b, 'zh-Hant'))
+                .forEach(phase => {
+                    const option = document.createElement('option');
+                    option.value = phase;
+                    option.textContent = phase;
+                    dropdown.appendChild(option);
+                });
+
+            if (previousValue && uniquePhases.has(previousValue)) {
+                dropdown.value = previousValue;
+            }
+        }
+
+        // ========== 過濾與渲染核心 ==========
+        function applyFiltersAndRender() {
+            filteredData = allData.filter(item => {
+                // Search
+                if (currentFilters.search) {
+                    const searchLower = currentFilters.search.toLowerCase();
+                    const tickerMatch = String(item.Ticker || '').toLowerCase().includes(searchLower);
+                    const sectorMatch = String(item.Sector || '').toLowerCase().includes(searchLower);
+                    const indMatch = String(item.Industry || '').toLowerCase().includes(searchLower);
+                    if (!tickerMatch && !sectorMatch && !indMatch) return false;
+                }
+
+                // Dropdowns
+                if (currentFilters.sector && item.Sector !== currentFilters.sector) return false;
+                if (currentFilters.phase && item.TL_RS_Phase !== currentFilters.phase) return false;
+                if (currentFilters.rsMom && item.RS_Momentum !== currentFilters.rsMom) return false;
+
+                // Market Cap
+                if (currentFilters.marketCap) {
+                    const cap = item.MarketCap || 0;
+                    const b = 1e9;
+                    if (currentFilters.marketCap === 'mega' && cap < 200 * b) return false;
+                    if (currentFilters.marketCap === 'large' && (cap < 10 * b || cap >= 200 * b)) return false;
+                    if (currentFilters.marketCap === 'mid' && (cap < 2 * b || cap >= 10 * b)) return false;
+                    if (currentFilters.marketCap === 'small' && cap >= 2 * b) return false;
+                }
+
+                // RSI
+                if (currentFilters.rsi) {
+                    const rsi = item.RSI || 50;
+                    if (currentFilters.rsi === 'overbought' && rsi < 70) return false;
+                    if (currentFilters.rsi === 'strong' && (rsi < 50 || rsi >= 70)) return false;
+                    if (currentFilters.rsi === 'weak' && (rsi < 30 || rsi >= 50)) return false;
+                    if (currentFilters.rsi === 'oversold' && rsi > 30) return false;
+                }
+
+                // YTD
+                if (currentFilters.ytd) {
+                    const ytd = item.YTD || 0;
+                    if (currentFilters.ytd === 'very-strong' && ytd < 30) return false;
+                    if (currentFilters.ytd === 'strong' && (ytd < 15 || ytd >= 30)) return false;
+                    if (currentFilters.ytd === 'moderate' && (ytd < 0 || ytd >= 15)) return false;
+                    if (currentFilters.ytd === 'negative' && ytd >= 0) return false;
+                }
+                
+                // EMAs
+                if (currentFilters.ema10) {
+                    if (currentFilters.ema10 === 'above' && item.Dist_EMA10 < 0) return false;
+                    if (currentFilters.ema10 === 'below' && item.Dist_EMA10 > 0) return false;
+                }
+                if (currentFilters.ema21) {
+                    if (currentFilters.ema21 === 'above' && item.Dist_EMA21 < 0) return false;
+                    if (currentFilters.ema21 === 'below' && item.Dist_EMA21 > 0) return false;
+                }
+                if (currentFilters.ema50) {
+                    if (currentFilters.ema50 === 'above' && item.Dist_EMA50 < 0) return false;
+                    if (currentFilters.ema50 === 'below' && item.Dist_EMA50 > 0) return false;
+                }
+                if (currentFilters.ema200) {
+                    if (currentFilters.ema200 === 'above' && item.Dist_EMA200 < 0) return false;
+                    if (currentFilters.ema200 === 'below' && item.Dist_EMA200 > 0) return false;
+                }
+
+                return true;
+            });
+
+            filteredData.sort(compareByCurrentSort);
+            updateSortHeaderIndicators();
+            renderTable();
+        }
+
+        function renderTable() {
+            const tbody = document.getElementById('table-body');
+            const emptyState = document.getElementById('empty-state');
+            
+            if (filteredData.length === 0) {
+                tbody.innerHTML = '';
+                emptyState.classList.remove('hidden');
+                updatePaginationInfo(0);
+                return;
+            }
+            
+            emptyState.classList.add('hidden');
+
+            const totalPages = Math.ceil(filteredData.length / ITEMS_PER_PAGE);
+            if (currentPage > totalPages) currentPage = totalPages;
+            if (currentPage < 1) currentPage = 1;
+
+            const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+            const endIndex = Math.min(startIndex + ITEMS_PER_PAGE, filteredData.length);
+            const paginatedData = filteredData.slice(startIndex, endIndex);
+
+            let html = '';
+            paginatedData.forEach(item => {
+                const isPullback = String(item.TL_RS_Phase).includes('回檔');
+
+                html += `
+                    <tr>
+                        <td class="font-bold">${item.Ticker || '-'}</td>
+                        <td>${formatPrice(item.Price, item.Daily_Change_Pct)}</td>
+                        <td class="${getYtdColorClass(item.YTD)} font-semibold">${formatYtd(item.YTD)}</td>
+                        <td class="font-bold score-cell">${item.Leader_Radar_Score != null ? item.Leader_Radar_Score.toFixed(1) : '-'}</td>
+                        <td><span class="phase-badge">${item.TL_RS_Phase || '-'}</span></td>
+                        <td>${renderRsMomBadge(item.RS_Momentum)}</td>
+                        <td class="${getDistColorClass(item.Dist_EMA10, false)}">${formatDist(item.Dist_EMA10)}</td>
+                        <td class="${getDistColorClass(item.Dist_EMA21, isPullback)}">${formatDist(item.Dist_EMA21)}</td>
+                        <td class="${getDistColorClass(item.Dist_EMA50, isPullback)}">${formatDist(item.Dist_EMA50)}</td>
+                        <td class="${getDistColorClass(item.Dist_EMA200, false)}">${formatDist(item.Dist_EMA200)}</td>
+                        <td><span class="rsi-badge ${getRsiClass(item.RSI)}">${item.RSI != null ? item.RSI.toFixed(1) : '-'}</span></td>
+                        <td class="sector-cell">
+                            <span class="sector-name">${item.Sector || '-'}</span>
+                            <span class="industry-name">${item.Industry || '-'}</span>
+                        </td>
+                        <td>${formatMarketCap(item.MarketCap)}</td>
+                    </tr>
+                `;
+            });
+
+            tbody.innerHTML = html;
+            updatePaginationInfo(filteredData.length);
+        }
+
+        function updatePaginationInfo(totalCount) {
+            const startIdxEl = document.getElementById('start-idx');
+            const endIdxEl = document.getElementById('end-idx');
+            const totalCountEl = document.getElementById('total-count');
+            const pageNumEl = document.getElementById('page-num');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+
+            if (totalCount === 0) {
+                startIdxEl.textContent = '0';
+                endIdxEl.textContent = '0';
+                totalCountEl.textContent = '0';
+                pageNumEl.textContent = '第 1 頁';
+                prevBtn.disabled = true;
+                nextBtn.disabled = true;
+                return;
+            }
+
+            const totalPages = Math.ceil(totalCount / ITEMS_PER_PAGE);
+            const startIndex = (currentPage - 1) * ITEMS_PER_PAGE + 1;
+            const endIndex = Math.min(startIndex + ITEMS_PER_PAGE - 1, totalCount);
+
+            startIdxEl.textContent = startIndex;
+            endIdxEl.textContent = endIndex;
+            totalCountEl.textContent = totalCount;
+            pageNumEl.textContent = `第 ${currentPage} 頁 / 共 ${totalPages} 頁`;
+
+            prevBtn.disabled = currentPage === 1;
+            nextBtn.disabled = currentPage === totalPages;
+        }
+
+        // ========== 事件監聽與交互 ==========
+        function setupEventListeners() {
+            // Search
+            document.getElementById('search-input')?.addEventListener('input', (e) => {
+                currentFilters.search = e.target.value;
+                currentPage = 1;
+                applyFiltersAndRender();
+            });
+
+            // Select Filters
+            const selectIds = [
+                { id: 'sector-filter', prop: 'sector' },
+                { id: 'marketcap-filter', prop: 'marketCap' },
+                { id: 'rsi-filter', prop: 'rsi' },
+                { id: 'ytd-filter', prop: 'ytd' },
+                { id: 'rs-mom-filter', prop: 'rsMom' },
+                { id: 'ema10-filter', prop: 'ema10' },
+                { id: 'ema21-filter', prop: 'ema21' },
+                { id: 'ema50-filter', prop: 'ema50' },
+                { id: 'ema200-filter', prop: 'ema200' },
+            ];
+
+            selectIds.forEach(({ id, prop }) => {
+                document.getElementById(id)?.addEventListener('change', (e) => {
+                    currentFilters[prop] = e.target.value;
+                    currentPage = 1;
+                    applyFiltersAndRender();
+                });
+            });
+
+            // Sort Dropdown
+            document.getElementById('sort-select')?.addEventListener('change', (e) => {
+                if (e.target.value === '__header-sort__') return;
+                currentFilters.sort = e.target.value;
+                currentPage = 1;
+                applyFiltersAndRender();
+            });
+
+            // Table Header Sort Clicks
+            document.querySelectorAll('.sortable-th').forEach(th => {
+                th.addEventListener('click', () => sortByTableHeader(th));
+                th.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        sortByTableHeader(th);
+                    }
+                });
+            });
+
+            // Pagination
+            document.getElementById('prev-btn')?.addEventListener('click', () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    renderTable();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            });
+
+            document.getElementById('next-btn')?.addEventListener('click', () => {
+                const totalPages = Math.ceil(filteredData.length / ITEMS_PER_PAGE);
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    renderTable();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            });
+        }
+    </script>
+
 </body>
 
 </html>
