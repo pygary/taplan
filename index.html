@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Market Momentum Grid</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', 'Microsoft JhengHei', sans-serif; background: #f4f6f8; color: #1f2430; }
+  header { background: #2C3E50; color: #fff; padding: 14px 20px; }
+  header h1 { font-size: 20px; }
+  header .sub { font-size: 13px; opacity: .85; margin-top: 4px; }
+  .controls { padding: 12px 20px; background: #fff; border-bottom: 1px solid #e3e7ec; position: sticky; top: 0; z-index: 10; }
+  .controls .row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+  input[type=text] { padding: 7px 12px; border: 1px solid #c9d1da; border-radius: 6px; width: 260px; font-size: 14px; }
+  select { padding: 7px 10px; border: 1px solid #c9d1da; border-radius: 6px; font-size: 13px; max-width: 220px; background: #fff; }
+  .chip { padding: 5px 12px; border-radius: 14px; border: 1px solid #c9d1da; background: #fff; cursor: pointer; font-size: 13px; user-select: none; }
+  .chip.active { background: #1E5FBF; color: #fff; border-color: #1E5FBF; }
+  .count { font-size: 13px; color: #5b6672; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 6px; padding: 16px 20px; }
+  .cell { border-radius: 8px; padding: 8px 6px; text-align: center; cursor: pointer; box-shadow: 0 1px 2px rgba(0,0,0,.12); transition: transform .08s; }
+  .cell:hover { transform: scale(1.06); }
+  .cell .t { font-weight: 700; font-size: 12px; }
+  .cell .s { font-size: 16px; font-weight: 700; margin-top: 2px; }
+  .cell .d { font-size: 10px; opacity: .9; margin-top: 2px; }
+  .empty { padding: 40px; text-align: center; color: #8a94a0; font-size: 15px; }
+  /* modal */
+  .modal-bg { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.4); z-index: 20; }
+  .modal { background: #fff; width: 340px; margin: 12vh auto; border-radius: 12px; padding: 20px 24px; box-shadow: 0 10px 30px rgba(0,0,0,.25); }
+  .modal h3 { font-size: 18px; }
+  .modal .m-row { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px dashed #e3e7ec; font-size: 14px; }
+  .modal .m-row span:first-child { color: #5b6672; }
+  .modal .close { float: right; cursor: pointer; color: #8a94a0; font-size: 20px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Market Momentum Grid</h1>
+  <div class="sub" id="subtitle">載入中...</div>
+</header>
+
+<div class="controls">
+  <div class="row">
+    <input type="text" id="search" placeholder="搜尋 Ticker / 行業 / 指數 (如 NVDA、SPX、Semiconductor)">
+    <select id="sectorSel"><option value="">大行業 (全部)</option></select>
+    <select id="industrySel"><option value="">小行業 (全部)</option></select>
+    <div id="chips"></div>
+    <span class="count" id="count"></span>
+  </div>
+</div>
+
+<div class="grid" id="grid"></div>
+<div class="empty" id="empty" style="display:none">沒有符合條件的股票</div>
+
+<div class="modal-bg" id="modalBg" onclick="closeModal()">
+  <div class="modal" onclick="event.stopPropagation()">
+    <span class="close" onclick="closeModal()">✕</span>
+    <h3 id="mTicker"></h3>
+    <div id="mBody"></div>
+  </div>
+</div>
+
+<script>
+let DATA = null;
+let activeIndexes = new Set();
+let searchText = '';
+let aliasMap = {};  // 由 data.json 的 aliases 載入 (來源: INDEX_PRICE_ALIASES)
+let sectorFilter = '';
+let industryFilter = '';
+
+function esc(s) {
+  return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+function buildSectorOptions() {
+  const secs = [...new Set(DATA.stocks.map(s => s.sector).filter(Boolean))].sort();
+  document.getElementById('sectorSel').innerHTML =
+    '<option value="">大行業 (全部)</option>' +
+    secs.map(s => `<option value="${esc(s)}">${esc(s)}</option>`).join('');
+}
+
+function buildIndustryOptions() {
+  let list = DATA.stocks;
+  if (sectorFilter) list = list.filter(s => s.sector === sectorFilter);
+  const inds = [...new Set(list.map(s => s.industry).filter(Boolean))].sort();
+  document.getElementById('industrySel').innerHTML =
+    '<option value="">小行業 (全部)</option>' +
+    inds.map(s => `<option value="${esc(s)}">${esc(s)}</option>`).join('');
+}
+
+function scoreColor(s) {
+  if (s >= 90) return { bg: '#0A3D91', fg: '#fff' };
+  if (s >= 75) return { bg: '#1E5FBF', fg: '#fff' };
+  if (s >= 60) return { bg: '#4C8CDB', fg: '#fff' };
+  if (s >= 40) return { bg: '#9CC3E5', fg: '#1f1f1f' };
+  if (s >= 20) return { bg: '#D6E4F0', fg: '#1f1f1f' };
+  return { bg: '#F5F5F5', fg: '#7f7f7f' };
+}
+
+function pctText(p) {
+  if (p === null || p === undefined) return '';
+  const s = (p * 100).toFixed(2);
+  return (p > 0 ? '+' : '') + s + '%';
+}
+
+function matches(stock) {
+  if (sectorFilter && stock.sector !== sectorFilter) return false;
+  if (industryFilter && stock.industry !== industryFilter) return false;
+  if (searchText) {
+    const q = searchText.toLowerCase();
+    const hay = [stock.ticker, stock.industry, stock.sector, stock.indexes].join(' ').toLowerCase();
+    if (!hay.includes(q)) return false;
+  }
+  if (activeIndexes.size > 0) {
+    const own = stock.indexes.split(',');
+    let hit = false;
+    activeIndexes.forEach(ix => { if (own.includes(ix)) hit = true; });
+    if (!hit) return false;
+  }
+  return true;
+}
+
+function render() {
+  const grid = document.getElementById('grid');
+  grid.innerHTML = '';
+  let shown = 0;
+  DATA.stocks.forEach(st => {
+    if (!matches(st)) return;
+    shown++;
+    const c = scoreColor(st.score);
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    cell.style.background = c.bg;
+    cell.style.color = c.fg;
+    cell.innerHTML = `<div class="t">${st.ticker}</div><div class="s">${st.score}</div><div class="d">${pctText(st.day_pct)}</div>`;
+    cell.title = `${st.ticker}  ${st.score} 分\n指數: ${st.indexes || '無'}\n${st.industry}\n${st.sector}`;
+    cell.onclick = () => openModal(st);
+    grid.appendChild(cell);
+  });
+  document.getElementById('empty').style.display = shown ? 'none' : 'block';
+  document.getElementById('count').textContent = `顯示 ${shown} / ${DATA.count} 檔`;
+}
+
+function renderChips() {
+  const wrap = document.getElementById('chips');
+  wrap.innerHTML = '';
+  const all = document.createElement('span');
+  all.className = 'chip' + (activeIndexes.size === 0 ? ' active' : '');
+  all.textContent = '全部';
+  all.onclick = () => { activeIndexes.clear(); renderChips(); render(); };
+  wrap.appendChild(all);
+  DATA.indexes.forEach(ix => {
+    const c = document.createElement('span');
+    c.className = 'chip' + (activeIndexes.has(ix) ? ' active' : '');
+    c.textContent = ix;
+    c.onclick = () => {
+      activeIndexes.has(ix) ? activeIndexes.delete(ix) : activeIndexes.add(ix);
+      renderChips(); render();
+    };
+    wrap.appendChild(c);
+  });
+}
+
+function openModal(st) {
+  document.getElementById('mTicker').textContent = `${st.ticker}  —  ${st.score} 分`;
+  document.getElementById('mBody').innerHTML = `
+    <div class="m-row"><span>指數成份</span><span>${st.indexes || '無'}</span></div>
+    <div class="m-row"><span>行業</span><span>${st.industry}</span></div>
+    <div class="m-row"><span>大行業</span><span>${st.sector}</span></div>
+    <div class="m-row"><span>最新日漲跌幅</span><span>${pctText(st.day_pct)}</span></div>
+    <div class="m-row"><span>日期</span><span>${DATA.date}</span></div>`;
+  document.getElementById('modalBg').style.display = 'block';
+}
+function closeModal() { document.getElementById('modalBg').style.display = 'none'; }
+
+document.getElementById('search').addEventListener('input', e => {
+  const q = e.target.value.trim().toLowerCase();
+  const alias = aliasMap[q];
+  if (alias && DATA && DATA.indexes.includes(alias)) {
+    // 輸入指數/ETF 名稱 → 自動切到該指數篩選 (取代文字搜尋)
+    activeIndexes.clear();
+    activeIndexes.add(alias);
+    searchText = '';
+    renderChips();
+  } else {
+    searchText = e.target.value.trim();
+  }
+  render();
+});
+
+document.getElementById('sectorSel').addEventListener('change', e => {
+  sectorFilter = e.target.value;
+  industryFilter = '';   // 換大行業時重設小行業
+  buildIndustryOptions();
+  render();
+});
+document.getElementById('industrySel').addEventListener('change', e => {
+  industryFilter = e.target.value;
+  render();
+});
+
+fetch('data.json')
+  .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+  .then(d => {
+    DATA = d;
+    aliasMap = d.aliases || {};
+    document.getElementById('subtitle').textContent =
+      `資料日期 ${d.date} ｜ 產生 ${d.generated} ｜ 共 ${d.count} 檔`;
+    buildSectorOptions();
+    buildIndustryOptions();
+    renderChips();
+    render();
+  })
+  .catch(err => {
+    document.getElementById('subtitle').textContent = '無法載入 data.json — 請先執行 export_web_data.py';
+    console.error(err);
+  });
+</script>
+</body>
+</html>
