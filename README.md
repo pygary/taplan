@@ -1,2 +1,0 @@
-# taplan
-TA plan 
