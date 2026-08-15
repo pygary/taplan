@@ -37,6 +37,7 @@
 <header>
   <h1>Market Momentum Grid</h1>
   <div class="sub" id="subtitle">載入中...</div>
+  <button id="bgmBtn" style="background:#3a4656;color:#fff;border:none;border-radius:6px;padding:6px 12px;cursor:pointer;font-size:15px;font-weight:700">🎵 音樂</button>
 </header>
 
 <div class="controls">
@@ -51,6 +52,12 @@
 
 <div class="grid" id="grid"></div>
 <div class="empty" id="empty" style="display:none">沒有符合條件的股票</div>
+
+<!-- 背景音樂 (m4a, loop) -->
+<audio id="bgm" loop preload="auto">
+  <source src="background.m4a" type="audio/mp4">
+  你的瀏覽器不支援 audio
+</audio>
 
 <div class="modal-bg" id="modalBg" onclick="closeModal()">
   <div class="modal" onclick="event.stopPropagation()">
@@ -102,6 +109,9 @@ function pctText(p) {
   const s = (p * 100).toFixed(2);
   return (p > 0 ? '+' : '') + s + '%';
 }
+function priceText(st) {
+  return (st.price !== null && st.price !== undefined) ? '$' + st.price.toFixed(2) : '';
+}
 
 function matches(stock) {
   if (sectorFilter && stock.sector !== sectorFilter) return false;
@@ -132,7 +142,7 @@ function render() {
     cell.className = 'cell';
     cell.style.background = c.bg;
     cell.style.color = c.fg;
-    cell.innerHTML = `<div class="t">${st.ticker}</div><div class="s">${st.score}</div><div class="d">${pctText(st.day_pct)}</div>`;
+    cell.innerHTML = `<div class="t">${st.ticker}</div><div class="s">${st.score}</div><div class="d">${priceText(st)} ${pctText(st.day_pct)}</div>`;
     cell.title = `${st.ticker}  ${st.score} 分\n指數: ${st.indexes || '無'}\n${st.industry}\n${st.sector}`;
     cell.onclick = () => openModal(st);
     grid.appendChild(cell);
@@ -167,11 +177,55 @@ function openModal(st) {
     <div class="m-row"><span>指數成份</span><span>${st.indexes || '無'}</span></div>
     <div class="m-row"><span>行業</span><span>${st.industry}</span></div>
     <div class="m-row"><span>大行業</span><span>${st.sector}</span></div>
+    <div class="m-row"><span>最新價格</span><span>${priceText(st)}</span></div>
     <div class="m-row"><span>最新日漲跌幅</span><span>${pctText(st.day_pct)}</span></div>
     <div class="m-row"><span>日期</span><span>${DATA.date}</span></div>`;
   document.getElementById('modalBg').style.display = 'block';
 }
 function closeModal() { document.getElementById('modalBg').style.display = 'none'; }
+
+// 背景音樂 (m4a loop)：盡量自動播；關閉後記住偏好，下次不再自動播
+const bgm = document.getElementById('bgm');
+const bgmBtn = document.getElementById('bgmBtn');
+const bgmOff = localStorage.getItem('bgmOff') === '1';   // 1 = 關閉自動播放
+
+function bgmPlay() {
+  return bgm.play().then(() => {
+    bgmBtn.textContent = '🎵 音樂';
+    bgmBtn.style.opacity = '1';
+  }).catch(() => {
+    bgmBtn.textContent = '🎵 (點我播放)';   // 瀏覽器擋自動播 → 提示點一下
+  });
+}
+function bgmPause() {
+  bgm.pause();
+  bgmBtn.textContent = '🔇 已停';
+}
+
+if (!bgmOff) {
+  // 嘗試自動播放
+  window.addEventListener('load', () => bgmPlay());
+  // 瀏覽器擋自動播放 → 首次互動 (點擊/按鍵/觸控) 再啟動
+  ['click', 'keydown', 'touchstart'].forEach(ev =>
+    document.addEventListener(ev, function once() {
+      if (bgm.paused) bgmPlay();
+      document.removeEventListener(ev, once);
+    }, { once: true })
+  );
+} else {
+  bgmBtn.textContent = '🔇 已停';
+}
+
+// 按鈕：播放/暫停，並記住偏好
+bgmBtn.addEventListener('click', () => {
+  if (bgm.paused) {
+    localStorage.removeItem('bgmOff');
+    bgmPlay();
+  } else {
+    localStorage.setItem('bgmOff', '1');
+    bgmPause();
+  }
+});
 
 document.getElementById('search').addEventListener('input', e => {
   const q = e.target.value.trim().toLowerCase();
