@@ -17,6 +17,12 @@
   .chip { padding: 5px 12px; border-radius: 14px; border: 1px solid #c9d1da; background: #fff; cursor: pointer; font-size: 13px; user-select: none; }
   .chip.active { background: #1E5FBF; color: #fff; border-color: #1E5FBF; }
   .count { font-size: 13px; color: #5b6672; }
+  .slider-label { font-size: 15px; font-weight: 700; color: #1f2430; display: flex; align-items: center; gap: 6px; }
+  input[type=range] { width: 120px; }
+  .scorebar { display: inline-flex; align-items: center; gap: 6px; }
+  .scorebar .bar { width: 150px; height: 14px; border-radius: 7px; background: linear-gradient(to right, #0A3D91, #1E5FBF, #4C8CDB, #9CC3E5, #D6E4F0, #F5F5F5); border: 1px solid #c9d1da; }
+  .scorebar .lw { font-size: 11px; color: #5b6672; }
+  .scorebar .ls { font-size: 11px; font-weight: 700; color: #5b6672; }
   .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 6px; padding: 16px 20px; }
   .cell { border-radius: 8px; padding: 8px 6px; text-align: center; cursor: pointer; box-shadow: 0 1px 2px rgba(0,0,0,.12); transition: transform .08s; }
   .cell:hover { transform: scale(1.06); }
@@ -24,6 +30,13 @@
   .cell .s { font-size: 16px; font-weight: 700; margin-top: 2px; }
   .cell .d { font-size: 10px; opacity: .9; margin-top: 2px; }
   .empty { padding: 40px; text-align: center; color: #8a94a0; font-size: 15px; }
+  /* 大市概況卡 */
+  .market { display: flex; flex-wrap: wrap; gap: 10px; padding: 12px 20px; }
+  .mcard { background: #fff; border: 1px solid #e3e7ec; border-radius: 10px; padding: 8px 14px; min-width: 140px; box-shadow: 0 1px 2px rgba(0,0,0,.08); }
+  .mcard .ml { font-size: 11px; color: #5b6672; display: block; }
+  .mcard .mv { font-size: 15px; font-weight: 700; }
+  .mgroup { width: 100%; font-size: 12px; font-weight: 700; color: #5b6672; margin: 4px 0 -4px; }
+  .mv.bull { color: #00B050; } .mv.bear { color: #C00000; } .mv.mid { color: #B8860B; }
   /* modal */
   .modal-bg { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.4); z-index: 20; }
   .modal { background: #fff; width: 340px; margin: 12vh auto; border-radius: 12px; padding: 20px 24px; box-shadow: 0 10px 30px rgba(0,0,0,.25); }
@@ -37,8 +50,9 @@
 <header>
   <h1>Market Momentum Grid</h1>
   <div class="sub" id="subtitle">載入中...</div>
-  <button id="bgmBtn" style="background:#3a4656;color:#fff;border:none;border-radius:6px;padding:6px 12px;cursor:pointer;font-size:15px;font-weight:700">🎵 音樂</button>
 </header>
+
+<div class="market" id="marketRow"></div>
 
 <div class="controls">
   <div class="row">
@@ -46,18 +60,14 @@
     <select id="sectorSel"><option value="">大行業 (全部)</option></select>
     <select id="industrySel"><option value="">小行業 (全部)</option></select>
     <div id="chips"></div>
+    <label class="slider-label">評分 ≥ <input type="range" id="minScore" min="0" max="100" value="0"> <span id="minScoreVal">0</span></label>
+    <span class="scorebar"><span class="ls">強</span><span class="bar"></span><span class="lw">弱</span></span>
     <span class="count" id="count"></span>
   </div>
 </div>
 
 <div class="grid" id="grid"></div>
 <div class="empty" id="empty" style="display:none">沒有符合條件的股票</div>
-
-<!-- 背景音樂 (m4a, loop) -->
-<audio id="bgm" loop preload="auto">
-  <source src="background.m4a" type="audio/mp4">
-  你的瀏覽器不支援 audio
-</audio>
 
 <div class="modal-bg" id="modalBg" onclick="closeModal()">
   <div class="modal" onclick="event.stopPropagation()">
@@ -74,6 +84,7 @@ let searchText = '';
 let aliasMap = {};  // 由 data.json 的 aliases 載入 (來源: INDEX_PRICE_ALIASES)
 let sectorFilter = '';
 let industryFilter = '';
+let minScore = 0;
 
 function esc(s) {
   return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -114,6 +125,7 @@ function priceText(st) {
 }
 
 function matches(stock) {
+  if (stock.score < minScore) return false;
   if (sectorFilter && stock.sector !== sectorFilter) return false;
   if (industryFilter && stock.industry !== industryFilter) return false;
   if (searchText) {
@@ -171,6 +183,49 @@ function renderChips() {
   });
 }
 
+// ---------- 大市概況卡 ----------
+function marketCard() {
+  const m = DATA.market || {};
+  const o = m.overall || {};
+  // 上漲/下跌/持平 直接從格仔資料計算，確保與總數一致
+  let adv = 0, dec = 0, flat = 0;
+  DATA.stocks.forEach(s => {
+    if (s.day_pct === null || s.day_pct === undefined) return;
+    if (s.day_pct > 0) adv++;
+    else if (s.day_pct < 0) dec++;
+    else flat++;
+  });
+  const ratio = dec ? (adv / dec).toFixed(2) : 'N/A';
+  let html = '' +
+    '<div class="mcard"><span class="ml">上漲 / 下跌 / 持平</span><span class="mv">' + adv + ' / ' + dec + ' / ' + flat + ' (' + ratio + ')</span></div>' +
+    '<div class="mcard"><span class="ml">站上 SMA20</span><span class="mv">' + ((o.above_sma20_pct ?? 0) * 100).toFixed(1) + '%</span></div>' +
+    '<div class="mcard"><span class="ml">站上 SMA50</span><span class="mv">' + ((o.above_sma50_pct ?? 0) * 100).toFixed(1) + '%</span></div>' +
+    '<div class="mcard"><span class="ml">站上 SMA200</span><span class="mv">' + ((o.above_sma200_pct ?? 0) * 100).toFixed(1) + '%</span></div>' +
+    '<div class="mcard"><span class="ml">新高-新低 (NH-NL)</span><span class="mv">' + ((o.nh_nl ?? 0) >= 0 ? '+' : '') + (o.nh_nl ?? 0) + '</span></div>';
+  // 各指數方向 (分「指數 / ETF」兩類)
+  const perIdx = m.per_index || [];
+  function groupCards(list) {
+    let h = '';
+    list.forEach(p => {
+      const pc = p.regime_score >= 55 ? 'bull' : (p.regime_score < 40 ? 'bear' : 'mid');
+      let sma = '';
+      if (p.sma20 !== null && p.sma20 !== undefined) {
+        const s20 = (p.sma20 * 100).toFixed(0);
+        const s50 = (p.sma50 !== null && p.sma50 !== undefined) ? (p.sma50 * 100).toFixed(0) : '-';
+        sma = '<span style="display:block;font-size:11px;color:var(--sub);margin-top:2px">SMA20 ' + s20 + '% ｜ SMA50 ' + s50 + '%</span>';
+      }
+      h += '<div class="mcard" style="border-color:' + (p.regime_score >= 55 ? '#00B050' : (p.regime_score < 40 ? '#C00000' : '#B8860B')) + '">' +
+        '<span class="ml">' + p.index + '</span><span class="mv ' + pc + '">' + p.regime + ' (' + p.regime_score + ' 分)</span>' + sma + '</div>';
+    });
+    return h;
+  }
+  const idxList = perIdx.filter(p => p.type === 'index');
+  const etfList = perIdx.filter(p => p.type !== 'index');
+  if (idxList.length) html += '<div class="mgroup">指數</div>' + groupCards(idxList);
+  if (etfList.length) html += '<div class="mgroup">ETF</div>' + groupCards(etfList);
+  return html;
+}
+
 function openModal(st) {
   document.getElementById('mTicker').textContent = `${st.ticker}  —  ${st.score} 分`;
   document.getElementById('mBody').innerHTML = `
@@ -183,49 +238,6 @@ function openModal(st) {
   document.getElementById('modalBg').style.display = 'block';
 }
 function closeModal() { document.getElementById('modalBg').style.display = 'none'; }
-
-// 背景音樂 (m4a loop)：盡量自動播；關閉後記住偏好，下次不再自動播
-const bgm = document.getElementById('bgm');
-const bgmBtn = document.getElementById('bgmBtn');
-const bgmOff = localStorage.getItem('bgmOff') === '1';   // 1 = 關閉自動播放
-
-function bgmPlay() {
-  return bgm.play().then(() => {
-    bgmBtn.textContent = '🎵 音樂';
-    bgmBtn.style.opacity = '1';
-  }).catch(() => {
-    bgmBtn.textContent = '🎵 (點我播放)';   // 瀏覽器擋自動播 → 提示點一下
-  });
-}
-function bgmPause() {
-  bgm.pause();
-  bgmBtn.textContent = '🔇 已停';
-}
-
-if (!bgmOff) {
-  // 嘗試自動播放
-  window.addEventListener('load', () => bgmPlay());
-  // 瀏覽器擋自動播放 → 首次互動 (點擊/按鍵/觸控) 再啟動
-  ['click', 'keydown', 'touchstart'].forEach(ev =>
-    document.addEventListener(ev, function once() {
-      if (bgm.paused) bgmPlay();
-      document.removeEventListener(ev, once);
-    }, { once: true })
-  );
-} else {
-  bgmBtn.textContent = '🔇 已停';
-}
-
-// 按鈕：播放/暫停，並記住偏好
-bgmBtn.addEventListener('click', () => {
-  if (bgm.paused) {
-    localStorage.removeItem('bgmOff');
-    bgmPlay();
-  } else {
-    localStorage.setItem('bgmOff', '1');
-    bgmPause();
-  }
-});
 
 document.getElementById('search').addEventListener('input', e => {
   const q = e.target.value.trim().toLowerCase();
@@ -252,6 +264,11 @@ document.getElementById('industrySel').addEventListener('change', e => {
   industryFilter = e.target.value;
   render();
 });
+document.getElementById('minScore').addEventListener('input', e => {
+  minScore = +e.target.value;
+  document.getElementById('minScoreVal').textContent = minScore;
+  render();
+});
 
 fetch('data.json')
   .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
@@ -260,6 +277,7 @@ fetch('data.json')
     aliasMap = d.aliases || {};
     document.getElementById('subtitle').textContent =
       `資料日期 ${d.date} ｜ 產生 ${d.generated} ｜ 共 ${d.count} 檔`;
+    document.getElementById('marketRow').innerHTML = marketCard();
     buildSectorOptions();
     buildIndustryOptions();
     renderChips();
